@@ -1,0 +1,22 @@
+#ifndef MANOLIB_H
+#define MANOLIB_H
+
+#include <iostream>
+#include <vector>
+#include <iomanip>
+using std::cout;
+using std::cin;
+using std::endl;
+using std::vector;
+using std::fixed;
+struct Stud {
+	std::string pav;
+	std::string var;
+	int ndrez;
+	int egrez;
+	double gal;
+	double med;
+};
+
+
+#endif

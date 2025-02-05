@@ -1,20 +1,26 @@
-// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
+#include "manolib.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	vector<Stud> grupe;
+	for (int i = 0;i < 1;i++)
+	{
+		Stud laik;
+		cout << "Prasome ivesti studento varda"<<endl;
+		cin >> laik.var;
+		cout << "Prasome ivesti studento pavarde" << endl;
+		cin >> laik.pav;
+		cout << "Prasome ivesti studento namu darbu rezultatus" << endl;
+		cin >> laik.ndrez;
+		cout << "Prasome ivesti studento namu darbu rezultatus" << endl;
+		cin >> laik.egrez;
+		laik.gal = (0.6 * double(laik.egrez) + (0.4 * double(laik.ndrez)));
+		laik.med = double((laik.egrez + laik.ndrez)) / 2;
+		grupe.push_back(laik);
+	}
+	for (auto n : grupe)
+	{
+		cout <<fixed<<std::setprecision(2)<< n.pav << " " << n.var <<" "<<n.gal <<" "<<n.med << endl;
+
+	}
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

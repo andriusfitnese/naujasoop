@@ -1,5 +1,11 @@
 #include "manolib.h"
 
+double vid(double egrez, double ndrez)
+{
+double galutinis = (0.6 * egrez) + (0.4 * ndrez);
+return galutinis;
+}
+
 int main()
 {
 	vector<Stud> grupe;
@@ -14,7 +20,7 @@ int main()
 		cin >> laik.ndrez;
 		cout << "Prasome ivesti studento namu darbu rezultatus" << endl;
 		cin >> laik.egrez;
-		laik.gal = (0.6 * double(laik.egrez) + (0.4 * double(laik.ndrez)));
+		laik.gal = vid(laik.egrez, laik.ndrez);
 		laik.med = double((laik.egrez + laik.ndrez)) / 2;
 		grupe.push_back(laik);
 	}

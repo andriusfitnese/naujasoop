@@ -1,11 +1,15 @@
 #include "manolib.h"
 
-double galvid(double egrez, double ndrez)
+double galvid(double egrez, double ndvd)
 {
-double galutinis = (0.6 * egrez) + (0.4 * ndrez);
+double galutinis = (0.6 * egrez) + (0.4 * ndvd);
 return galutinis;
 }
-
+double mediana(double egrez, double ndvd)
+{
+	double mediana = (egrez + ndvd) / 2;
+		return mediana;
+}
 double ndvid(const vector<int>& paz)
 {
 	double sum = 0.0;
@@ -29,23 +33,42 @@ int main()
 		cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus)" << endl;
 		cin >> laik.var;
 		if (laik.var == "stop") break;
-		cout << "Iveskite jo pavarde"<<endl;
+		cout << "Iveskite jo pavarde" << endl;
 		cin >> laik.pav;
 		cout << "Iveskite jo namu darbu rezultatus (parasykite -1, kai ivesite visus)" << endl;
 		int pazym;
-			while (true)
+		while (true)
+		{
+			cin >> pazym;
+			if (cin.fail())
 			{
-				cin >> pazym;
-				if (pazym == -1)break;
-				laik.paz.push_back(pazym);
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "Iveskite SKAICIU nuo 1 iki 10" << endl;
+				continue;
 			}
-			cout << "Iveskite jo egzamino rezultata" << endl;
-		cin >> laik.egrez;
-			grupe.push_back(laik);
-			/*laik.gal = galvid(laik.egrez, laik.ndrez);
+			if (pazym == -1)break;
+			if (pazym > 10 or pazym < 1) cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+			else laik.paz.push_back(pazym);
+		}
+		cout << "Iveskite jo egzamino rezultata" << endl;
+		while (true)
+		{
+			cin >> laik.egrez;
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "Iveskite SKAICIU nuo 1 iki 10" << endl;
+				continue;
+			}
+			else if (laik.egrez < 1 or laik.egrez>10)cout << "Iveskite skaiciu tarp 1 ir 10!" << endl;
+			else break;
+		}
 			laik.ndvid = ndvid(laik.paz);
-			laik.med = double((laik.egrez + laik.ndrez)) / 2;
-			grupe.push_back(laik);*/
+			laik.gal = galvid(laik.egrez, laik.ndvid);
+			laik.med = mediana(laik.egrez, laik.ndvid);
+			grupe.push_back(laik);
 	}
 	cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(20) << "Galutinis (vid.) / Galutinis (med.)" << endl;
 	for (auto n : grupe)

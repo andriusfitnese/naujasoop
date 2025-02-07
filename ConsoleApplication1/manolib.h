@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <string>
 using std::cout;
 using std::cin;
 using std::endl;
@@ -14,8 +15,9 @@ using std::left;
 struct Stud {
 	std::string pav;
 	std::string var;
-	int ndrez;
 	int egrez;
+	vector<int> paz;
+	double ndvid;
 	double gal;
 	double med;
 };

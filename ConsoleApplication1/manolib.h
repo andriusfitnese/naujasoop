@@ -9,6 +9,8 @@ using std::cin;
 using std::endl;
 using std::vector;
 using std::fixed;
+using std::setw;
+using std::left;
 struct Stud {
 	std::string pav;
 	std::string var;

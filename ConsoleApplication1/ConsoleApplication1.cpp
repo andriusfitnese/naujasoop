@@ -20,7 +20,7 @@ int main()
 	}
 	for (auto n : grupe)
 	{
-		cout <<fixed<<std::setprecision(2)<< n.pav << " " << n.var <<" "<<n.gal <<" "<<n.med << endl;
-
+		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(20) << "Galutinis (vid.) / Galutinis (med.)"<<endl;
+		cout <<fixed<<left<<setw(12)<<std::setprecision(2)<< n.pav <<setw(10)<< n.var <<setw(19)<<n.gal <<setw(19)<<n.med << endl;
 	}
 }

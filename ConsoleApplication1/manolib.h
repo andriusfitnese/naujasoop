@@ -12,9 +12,11 @@ using std::fixed;
 struct Stud {
 	std::string pav;
 	std::string var;
-	int ndrez;
+	int ndkiek;
+	vector<int> paz;
 	int egrez;
 	double gal;
+	double ndvid;
 	double med;
 };
 

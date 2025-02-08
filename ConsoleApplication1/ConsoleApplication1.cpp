@@ -52,6 +52,7 @@ int main()
 		laik.med = mediana(laik.egrez, laik.ndvid);
 		grupe.push_back(laik);
 	}
+	cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(20) << "Galutinis (vid.) / Galutinis (med.)" << endl;
 	for (auto n : grupe)
 	{
 		cout <<fixed<<std::setprecision(2)<< n.pav << " " << n.var <<" "<<n.gal <<" "<<n.med << endl;

@@ -21,7 +21,23 @@ double ndvid(const vector<int>& paz)
 	double ndvd = sum / paz.size();
 	return ndvd;
 }
-
+void rng(vector<int>& paz)
+{
+	Stud laik;
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<int> pazkiek(1, 10);
+	uniform_int_distribution<int> pazym(1, 10);
+	int pazymk = pazkiek(gen);
+	cout << "Generuojami pazymiai..." << endl;
+	for (int i = 0;i < pazymk;i++)
+	{
+		int paz = pazym(gen);
+		laik.paz.push_back(paz);
+		cout << paz << " ";
+	}
+	cout << endl;
+}
 
 int main()
 {
@@ -35,7 +51,7 @@ int main()
 		if (laik.var == "stop") break;
 		cout << "Iveskite jo pavarde" << endl;
 		cin >> laik.pav;
-		cout << "Iveskite jo namu darbu rezultatus (parasykite -1, kai ivesite visus)" << endl;
+		cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, ivede visus, parasykite -1)" << endl;
 		int pazym;
 		while (true)
 		{
@@ -47,6 +63,7 @@ int main()
 				cout << "Iveskite SKAICIU nuo 1 iki 10" << endl;
 				continue;
 			}
+			if (pazym == -2)rng(laik.paz);
 			if (pazym == -1)break;
 			if (pazym > 10 or pazym < 1) cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
 			else laik.paz.push_back(pazym);

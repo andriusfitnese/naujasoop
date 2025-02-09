@@ -64,7 +64,7 @@ void rng(int& egrez)  ///gauname adresa egrez, sugeneruojame ir grazinam
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_int_distribution<int> pazym(1, 10);
-	cout << "Generuojamas pazyms..." << endl;
+	cout << "Generuojamas pazymys..." << endl;
 		egrez = pazym(gen);
 		cout << egrez << " ";
 	cout << endl;

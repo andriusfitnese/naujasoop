@@ -30,16 +30,15 @@ double mediana(double egrez, double ndvd)
 	double mediana = (egrez + ndvd) / 2;
 	return mediana;
 }
-double ndvid(const vector<int>& paz)
+double ndvid(int P[], int dydis)
 {
 	double sum = 0.0;
-	if (paz.empty()) return 0.0;
-	for (double pazym : paz)
+	if (dydis==0) return 0.0;
+	for (int i=0;i<dydis;i++)
 	{
-		sum += pazym;
+		sum += P[i];
 	}
-	double ndvd = sum / paz.size();
-	cout << ndvd << endl;
+	double ndvd = sum / dydis;
 	return ndvd;
 }
 void rng(int P[], int &dydis)
@@ -63,7 +62,7 @@ void rng(int& egrez)  ///gauname adresa egrez, sugeneruojame ir grazinam
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_int_distribution<int> pazym(1, 10);
-	cout << "Generuojamas pazyms..." << endl;
+	cout << "Generuojamas pazymys..." << endl;
 	egrez = pazym(gen);
 	cout << egrez << " ";
 	cout << endl;
@@ -82,7 +81,7 @@ int main()
 		cout << "Iveskite jo pavarde" << endl;
 		cin >> laik.pav;
 
-		cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, ivede visus, parasykite -1)" << endl;
+		cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, o jei ranka ivede visus, parasykite -1)" << endl;
 		int pazym;
 		int i = 0;
 		while (true)
@@ -130,8 +129,7 @@ int main()
 			else break;
 		}
 
-		laik.ndvid = ndvid(laik.paz);
-		cout << laik.ndvid << endl;
+		laik.ndvid = ndvid(laik.P,laik.pazkiek);
 		laik.gal = galvid(laik.egrez, laik.ndvid);
 		laik.med = mediana(laik.egrez, laik.ndvid);
 		grupe.push_back(laik);

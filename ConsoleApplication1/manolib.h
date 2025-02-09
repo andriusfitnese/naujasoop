@@ -28,7 +28,8 @@ struct Stud {
 	string pav;
 	string var;
 	int egrez;
-	int pazkiek;
+	int pazkiek = 0;
+	int P[15] = { 0 };
 	vector<int> paz;
 	double ndvid;
 	double gal;

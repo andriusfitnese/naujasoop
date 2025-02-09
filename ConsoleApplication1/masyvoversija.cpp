@@ -22,39 +22,38 @@
 */
 double galvid(double egrez, double ndvd)
 {
-double galutinis = (0.6 * egrez) + (0.4 * ndvd);
-return galutinis;
+	double galutinis = (0.6 * egrez) + (0.4 * ndvd);
+	return galutinis;
 }
 double mediana(double egrez, double ndvd)
 {
 	double mediana = (egrez + ndvd) / 2;
-		return mediana;
+	return mediana;
 }
 double ndvid(const vector<int>& paz)
 {
 	double sum = 0.0;
 	if (paz.empty()) return 0.0;
-	for(double pazym : paz)
-	{ 
+	for (double pazym : paz)
+	{
 		sum += pazym;
 	}
 	double ndvd = sum / paz.size();
 	cout << ndvd << endl;
 	return ndvd;
 }
-void rng(vector<int>& paz)
+void rng(int P[], int &dydis)
 {
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_int_distribution<int> pazkiek(1, 10);
 	uniform_int_distribution<int> pazym(1, 10);
-	int pazymk = pazkiek(gen);
+	dydis = pazkiek(gen);
 	cout << "Generuojami pazymiai..." << endl;
-	for (int i = 0;i < pazymk;i++)
+	for (int i = 0;i < dydis;i++)
 	{
-		int pazy = pazym(gen);
-		paz.push_back(pazy);
-		cout << pazy << " ";
+		P[i] = pazym(gen);
+		cout << P[i] << " ";
 	}
 	cout << endl;
 }
@@ -65,8 +64,8 @@ void rng(int& egrez)  ///gauname adresa egrez, sugeneruojame ir grazinam
 	mt19937 gen(rd());
 	uniform_int_distribution<int> pazym(1, 10);
 	cout << "Generuojamas pazyms..." << endl;
-		egrez = pazym(gen);
-		cout << egrez << " ";
+	egrez = pazym(gen);
+	cout << egrez << " ";
 	cout << endl;
 }
 
@@ -82,6 +81,7 @@ int main()
 		if (laik.var == "stop") break;
 		cout << "Iveskite jo pavarde" << endl;
 		cin >> laik.pav;
+
 		cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, ivede visus, parasykite -1)" << endl;
 		int pazym;
 		int i = 0;
@@ -97,15 +97,18 @@ int main()
 			}
 			if (pazym == -2 and i < 1)
 			{
-				rng(laik.paz);
+				rng(laik.P, laik.pazkiek);
 				break;
 			}
 			else if (pazym == -2 and i > 0) cout << "Generuoti galima tik is pradziu." << endl;
-			else i++;
 			if (pazym == -1)break;
 			if (pazym > 10 or pazym < 1 and not - 2) cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
 			else if (pazym == -2 and i > 0) cout << "Veskite ranka arba uzbaikite su -1." << endl;
-			else laik.paz.push_back(pazym);
+			else {
+				laik.P[i] = pazym;
+				i++;
+				laik.pazkiek++;
+			}
 		}
 		cout << "Iveskite jo egzamino rezultata. (jei norite, kad butu sugeneruotas, rasykite -1)" << endl;
 		while (true)
@@ -126,12 +129,12 @@ int main()
 			else if (laik.egrez < 1 or laik.egrez>10)cout << "Iveskite skaiciu tarp 1 ir 10!" << endl;
 			else break;
 		}
-	
-			laik.ndvid = ndvid(laik.paz);
-			cout << laik.ndvid << endl;
-			laik.gal = galvid(laik.egrez, laik.ndvid);
-			laik.med = mediana(laik.egrez, laik.ndvid);
-			grupe.push_back(laik);
+
+		laik.ndvid = ndvid(laik.paz);
+		cout << laik.ndvid << endl;
+		laik.gal = galvid(laik.egrez, laik.ndvid);
+		laik.med = mediana(laik.egrez, laik.ndvid);
+		grupe.push_back(laik);
 	}
 	int pas = 0;
 	cout << "Isvesti mediana(1) ar vidurki(2)?" << endl;
@@ -141,7 +144,7 @@ int main()
 		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (med.)" << endl;
 		for (auto n : grupe)
 		{
-			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.med<< endl;
+			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.med << endl;
 		}
 	}
 	if (pas == 2)
@@ -149,7 +152,7 @@ int main()
 		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (vid.)" << endl;
 		for (auto n : grupe)
 		{
-			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.gal<< endl;
+			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.gal << endl;
 		}
 	}
 }

@@ -20,10 +20,13 @@ using std::numeric_limits;
 using std::random_device;
 using std::mt19937;
 using std::uniform_int_distribution;
+using std::string;
+
+
 
 struct Stud {
-	std::string pav;
-	std::string var;
+	string pav;
+	string var;
 	int egrez;
 	int pazkiek;
 	vector<int> paz;
@@ -31,6 +34,4 @@ struct Stud {
 	double gal;
 	double med;
 };
-
-
 #endif

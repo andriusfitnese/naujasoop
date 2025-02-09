@@ -19,11 +19,11 @@ double ndvid(const vector<int>& paz)
 		sum += pazym;
 	}
 	double ndvd = sum / paz.size();
+	cout << ndvd << endl;
 	return ndvd;
 }
 void rng(vector<int>& paz)
 {
-	Stud laik;
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_int_distribution<int> pazkiek(1, 10);
@@ -32,10 +32,21 @@ void rng(vector<int>& paz)
 	cout << "Generuojami pazymiai..." << endl;
 	for (int i = 0;i < pazymk;i++)
 	{
-		int paz = pazym(gen);
-		laik.paz.push_back(paz);
-		cout << paz << " ";
+		int pazy = pazym(gen);
+		paz.push_back(pazy);
+		cout << pazy << " ";
 	}
+	cout << endl;
+}
+
+void rng(int& egrez)  ///gauname adresa egrez, sugeneruojame ir grazinam
+{
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<int> pazym(1, 10);
+	cout << "Generuojamas pazyms..." << endl;
+		egrez = pazym(gen);
+		cout << egrez << " ";
 	cout << endl;
 }
 
@@ -65,7 +76,11 @@ int main()
 				cout << "Iveskite SKAICIU nuo 1 iki 10" << endl;
 				continue;
 			}
-			if (pazym == -2 and i < 1)rng(laik.paz);
+			if (pazym == -2 and i < 1)
+			{
+				rng(laik.paz);
+				break;
+			}
 			else if (pazym == -2 and i > 0) cout << "Generuoti galima tik is pradziu." << endl;
 			else i++;
 			if (pazym == -1)break;
@@ -73,7 +88,7 @@ int main()
 			else if (pazym == -2 and i > 0) cout << "Veskite ranka arba uzbaikite su -1." << endl;
 			else laik.paz.push_back(pazym);
 		}
-		cout << "Iveskite jo egzamino rezultata" << endl;
+		cout << "Iveskite jo egzamino rezultata. (jei norite, kad butu sugeneruotas, rasykite -1)" << endl;
 		while (true)
 		{
 			cin >> laik.egrez;
@@ -84,18 +99,38 @@ int main()
 				cout << "Iveskite SKAICIU nuo 1 iki 10" << endl;
 				continue;
 			}
+			else if (laik.egrez == -1)
+			{
+				rng(laik.egrez);
+				break;
+			}
 			else if (laik.egrez < 1 or laik.egrez>10)cout << "Iveskite skaiciu tarp 1 ir 10!" << endl;
 			else break;
 		}
 	
 			laik.ndvid = ndvid(laik.paz);
+			cout << laik.ndvid << endl;
 			laik.gal = galvid(laik.egrez, laik.ndvid);
 			laik.med = mediana(laik.egrez, laik.ndvid);
 			grupe.push_back(laik);
 	}
-	cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(20) << "Galutinis (vid.) / Galutinis (med.)" << endl;
-	for (auto n : grupe)
+	int pas = 0;
+	cout << "Isvesti mediana(1) ar vidurki(2)?" << endl;
+	cin >> pas;
+	if (pas == 1)
 	{
-		cout <<fixed<<left<<setw(12)<<std::setprecision(2)<< n.pav <<setw(10)<< n.var <<setw(19)<<n.gal <<setw(19)<<n.med << endl;
+		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (med.)" << endl;
+		for (auto n : grupe)
+		{
+			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.med<< endl;
+		}
+	}
+	if (pas == 2)
+	{
+		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (vid.)" << endl;
+		for (auto n : grupe)
+		{
+			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.gal<< endl;
+		}
 	}
 }

@@ -58,7 +58,7 @@ void rng(vector<int>& paz)
 	}
 	cout << endl;
 }
-
+	
 void rng(int& egrez)  ///gauname adresa egrez, sugeneruojame ir grazinam
 {
 	random_device rd;
@@ -103,7 +103,7 @@ int main()
 			else if (pazym == -2 and i > 0) cout << "Generuoti galima tik is pradziu." << endl;
 			else i++;
 			if (pazym == -1)break;
-			if (pazym > 10 or pazym < 1 and not - 2) cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+			if ((pazym > 10 or pazym < 1) and pazym != - 2) cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
 			else if (pazym == -2 and i > 0) cout << "Veskite ranka arba uzbaikite su -1." << endl;
 			else laik.paz.push_back(pazym);
 		}
@@ -131,7 +131,7 @@ int main()
 			cout << laik.ndvid << endl;
 			laik.gal = galvid(laik.egrez, laik.ndvid);
 			laik.med = mediana(laik.egrez, laik.ndvid);
-			grupe.push_back(laik);
+			grupe.push_back(std::move(laik));
 	}
 	int pas = 0;
 	cout << "Isvesti mediana(1) ar vidurki(2)?" << endl;

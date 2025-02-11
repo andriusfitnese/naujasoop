@@ -29,10 +29,38 @@ struct Stud {
 	string var;
 	int egrez;
 	int pazkiek = 0;
-	int P[15] = { 0 };
+	int* P;
 	vector<int> paz;
 	double ndvid;
 	double gal;
 	double med;
+
+	Stud() : P(nullptr), pazkiek(0) {}  ///default konstruktorius
+
+	~Stud() {
+		delete[]P;
+		P = nullptr; ///kad nebutu kabanti rodykle
+	}
+
+	Stud(const Stud& other)  ///kopijavimo konstruktorius
+	{
+		var = other.var;
+		pav = other.pav;
+		pazkiek = other.pazkiek;
+		egrez = other.egrez;
+		ndvid = other.ndvid;
+		gal = other.gal;
+		med = other.med;
+
+		if (other.P != nullptr) {
+			P = new int[pazkiek];
+			for (int i = 0; i < pazkiek; i++) {
+				P[i] = other.P[i];
+			}
+		}
+		else {
+			P = nullptr;
+		}
+	}
 };
 #endif

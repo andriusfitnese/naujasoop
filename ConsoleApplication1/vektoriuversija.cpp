@@ -20,7 +20,6 @@ double mediana(const vector<int>& paz, double egrez)
 	else
 		med = sorted_paz[size / 2];
 
-	///cout << fixed << std::setprecision(2) << med << " " << egrez << endl;
 	return (0.4*med)+(0.6*double(egrez));
 }
 double galvid(double egrez, double ndvd)
@@ -141,7 +140,7 @@ int main()
 		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (med.)" << endl;
 		for (auto n : grupe)
 		{
-			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.med<< endl;
+			cout << fixed << left << setw(12) << setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.med<< endl;
 		}
 	}
 	if (pas == 2)
@@ -149,7 +148,7 @@ int main()
 		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (vid.)" << endl;
 		for (auto n : grupe)
 		{
-			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.gal<< endl;
+			cout << fixed << left << setw(12) << setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.gal<< endl;
 		}
 	}
 }

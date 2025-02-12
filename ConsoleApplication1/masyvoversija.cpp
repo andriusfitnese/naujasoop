@@ -2,33 +2,29 @@
 
 
 
-/*double mediana(const vector<int>& paz, double egrez)
+double mediana(int *P, double egrez, int dydis)
 {
-	if (paz.empty()) return egrez;
+	if (dydis==0 || P==nullptr) return egrez;
+	int* isrikiuotas = new int[dydis];
+	for (int i = 0;i < dydis;i++)
+	{
+		isrikiuotas[i] = P[i];
+	}
+	sort(isrikiuotas, isrikiuotas + dydis);  ///rikiuojam nuo (iskaityto) pirmo elemento iki paskutinio+1(neiskaityto).
 
-	vector<int> sorted_paz = paz;
-	sort(sorted_paz.begin(), sorted_paz.end());
-
-	int size = sorted_paz.size();
 	double med;
 
-	if (size % 2 == 0)
-		med = (sorted_paz[size / 2 - 1] + sorted_paz[size / 2]) / 2.0;
+	if (dydis % 2 == 0)
+		med = (isrikiuotas[dydis / 2 - 1] + isrikiuotas[dydis / 2]) / 2.0;
 	else
-		med = sorted_paz[size / 2];
-
-	return (med + egrez) / 2;
+		med = isrikiuotas[dydis / 2];
+	delete[] isrikiuotas;
+	return (0.4 * med) + (0.6 * double(egrez));
 }
-*/
 double galvid(double egrez, double ndvd)
 {
 	double galutinis = (0.6 * egrez) + (0.4 * ndvd);
 	return galutinis;
-}
-double mediana(double egrez, double ndvd)
-{
-	double mediana = (egrez + ndvd) / 2;
-	return mediana;
 }
 double ndvid(int *P, int dydis)
 {
@@ -150,7 +146,7 @@ int main()
 
 		laik.ndvid = ndvid(laik.P,laik.pazkiek);
 		laik.gal = galvid(laik.egrez, laik.ndvid);
-		laik.med = mediana(laik.egrez, laik.ndvid);
+		laik.med = mediana(laik.P, laik.egrez, laik.pazkiek);
 		grupe.push_back(laik);
 	}
 	int pas = 0;
@@ -161,7 +157,7 @@ int main()
 		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (med.)" << endl;
 		for (auto &n : grupe)
 		{
-			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.med << endl;
+			cout << fixed << left << setw(12) << setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.med << endl;
 		}
 	}
 	if (pas == 2)
@@ -169,7 +165,7 @@ int main()
 		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (vid.)" << endl;
 		for (auto &n : grupe)
 		{
-			cout << fixed << left << setw(12) << std::setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.gal << endl;
+			cout << fixed << left << setw(12) << setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.gal << endl;
 		}
 	}
 

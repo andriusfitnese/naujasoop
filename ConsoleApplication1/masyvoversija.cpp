@@ -65,6 +65,18 @@ void rng(int& egrez)  ///gauname adresa egrez, sugeneruojame ir grazinam
 	cout << endl;
 }
 
+void rng(string& vardas, string& pavarde)
+{
+	cout << "Generuojamas vardas..." << endl;
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<int> nameDist(0, 7);
+
+	vardas = vardai[nameDist(gen)];
+	pavarde = pavardes[nameDist(gen)];
+	cout << vardas << " " << pavarde << endl;
+}
+
 int main()
 {
 	vector<Stud> grupe;
@@ -77,12 +89,15 @@ int main()
 			delete[]laik.P;
 			laik.P = nullptr;
 		}
-		cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus)" << endl;
+		cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
 		cin >> laik.var;
 		if (laik.var == "stop") break;
-		cout << "Iveskite jo pavarde" << endl;
-		cin >> laik.pav;
-
+		if (laik.var == "gen") rng(laik.var, laik.pav);
+		else
+		{
+			cout << "Iveskite jo pavarde" << endl;
+			cin >> laik.pav;
+		}
 		cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, o jei ranka ivede visus, parasykite -1)" << endl;
 		int pazym;
 		int i = 0;

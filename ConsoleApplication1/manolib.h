@@ -24,7 +24,8 @@ using std::string;
 using std::sort;
 using std::setprecision;
 
-
+const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
+const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };
 
 struct Stud {
 	string pav;

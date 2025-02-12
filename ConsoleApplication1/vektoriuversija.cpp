@@ -2,10 +2,13 @@
 
 
 
-/*double mediana(const vector<int>& paz, double egrez)
+double mediana(const vector<int>& paz, double egrez)
 {
-	if (paz.empty()) return egrez;
-
+	if (paz.empty())
+	{
+		cout << "Namu darbu pazymiu nera" << endl;
+		return egrez;
+	}
 	vector<int> sorted_paz = paz;
 	sort(sorted_paz.begin(), sorted_paz.end());
 
@@ -17,19 +20,15 @@
 	else
 		med = sorted_paz[size / 2];
 
-	return (med + egrez) / 2;
+	///cout << fixed << std::setprecision(2) << med << " " << egrez << endl;
+	return (0.4*med)+(0.6*double(egrez));
 }
-*/
 double galvid(double egrez, double ndvd)
 {
 double galutinis = (0.6 * egrez) + (0.4 * ndvd);
 return galutinis;
 }
-double mediana(double egrez, double ndvd)
-{
-	double mediana = (egrez + ndvd) / 2;
-		return mediana;
-}
+
 double ndvid(const vector<int>& paz)
 {
 	double sum = 0.0;
@@ -39,7 +38,6 @@ double ndvid(const vector<int>& paz)
 		sum += pazym;
 	}
 	double ndvd = sum / paz.size();
-	cout << ndvd << endl;
 	return ndvd;
 }
 void rng(vector<int>& paz)
@@ -101,11 +99,15 @@ int main()
 				break;
 			}
 			else if (pazym == -2 and i > 0) cout << "Generuoti galima tik is pradziu." << endl;
-			else i++;
-			if (pazym == -1)break;
+			if (pazym == -1 and i > 0)break;
+			else if(pazym== -1 and i<1) cout << "Neivedete nei vieno namu darbu pazymio!";
 			if ((pazym > 10 or pazym < 1) and pazym != - 2) cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
 			else if (pazym == -2 and i > 0) cout << "Veskite ranka arba uzbaikite su -1." << endl;
-			else laik.paz.push_back(pazym);
+			else
+			{
+				laik.paz.push_back(pazym);
+				i++;
+			}
 		}
 		cout << "Iveskite jo egzamino rezultata. (jei norite, kad butu sugeneruotas, rasykite -1)" << endl;
 		while (true)
@@ -126,11 +128,9 @@ int main()
 			else if (laik.egrez < 1 or laik.egrez>10)cout << "Iveskite skaiciu tarp 1 ir 10!" << endl;
 			else break;
 		}
-	
 			laik.ndvid = ndvid(laik.paz);
-			cout << laik.ndvid << endl;
 			laik.gal = galvid(laik.egrez, laik.ndvid);
-			laik.med = mediana(laik.egrez, laik.ndvid);
+			laik.med = mediana(laik.paz, laik.egrez);
 			grupe.push_back(std::move(laik));
 	}
 	int pas = 0;

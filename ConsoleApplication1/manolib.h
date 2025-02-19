@@ -7,7 +7,10 @@
 #include <random>
 #include <fstream>
 #include <sstream>
-#include<algorithm>
+#include <algorithm>
+#include <thread>
+#include <execution>
+#include <future>
 
 using std::cout;
 using std::cin;
@@ -30,6 +33,7 @@ using std::ws;
 using std::istringstream;
 using std::cerr;
 using std::nth_element;
+using std::future;
 const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
 const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };
 

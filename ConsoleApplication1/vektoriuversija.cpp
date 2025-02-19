@@ -15,10 +15,18 @@ double mediana(const vector<int>& paz, double egrez)
 	double med;
 
 	if (size % 2 == 0)
-		nth_element(sorted_paz.begin(), sorted.paz.begin() + size / 2 - 1, sorted.paz.end());
-		med = (sorted_paz[size / 2 - 1] + sorted_paz[size / 2]) / 2.0;
+	{
+		nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2 - 1, sorted_paz.end());
+		double kaire = sorted_paz[size / 2 - 1];
+		nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2, sorted_paz.end());
+		double desine = sorted_paz[size / 2];
+		med = (kaire + desine) / 2.0;
+	}
 	else
+	{
+		nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2, sorted_paz.end());
 		med = sorted_paz[size / 2];
+	}
 
 	return (0.4*med)+(0.6*double(egrez));
 }
@@ -80,7 +88,7 @@ void rng(string& vardas, string& pavarde)
 void skaitymas(vector<Stud>& grupe)
 {
 	Stud laik;
-	ifstream in("kursiokai.txt");
+	ifstream in("kursiokai2.txt");
 	if (!in)
 	{
 		cerr << "Nerastas failas!" << endl;
@@ -88,35 +96,44 @@ void skaitymas(vector<Stud>& grupe)
 	}
 	string temp;
 	getline(in, temp);
+	vector<future<Stud>> futures;
 	while (getline(in, temp))
 	{
-		istringstream iss(temp);
-		iss >> laik.var >> laik.pav;
-		int pazym, egrezu;
-		cout << laik.var << " " << laik.pav << " ";
-		while (iss>>pazym)
-		{
-			cout << pazym << " ";
-			laik.paz.push_back(pazym);
-		}
-		if (!laik.paz.empty())
-		{
-			laik.egrez = laik.paz.back();
-			cout << laik.egrez << endl;
-			laik.paz.pop_back();
-		}
-		
-		else
-		{
-			cerr << "Jokiu pazymiu nerasta mokiniui: " << laik.var << " " << laik.pav <<"!"<< endl;
-		}
-		laik.ndvid = ndvid(laik.paz);
-		laik.gal = galvid(laik.egrez, laik.ndvid);
-		laik.med = mediana(laik.paz, laik.egrez);
-		grupe.emplace_back(std::move(laik));
-		laik.paz.shrink_to_fit();
+		futures.push_back(std::async(std::launch::async, [temp]() -> Stud {
+			Stud laik;
+			istringstream iss(temp);
+			iss >> laik.var >> laik.pav;
+			///cout << laik.var << " " << laik.pav << " ";
+			int pazym;
+
+			while (iss >> pazym)
+			{
+				///cout << pazym << " ";
+				laik.paz.push_back(pazym);
+			}
+
+			if (!laik.paz.empty())
+			{
+				laik.egrez = laik.paz.back();
+				laik.paz.pop_back();
+				///cout << laik.egrez << endl;
+			}
+			else
+			{
+				cerr << "Jokiu pazymiu nerasta mokiniui: " << laik.var << " " << laik.pav << "!" << endl;
+			}
+			laik.ndvid = ndvid(laik.paz);
+			laik.gal = galvid(laik.egrez, laik.ndvid);
+			laik.med = mediana(laik.paz, laik.egrez);
+
+			return laik;
+			}));
 	}
 	in.close();
+	for (auto& fut : futures)
+	{
+		grupe.push_back(fut.get());
+	}
 }
 void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 {
@@ -128,7 +145,7 @@ void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 			case 1:
 				cout << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (med.)" << endl;
 				cout << string(52, '-') << endl;
-				for (auto n : grupe)
+				for (const auto& n : grupe)
 					{
 					cout << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
 					}
@@ -137,7 +154,7 @@ void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 			case 2:
 				cout << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (vid.)" << endl;
 				cout << string(52, '-') << endl;
-				for (auto n : grupe)
+				for (const auto& n : grupe)
 					{
 					cout << fixed << left << setw(15) << setprecision(2) << n.pav << setw(18) << n.var << setw(8) << n.gal << endl;
 					}
@@ -151,7 +168,7 @@ void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 		case 1:
 			out << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (med.)" << endl;
 			out << string(52, '-') << endl;
-			for (auto n : grupe)
+			for (const auto& n : grupe)
 			{
 				out << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
 			}
@@ -160,7 +177,7 @@ void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 		case 2:
 			out << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (vid.)" << endl;
 			out << string(52, '-') << endl;
-			for (auto n : grupe)
+			for (const auto& n : grupe)
 			{
 				out << fixed << left << setw(15) << setprecision(2) << n.pav << setw(18) << n.var << setw(8) << n.gal << endl;
 			}
@@ -247,7 +264,7 @@ int main()
 			laik.ndvid = ndvid(laik.paz);
 			laik.gal = galvid(laik.egrez, laik.ndvid);
 			laik.med = mediana(laik.paz, laik.egrez);
-			grupe.push_back(std::move(laik));
+			grupe.emplace_back(std::move(laik));
 			laik.paz.clear();
 	}
 	}

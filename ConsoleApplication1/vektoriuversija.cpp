@@ -15,6 +15,7 @@ double mediana(const vector<int>& paz, double egrez)
 	double med;
 
 	if (size % 2 == 0)
+		nth_element(sorted_paz.begin(), sorted.paz.begin() + size / 2 - 1, sorted.paz.end());
 		med = (sorted_paz[size / 2 - 1] + sorted_paz[size / 2]) / 2.0;
 	else
 		med = sorted_paz[size / 2];
@@ -76,7 +77,7 @@ void rng(string& vardas, string& pavarde)
 	pavarde = pavardes[nameDist(gen)];
 	cout << vardas << " " << pavarde << endl;
 }
-void skaitymas(vector<int>&paz, vector<Stud>& grupe)
+void skaitymas(vector<Stud>& grupe)
 {
 	Stud laik;
 	ifstream in("kursiokai.txt");
@@ -112,32 +113,65 @@ void skaitymas(vector<int>&paz, vector<Stud>& grupe)
 		laik.ndvid = ndvid(laik.paz);
 		laik.gal = galvid(laik.egrez, laik.ndvid);
 		laik.med = mediana(laik.paz, laik.egrez);
-		grupe.push_back(std::move(laik));
-		laik.paz.clear();
+		grupe.emplace_back(std::move(laik));
+		laik.paz.shrink_to_fit();
 	}
 	in.close();
 }
-void isvedimas(int pas, int pasmv, vector<Stud>& grupe)
+void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 {
-	if (pas == 1)
+	switch (pas)
 	{
-		cout << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (med.)" << endl;
-		cout << string(52, '-') << endl;
-		for (auto n : grupe)
+	case 1:
+		switch (pasmv)
 		{
-			cout << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
+			case 1:
+				cout << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (med.)" << endl;
+				cout << string(52, '-') << endl;
+				for (auto n : grupe)
+					{
+					cout << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
+					}
+			break;
+	
+			case 2:
+				cout << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (vid.)" << endl;
+				cout << string(52, '-') << endl;
+				for (auto n : grupe)
+					{
+					cout << fixed << left << setw(15) << setprecision(2) << n.pav << setw(18) << n.var << setw(8) << n.gal << endl;
+					}
+			break;
 		}
-	}
-	if (pas == 2)
-	{
-		cout << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (vid.)" << endl;
-		cout << string(52, '-') << endl;
-		for (auto n : grupe)
+		break;
+	case 2:
+		ofstream out("kursiokaiapdorotas.txt");
+		switch (pasmv)
 		{
-			cout << fixed << left << setw(15) << setprecision(2) << n.pav << setw(18) << n.var << setw(8) << n.gal << endl;
+		case 1:
+			out << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (med.)" << endl;
+			out << string(52, '-') << endl;
+			for (auto n : grupe)
+			{
+				out << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
+			}
+			break;
+
+		case 2:
+			out << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (vid.)" << endl;
+			out << string(52, '-') << endl;
+			for (auto n : grupe)
+			{
+				out << fixed << left << setw(15) << setprecision(2) << n.pav << setw(18) << n.var << setw(8) << n.gal << endl;
+			}
+			break;
 		}
+		out.close();
+		break;
 	}
 }
+
+
 int main()
 {
 	vector<Stud> grupe;
@@ -147,7 +181,7 @@ int main()
 	cin >> pasir;
 	if (pasir == 2)
 	{
-		skaitymas(laik.paz, grupe);
+		skaitymas(grupe);
 	}
 	else{
 	while (true)
@@ -221,6 +255,7 @@ int main()
 	int pasmv = 0;
 	cout << "I ekrana(1) ar i faila(2)?" << endl;
 	cin >> pas;
-	cout << "Isvesti mediana(1), vidurki(2) ar abu(3)?" << endl;
+	cout << "Isvesti mediana(1), vidurki(2)?" << endl;
 	cin >> pasmv;
+	isvedimas(pas, pasmv, grupe);
 }

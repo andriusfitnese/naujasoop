@@ -11,7 +11,6 @@ double mediana(const vector<int>& paz, double egrez)
 	}
 	vector<int> sorted_paz = paz;
 	sort(sorted_paz.begin(), sorted_paz.end());
-
 	int size = sorted_paz.size();
 	double med;
 
@@ -81,6 +80,11 @@ void skaitymas(vector<int>&paz, vector<Stud>& grupe)
 {
 	Stud laik;
 	ifstream in("kursiokai.txt");
+	if (!in)
+	{
+		cerr << "Nerastas failas!" << endl;
+		return;
+	}
 	string temp;
 	getline(in, temp);
 	while (getline(in, temp))
@@ -88,21 +92,30 @@ void skaitymas(vector<int>&paz, vector<Stud>& grupe)
 		istringstream iss(temp);
 		iss >> laik.var >> laik.pav;
 		int pazym, egrezu;
+		cout << laik.var << " " << laik.pav << " ";
 		while (iss>>pazym)
 		{
+			cout << pazym << " ";
 			laik.paz.push_back(pazym);
 		}
-		if (!paz.empty())
+		if (!laik.paz.empty())
 		{
-			egrezu = paz.back();
-			paz.pop_back();
+			laik.egrez = laik.paz.back();
+			cout << laik.egrez << endl;
+			laik.paz.pop_back();
 		}
+		
 		else
 		{
 			cerr << "Jokiu pazymiu nerasta mokiniui: " << laik.var << " " << laik.pav <<"!"<< endl;
 		}
-		grupe.push_back(laik);
+		laik.ndvid = ndvid(laik.paz);
+		laik.gal = galvid(laik.egrez, laik.ndvid);
+		laik.med = mediana(laik.paz, laik.egrez);
+		grupe.push_back(std::move(laik));
+		laik.paz.clear();
 	}
+	in.close();
 }
 int main()
 {
@@ -113,8 +126,9 @@ int main()
 	cin >> pasir;
 	if (pasir == 2)
 	{
-
+		skaitymas(laik.paz, grupe);
 	}
+	else{
 	while (true)
 	{
 		cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
@@ -180,6 +194,7 @@ int main()
 			laik.med = mediana(laik.paz, laik.egrez);
 			grupe.push_back(std::move(laik));
 			laik.paz.clear();
+	}
 	}
 	int pas = 0;
 	cout << "Isvesti mediana(1) ar vidurki(2)?" << endl;

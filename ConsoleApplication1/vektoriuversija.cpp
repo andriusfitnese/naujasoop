@@ -117,6 +117,27 @@ void skaitymas(vector<int>&paz, vector<Stud>& grupe)
 	}
 	in.close();
 }
+void isvedimas(int pas, int pasmv, vector<Stud>& grupe)
+{
+	if (pas == 1)
+	{
+		cout << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (med.)" << endl;
+		cout << string(52, '-') << endl;
+		for (auto n : grupe)
+		{
+			cout << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
+		}
+	}
+	if (pas == 2)
+	{
+		cout << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (vid.)" << endl;
+		cout << string(52, '-') << endl;
+		for (auto n : grupe)
+		{
+			cout << fixed << left << setw(15) << setprecision(2) << n.pav << setw(18) << n.var << setw(8) << n.gal << endl;
+		}
+	}
+}
 int main()
 {
 	vector<Stud> grupe;
@@ -197,22 +218,9 @@ int main()
 	}
 	}
 	int pas = 0;
-	cout << "Isvesti mediana(1) ar vidurki(2)?" << endl;
+	int pasmv = 0;
+	cout << "I ekrana(1) ar i faila(2)?" << endl;
 	cin >> pas;
-	if (pas == 1)
-	{
-		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (med.)" << endl;
-		for (auto n : grupe)
-		{
-			cout << fixed << left << setw(12) << setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.med<< endl;
-		}
-	}
-	if (pas == 2)
-	{
-		cout << left << setw(12) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis (vid.)" << endl;
-		for (auto n : grupe)
-		{
-			cout << fixed << left << setw(12) << setprecision(2) << n.pav << setw(10) << n.var << setw(10) << n.gal<< endl;
-		}
-	}
+	cout << "Isvesti mediana(1), vidurki(2) ar abu(3)?" << endl;
+	cin >> pasmv;
 }

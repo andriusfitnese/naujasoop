@@ -77,12 +77,44 @@ void rng(string& vardas, string& pavarde)
 	pavarde = pavardes[nameDist(gen)];
 	cout << vardas << " " << pavarde << endl;
 }
-
+void skaitymas(vector<int>&paz, vector<Stud>& grupe)
+{
+	Stud laik;
+	ifstream in("kursiokai.txt");
+	string temp;
+	getline(in, temp);
+	while (getline(in, temp))
+	{
+		istringstream iss(temp);
+		iss >> laik.var >> laik.pav;
+		int pazym, egrezu;
+		while (iss>>pazym)
+		{
+			laik.paz.push_back(pazym);
+		}
+		if (!paz.empty())
+		{
+			egrezu = paz.back();
+			paz.pop_back();
+		}
+		else
+		{
+			cerr << "Jokiu pazymiu nerasta mokiniui: " << laik.var << " " << laik.pav <<"!"<< endl;
+		}
+		grupe.push_back(laik);
+	}
+}
 int main()
 {
 	vector<Stud> grupe;
 	Stud laik;
+	int pasir = 0;
+	cout << "Pasirinkite, ar noresite vesti bent kelis duomenis ranka arba generuot (1); ar skaitysite is failo (2)" << endl;
+	cin >> pasir;
+	if (pasir == 2)
+	{
 
+	}
 	while (true)
 	{
 		cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
@@ -147,6 +179,7 @@ int main()
 			laik.gal = galvid(laik.egrez, laik.ndvid);
 			laik.med = mediana(laik.paz, laik.egrez);
 			grupe.push_back(std::move(laik));
+			laik.paz.clear();
 	}
 	int pas = 0;
 	cout << "Isvesti mediana(1) ar vidurki(2)?" << endl;

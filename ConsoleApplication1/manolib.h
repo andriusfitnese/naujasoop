@@ -1,5 +1,3 @@
-#ifndef MANOLIB_H
-#define MANOLIB_H
 
 #include <iostream>
 #include <vector>
@@ -7,6 +5,8 @@
 #include <string>
 #include <limits>
 #include <random>
+#include <fstream>
+#include <sstream>
 
 using std::cout;
 using std::cin;
@@ -23,6 +23,11 @@ using std::uniform_int_distribution;
 using std::string;
 using std::sort;
 using std::setprecision;
+using std::ifstream;
+using std::ofstream;
+using std::ws;
+using std::istringstream;
+using std::cerr;
 
 const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
 const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };
@@ -66,4 +71,3 @@ struct Stud {
 		}
 	}
 };
-#endif

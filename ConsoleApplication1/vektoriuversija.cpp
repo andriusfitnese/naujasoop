@@ -1,7 +1,17 @@
 #include "manolib.h"
 
 
+bool sortVardu(const Stud& a, const Stud& b) {
+	return a.var < b.var;
+}
 
+bool sortMed(const Stud& a, const Stud& b) {
+	return a.med < b.med;
+}
+
+bool sortGal(const Stud& a, const Stud& b) {
+	return a.gal < b.gal;
+}
 double mediana(const vector<int>& paz, double egrez)
 {
 	if (paz.empty())
@@ -103,12 +113,10 @@ void skaitymas(vector<Stud>& grupe)
 			Stud laik;
 			istringstream iss(temp);
 			iss >> laik.var >> laik.pav;
-			///cout << laik.var << " " << laik.pav << " ";
 			int pazym;
 
 			while (iss >> pazym)
 			{
-				///cout << pazym << " ";
 				laik.paz.push_back(pazym);
 			}
 
@@ -116,7 +124,6 @@ void skaitymas(vector<Stud>& grupe)
 			{
 				laik.egrez = laik.paz.back();
 				laik.paz.pop_back();
-				///cout << laik.egrez << endl;
 			}
 			else
 			{
@@ -267,6 +274,26 @@ int main()
 			grupe.emplace_back(std::move(laik));
 			laik.paz.clear();
 	}
+	}
+	int sortpas = 0;
+	cout << "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Mediana, 3 - Galutinis pazymys): ";
+	cin >> sortpas;
+	switch (sortpas) {
+	case 1:
+		sort(grupe.begin(), grupe.end(), sortVardu);
+		cout << "Surikiuota pagal vardus (abeceles tvarka)." << endl;
+		break;
+	case 2:
+		sort(grupe.begin(), grupe.end(), sortMed);
+		cout << "Surikiuota pagal mediana." << endl;
+		break;
+	case 3:
+		sort(grupe.begin(), grupe.end(), sortGal);
+		cout << "Surikiuota pagal galutini pazymi." << endl;
+		break;
+	default:
+		cout << "Neteisingas pasirinkimas!" << endl;
+		break;
 	}
 	int pas = 0;
 	int pasmv = 0;

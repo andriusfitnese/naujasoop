@@ -7,10 +7,11 @@
 #include <random>
 #include <fstream>
 #include <sstream>
-#include <algorithm>
+#include <algorithm> //sortui
 #include <thread>
 #include <execution>
-#include <future>
+#include <future> 
+#include <functional> //del greater ir less funkciju
 
 using std::cout;
 using std::cin;

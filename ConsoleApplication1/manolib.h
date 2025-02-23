@@ -77,3 +77,16 @@ struct Stud {
 		}
 	}
 };
+
+bool sortVardu(const Stud& a, const Stud& b);
+bool sortPav(const Stud& a, const Stud& b);
+bool sortMed(const Stud& a, const Stud& b);
+bool sortGal(const Stud& a, const Stud& b);
+double mediana(const vector<int>& paz, double egrez);
+double galvid(double egrez, double ndvd);
+double ndvid(const vector<int>& paz);
+void rng(vector<int>& paz);
+void rng(int& egrez);
+void rng(string& vardas, string& pavarde);
+void skaitymas(vector<Stud>& grupe);
+void isvedimas(int pas, int pasmv, const vector<Stud>& grupe);

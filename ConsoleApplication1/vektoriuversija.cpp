@@ -47,28 +47,35 @@ int main()
 			bool tinka = false;
 			while (!tinka)
 			{
-				cin >> pazym;
-				if (cin.fail())
+				try 
 				{
+				cin >> pazym;
+					if (cin.fail() or (pazym > 10 or pazym < 1) and pazym != -2 and pazym !=-1)
+					{
+						throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
+					}
+					if (pazym == -2 and i < 1)
+					{
+						rng(laik.paz);
+						break;
+					}
+					else if (pazym == -2 and i > 0)
+					{
+						throw runtime_error("Generuoti galima tik is pradziu.Veskite ranka arba uzbaikite su -1.");
+					}
+					if (pazym == -1 and i > 0)tinka = true;
+					else if (pazym == -1 and i < 1) throw runtime_error("Neivedete nei vieno namu darbu pazymio!");
+					else
+					{
+						laik.paz.push_back(pazym);
+						i++;
+					}
+				}
+				catch (runtime_error& e)
+				{
+					cerr << "Klaida: " << e.what() << endl;
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << "Iveskite SKAICIU nuo 1 iki 10" << endl;
-					continue;
-				}
-				if (pazym == -2 and i < 1)
-				{
-					rng(laik.paz);
-					break;
-				}
-				else if (pazym == -2 and i > 0) cout << "Generuoti galima tik is pradziu." << endl;
-				if (pazym == -1 and i > 0)break;
-				else if (pazym == -1 and i < 1) cout << "Neivedete nei vieno namu darbu pazymio!";
-				if ((pazym > 10 or pazym < 1) and pazym != -2) cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
-				else if (pazym == -2 and i > 0) cout << "Veskite ranka arba uzbaikite su -1." << endl;
-				else
-				{
-					laik.paz.push_back(pazym);
-					i++;
 				}
 			}
 			tinka = false;
@@ -77,9 +84,9 @@ int main()
 			{
 				try {
 					cin >> laik.egrez;
-					if (cin.fail() || (laik.egrez < 1 && laik.egrez>10 and not - 1))
+					if (cin.fail() or (laik.egrez < 1 and laik.egrez!=-1) or (laik.egrez>10 and laik.egrez!=-1))
 					{
-						throw runtime_error("Klaida! Iveskite skaiciu nuo 1 iki 10!");
+						throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
 					}
 					else if (laik.egrez == -1)
 					{
@@ -140,12 +147,18 @@ int main()
 		else {
 			break;
 		}
-		
 	}
 	cout << "Isvesti mediana(1), vidurki(2)?" << endl;
-	cin >> pasmv;
+	while (true) {
+		cin >> pasmv;
+		if (cin.fail() || (pasmv != 1 && pasmv != 2)) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Neteisingas pasirinkimas. Iveskite 1 arba 2." << endl;
+		}
+		else {
+			break;
+		}
+	}
 	isvedimas(pas, pasmv, grupe);
 }
-
-
-///PABAIK ND IVEDIMO ERROR HANDLING, PADARYTAS TIKTAIS EGZAMINO NES AS KAIP ZYDAS IS KITO GALO DARAU??

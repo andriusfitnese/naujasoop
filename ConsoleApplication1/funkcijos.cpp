@@ -103,7 +103,7 @@ void skaitymas(vector<Stud>& grupe)
 	ifstream in("kursiokai2.txt");
 	if (!in)
 	{
-		cerr << "Nerastas failas!" << endl;
+		throw runtime_error("Nepavyko atidaryti failo!");
 		return;
 	}
 	string temp;
@@ -128,12 +128,12 @@ void skaitymas(vector<Stud>& grupe)
 			}
 			else
 			{
-				cerr << "Jokiu pazymiu nerasta mokiniui: " << laik.var << " " << laik.pav << "!" << endl;
+				throw runtime_error("Jokiu pazymiu nerasta mokiniui: " + laik.var + " " + laik.pav + "!");
+					cout << endl;
 			}
 			laik.ndvid = ndvid(laik.paz);
 			laik.gal = galvid(laik.egrez, laik.ndvid);
 			laik.med = mediana(laik.paz, laik.egrez);
-
 			return laik;
 			}));
 	}

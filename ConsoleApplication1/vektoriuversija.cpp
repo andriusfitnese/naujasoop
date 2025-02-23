@@ -3,9 +3,27 @@ int main()
 {
 	vector<Stud> grupe;
 	Stud laik;
+	bool geras = false;
 	int pasir = 0;
-	cout << "Pasirinkite, ar noresite vesti bent kelis duomenis ranka arba generuot (1); ar skaitysite is failo (2)" << endl;
-	cin >> pasir;
+	while (!geras)
+	{
+		try {
+			cout << "Pasirinkite, ar noresite vesti bent kelis duomenis ranka arba generuot (1); ar skaitysite is failo (2)" << endl;
+			cin >> pasir;
+
+			if (cin.fail() || (pasir != 1 && pasir != 2)) {
+				throw runtime_error("Netinkamas pasirinkimas. Iveskite 1 arba 2.");
+			}
+			geras = true;
+		}
+		catch (const runtime_error& e)
+		{
+			cerr << "Klaida: " << e.what() << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+	
 	if (pasir == 2)
 	{
 		skaitymas(grupe);
@@ -26,7 +44,8 @@ int main()
 			cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, ivede visus, parasykite -1)" << endl;
 			int pazym;
 			int i = 0;
-			while (true)
+			bool tinka = false;
+			while (!tinka)
 			{
 				cin >> pazym;
 				if (cin.fail())
@@ -52,25 +71,31 @@ int main()
 					i++;
 				}
 			}
+			tinka = false;
 			cout << "Iveskite jo egzamino rezultata. (jei norite, kad butu sugeneruotas, rasykite -1)" << endl;
-			while (true)
+			while (!tinka)
 			{
-				cin >> laik.egrez;
-				if (cin.fail())
+				try {
+					cin >> laik.egrez;
+					if (cin.fail() || (laik.egrez < 1 && laik.egrez>10 and not - 1))
+					{
+						throw runtime_error("Klaida! Iveskite skaiciu nuo 1 iki 10!");
+					}
+					else if (laik.egrez == -1)
+					{
+						rng(laik.egrez);
+						break;
+					}
+					else tinka = true;
+				}
+				catch (const runtime_error& e)
 				{
+					cerr << "Klaida: " << e.what() << endl;
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					cout << "Iveskite SKAICIU nuo 1 iki 10" << endl;
-					continue;
 				}
-				else if (laik.egrez == -1)
-				{
-					rng(laik.egrez);
-					break;
 				}
-				else if (laik.egrez < 1 or laik.egrez>10)cout << "Iveskite skaiciu tarp 1 ir 10!" << endl;
-				else break;
-			}
+				
 			laik.ndvid = ndvid(laik.paz);
 			laik.gal = galvid(laik.egrez, laik.ndvid);
 			laik.med = mediana(laik.paz, laik.egrez);
@@ -121,3 +146,6 @@ int main()
 	cin >> pasmv;
 	isvedimas(pas, pasmv, grupe);
 }
+
+
+///PABAIK ND IVEDIMO ERROR HANDLING, PADARYTAS TIKTAIS EGZAMINO NES AS KAIP ZYDAS IS KITO GALO DARAU??

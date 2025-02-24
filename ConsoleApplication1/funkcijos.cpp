@@ -1,5 +1,10 @@
 #include "manolib.h"
 
+bool failasegzistuoja(const string& failopav)
+{
+	ifstream failas(failopav);
+		return failas.good();
+}
 bool sortVardu(const Stud& a, const Stud& b) {
 	return a.var < b.var;
 }
@@ -18,28 +23,18 @@ double mediana(const vector<int>& paz, double egrez)
 {
 	if (paz.empty())
 	{
-		cout << "Namu darbu pazymiu nera" << endl;
+		cerr << "Namu darbu pazymiu nera" << endl;
 		return egrez;
 	}
 	vector<int> sorted_paz = paz;
-	sort(sorted_paz.begin(), sorted_paz.end());
-	int size = sorted_paz.size();
-	double med;
-
+	size_t size = sorted_paz.size();
+	nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2, sorted_paz.end());
+	double med = sorted_paz[size / 2];
 	if (size % 2 == 0)
 	{
 		nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2 - 1, sorted_paz.end());
-		double kaire = sorted_paz[size / 2 - 1];
-		nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2, sorted_paz.end());
-		double desine = sorted_paz[size / 2];
-		med = (kaire + desine) / 2.0;
+		med = (med + sorted_paz[size / 2 - 1]) / 2.0;
 	}
-	else
-	{
-		nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2, sorted_paz.end());
-		med = sorted_paz[size / 2];
-	}
-
 	return (0.4 * med) + (0.6 * double(egrez));
 }
 double galvid(double egrez, double ndvd)
@@ -66,6 +61,7 @@ void rng(vector<int>& paz)
 	uniform_int_distribution<int> pazkiek(1, 10);
 	uniform_int_distribution<int> pazym(1, 10);
 	int pazymk = pazkiek(gen);
+	paz.reserve(paz.size() + pazymk);
 	cout << "Generuojami pazymiai..." << endl;
 	for (int i = 0;i < pazymk;i++)
 	{
@@ -100,12 +96,19 @@ void rng(string& vardas, string& pavarde)
 void skaitymas(vector<Stud>& grupe)
 {
 	Stud laik;
+	string failopav = "kursiokai2.txt";
+	if (!failasegzistuoja(failopav))
+	{
+		cerr << "Klaida: failas " << failopav << " neegzistuoja nurodytoje vietoje!" << endl;
+		return;
+	}
 	ifstream in("kursiokai2.txt");
 	if (!in)
 	{
-		throw runtime_error("Nepavyko atidaryti failo!");
+		cerr<<("Nepavyko atidaryti failo!")<<endl;
 		return;
 	}
+	cout << "Failas atidarytas.";
 	string temp;
 	getline(in, temp);
 	vector<future<Stud>> futures;
@@ -145,6 +148,7 @@ void skaitymas(vector<Stud>& grupe)
 }
 void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 {
+
 	switch (pas)
 	{
 	case 1:
@@ -181,7 +185,6 @@ void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 				out << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
 			}
 			break;
-
 		case 2:
 			out << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (vid.)" << endl;
 			out << string(52, '-') << endl;

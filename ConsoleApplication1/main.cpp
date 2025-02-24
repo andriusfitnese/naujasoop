@@ -111,8 +111,19 @@ int main()
 		}
 	}
 	int sortpas = 0;
+	bool tinka = false;
 	cout << "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ";
-	cin >> sortpas;
+	while (!tinka)
+	{
+		cin >> sortpas;
+		if (cin.fail() or sortpas < 1 or sortpas>4)
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Neteisingas ivestas skaicius/simbolis. Pasirinkite tarp 1, 2, 3 ar 4.";
+		}
+		else tinka = true;
+	}
 	switch (sortpas) {
 	case 1:
 		sort(grupe.begin(), grupe.end(), sortVardu);
@@ -160,5 +171,10 @@ int main()
 			break;
 		}
 	}
-	isvedimas(pas, pasmv, grupe);
+	if (grupe.empty())
+	{
+		cout << "Nera ivestu studentu! Programa baigiama." << endl;
+		return 1;
+	}
+	else isvedimas(pas, pasmv, grupe);
 }

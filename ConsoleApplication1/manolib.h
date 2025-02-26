@@ -89,9 +89,9 @@ bool sortGal(const Stud& a, const Stud& b);
 double mediana(const vector<int>& paz, double egrez);
 double galvid(double egrez, double ndvd);
 double ndvid(const vector<int>& paz);
-void rng(vector<int>& paz);
-void rng(int& egrez);
-void rng(string& vardas, string& pavarde);
+void rng(vector<int>& paz);  ///nd pazymiu gen
+void rng(int& egrez);  ///egz pazymiu gen
+void rng(string& vardas, string& pavarde);  ///vardu generavimas
 void skaitymas(vector<Stud>& grupe);
 void isvedimas(int pas, int pasmv, const vector<Stud>& grupe);
-bool gautteisinga(int& input, const string& prompt, int min, int max);
+bool gautteisinga(int& input, const string& prompt, int min, int max);   ///error handlingas neteisingos ivesties atveju

@@ -115,29 +115,40 @@ void skaitymas(vector<Stud>& grupe)
 	while (getline(in, temp))
 	{
 		futures.push_back(std::async(std::launch::async, [temp]() -> Stud {
-			Stud laik;
-			istringstream iss(temp);
-			iss >> laik.var >> laik.pav;
-			int pazym;
-			while (iss >> pazym)
-			{
-				laik.paz.push_back(pazym);
-			}
+			try {
+				Stud laik;
+				istringstream iss(temp);
+				iss >> laik.var >> laik.pav;
+				int pazym;
+				while (iss >> pazym)
+				{
+					laik.paz.push_back(pazym);
+				}
 
-			if (!laik.paz.empty())
-			{
-				laik.egrez = laik.paz.back();
-				laik.paz.pop_back();
-			}
-			else
-			{
-				throw runtime_error("Jokiu pazymiu nerasta mokiniui: " + laik.var + " " + laik.pav + "!");
+				if (!laik.paz.empty())
+				{
+					laik.egrez = laik.paz.back();
+					laik.paz.pop_back();
+				}
+				else
+				{
+					throw runtime_error("Jokiu pazymiu nerasta mokiniui: " + laik.var + " " + laik.pav + "!");
 					cout << endl;
+				}
+				laik.ndvid = ndvid(laik.paz);
+				laik.gal = galvid(laik.egrez, laik.ndvid);
+				laik.med = mediana(laik.paz, laik.egrez);
+				return laik;
 			}
-			laik.ndvid = ndvid(laik.paz);
-			laik.gal = galvid(laik.egrez, laik.ndvid);
-			laik.med = mediana(laik.paz, laik.egrez);
-			return laik;
+			catch (const runtime_error& e)
+			{
+				cerr << "Klaida: " << e.what() << endl;
+			}
+			catch (const exception& e)
+			{
+				cerr << "Nenumatyta klaida: " << e.what() << endl;
+			}
+			return Stud();
 			}));
 	}
 	in.close();

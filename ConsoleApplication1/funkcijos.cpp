@@ -98,6 +98,17 @@ void skaitymas(vector<Stud>& grupe)
 	Stud laik;
 	int pasi = 0;
 	cout << "Pasirinkite, koki faila norit atidaryti (1 - kursiokai1.txt [10000 studentu]; 2 - kursiokai2.txt [100000 studentu]; 3 - kursiokai3.txt [1000000 studentu]" << endl;
+	while (true) {
+		cin >> pasi;
+		if (cin.fail() || (pasi != 1 && pasi != 2 && pasi != 3)) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Neteisingas pasirinkimas. Iveskite 1, 2 arba 3" << endl;
+		}
+		else {
+			break;
+		}
+	}
 	string failopav;
 	switch (pasi)
 	{
@@ -211,7 +222,7 @@ void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 			}
 			break;
 		case 2:
-			out << left << setw(15) << "Vardas" << setw(18) << "Pavarde" << setw(8) << "Galutinis (vid.)" << endl;
+			out << left << setw(15) << "Pavarde" << setw(18) << "Vardas" << setw(8) << "Galutinis (vid.)" << endl;
 			out << string(52, '-') << endl;
 			for (const auto& n : grupe)
 			{

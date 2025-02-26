@@ -96,13 +96,27 @@ void rng(string& vardas, string& pavarde)
 void skaitymas(vector<Stud>& grupe)
 {
 	Stud laik;
-	string failopav = "kursiokai2.txt";
+	int pasi = 0;
+	cout << "Pasirinkite, koki faila norit atidaryti (1 - kursiokai1.txt [10000 studentu]; 2 - kursiokai2.txt [100000 studentu]; 3 - kursiokai3.txt [1000000 studentu]" << endl;
+	string failopav;
+	switch (pasi)
+	{
+		case 1:
+			failopav = "kursiokai1.txt";
+			break;
+		case 2:
+			failopav = "kursiokai2.txt";
+			break;
+		case 3:
+			failopav = "kursiokai3.txt";
+			break;
+	}
 	if (!failasegzistuoja(failopav))
 	{
 		cerr << "Klaida: failas " << failopav << " neegzistuoja nurodytoje vietoje!" << endl;
 		return;
 	}
-	ifstream in("kursiokai2.txt");
+	ifstream in(failopav);
 	if (!in)
 	{
 		cerr<<("Nepavyko atidaryti failo!")<<endl;

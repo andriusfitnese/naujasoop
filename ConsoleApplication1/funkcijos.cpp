@@ -3,7 +3,7 @@
 bool failasegzistuoja(const string& failopav)
 {
 	ifstream failas(failopav);
-		return failas.good();
+	return failas.good();
 }
 bool sortVardu(const Stud& a, const Stud& b) {
 	return a.var < b.var;
@@ -11,11 +11,9 @@ bool sortVardu(const Stud& a, const Stud& b) {
 bool sortPav(const Stud& a, const Stud& b) {
 	return a.pav < b.pav;
 }
-
 bool sortMed(const Stud& a, const Stud& b) {
 	return a.med < b.med;
 }
-
 bool sortGal(const Stud& a, const Stud& b) {
 	return a.gal < b.gal;
 }
@@ -112,15 +110,15 @@ void skaitymas(vector<Stud>& grupe)
 	string failopav;
 	switch (pasi)
 	{
-		case 1:
-			failopav = "kursiokai1.txt";
-			break;
-		case 2:
-			failopav = "kursiokai2.txt";
-			break;
-		case 3:
-			failopav = "kursiokai3.txt";
-			break;
+	case 1:
+		failopav = "kursiokai1.txt";
+		break;
+	case 2:
+		failopav = "kursiokai2.txt";
+		break;
+	case 3:
+		failopav = "kursiokai3.txt";
+		break;
 	}
 	if (!failasegzistuoja(failopav))
 	{
@@ -130,7 +128,7 @@ void skaitymas(vector<Stud>& grupe)
 	ifstream in(failopav);
 	if (!in)
 	{
-		cerr<<("Nepavyko atidaryti failo!")<<endl;
+		cerr << ("Nepavyko atidaryti failo!") << endl;
 		return;
 	}
 	cout << "Failas atidarytas.";
@@ -181,6 +179,7 @@ void skaitymas(vector<Stud>& grupe)
 	{
 		grupe.push_back(fut.get());
 	}
+	
 }
 void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 {
@@ -234,4 +233,3 @@ void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 		break;
 	}
 }
-

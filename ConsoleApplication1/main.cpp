@@ -27,6 +27,7 @@ int main()
 	if (pasir == 2)
 	{
 		skaitymas(grupe);
+		cout << "Skaitymas baigtas." << endl;
 	}
 	else {
 		while (true)
@@ -63,7 +64,7 @@ int main()
 					{
 						throw runtime_error("Generuoti galima tik is pradziu.Veskite ranka arba uzbaikite su -1.");
 					}
-					if (pazym == -1 and i > 0)tinka = true;
+					if (pazym == -1 and i > 0)break;
 					else if (pazym == -1 and i < 1) throw runtime_error("Neivedete nei vieno namu darbu pazymio!");
 					else
 					{
@@ -93,7 +94,7 @@ int main()
 						rng(laik.egrez);
 						break;
 					}
-					else tinka = true;
+					else break;
 				}
 				catch (const runtime_error& e)
 				{
@@ -122,7 +123,7 @@ int main()
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Neteisingas ivestas skaicius/simbolis. Pasirinkite tarp 1, 2, 3 ar 4.";
 		}
-		else tinka = true;
+		else break;
 	}
 	switch (sortpas) {
 	case 1:

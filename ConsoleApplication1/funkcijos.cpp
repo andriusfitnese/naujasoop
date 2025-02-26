@@ -233,3 +233,17 @@ void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 		break;
 	}
 }
+bool gautteisinga(int& input, const string& prompt, int min, int max) {
+	cout << prompt;
+	while (true) {
+		cin >> input;
+		if (cin.fail() || input < min || input > max) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Ivestas neteisingas simbolis/skaicius. Prasome ivesti reiksme tarp " << min << " ir " << max << ": ";
+		}
+		else {
+			return true;
+		}
+	}
+}

@@ -94,3 +94,4 @@ void rng(int& egrez);
 void rng(string& vardas, string& pavarde);
 void skaitymas(vector<Stud>& grupe);
 void isvedimas(int pas, int pasmv, const vector<Stud>& grupe);
+bool gautteisinga(int& input, const string& prompt, int min, int max);

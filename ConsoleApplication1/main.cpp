@@ -23,7 +23,7 @@ int main()
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
-	
+
 	if (pasir == 2)
 	{
 		skaitymas(grupe);
@@ -48,10 +48,10 @@ int main()
 			bool tinka = false;
 			while (!tinka)
 			{
-				try 
+				try
 				{
-				cin >> pazym;
-					if (cin.fail() or (pazym > 10 or pazym < 1) and pazym != -2 and pazym !=-1)
+					cin >> pazym;
+					if (cin.fail() or (pazym > 10 or pazym < 1) and pazym != -2 and pazym != -1)
 					{
 						throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
 					}
@@ -85,7 +85,7 @@ int main()
 			{
 				try {
 					cin >> laik.egrez;
-					if (cin.fail() or (laik.egrez < 1 and laik.egrez!=-1) or (laik.egrez>10 and laik.egrez!=-1))
+					if (cin.fail() or (laik.egrez < 1 and laik.egrez != -1) or (laik.egrez > 10 and laik.egrez != -1))
 					{
 						throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
 					}
@@ -102,8 +102,8 @@ int main()
 					cin.clear();
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				}
-				}
-				
+			}
+
 			laik.ndvid = ndvid(laik.paz);
 			laik.gal = galvid(laik.egrez, laik.ndvid);
 			laik.med = mediana(laik.paz, laik.egrez);
@@ -112,70 +112,38 @@ int main()
 		}
 	}
 	int sortpas = 0;
-	bool tinka = false;
-	cout << "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ";
-	while (!tinka)
-	{
-		cin >> sortpas;
-		if (cin.fail() or sortpas < 1 or sortpas>4)
-		{
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Neteisingas ivestas skaicius/simbolis. Pasirinkite tarp 1, 2, 3 ar 4.";
+	if (gautteisinga(sortpas, "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ", 1, 4))
+		switch (sortpas) {
+		case 1:
+			sort(grupe.begin(), grupe.end(), sortVardu);
+			cout << "Surikiuota pagal vardus (abeceles tvarka)." << endl;
+			break;
+		case 2:
+			sort(grupe.begin(), grupe.end(), sortPav);
+			cout << "Surikiuota pagal pavardes (abeceles tvarka)." << endl;
+			break;
+		case 3:
+			sort(grupe.begin(), grupe.end(), sortMed);
+			cout << "Surikiuota pagal mediana." << endl;
+			break;
+		case 4:
+			sort(grupe.begin(), grupe.end(), sortGal);
+			cout << "Surikiuota pagal galutini pazymi." << endl;
+			break;
+		default:
+			cout << "Neteisingas pasirinkimas!" << endl;
+			break;
 		}
-		else break;
-	}
-	switch (sortpas) {
-	case 1:
-		sort(grupe.begin(), grupe.end(), sortVardu);
-		cout << "Surikiuota pagal vardus (abeceles tvarka)." << endl;
-		break;
-	case 2:
-		sort(grupe.begin(), grupe.end(), sortPav);
-		cout << "Surikiuota pagal pavardes (abeceles tvarka)." << endl;
-		break;
-	case 3:
-		sort(grupe.begin(), grupe.end(), sortMed);
-		cout << "Surikiuota pagal mediana." << endl;
-		break;
-	case 4:
-		sort(grupe.begin(), grupe.end(), sortGal);
-		cout << "Surikiuota pagal galutini pazymi." << endl;
-		break;
-	default:
-		cout << "Neteisingas pasirinkimas!" << endl;
-		break;
-	}
 	int pas = 0;
-	int pasmv = 0;
-	cout << "I ekrana(1) ar i faila(2)?" << endl;
-	while (true) {
-		cin >> pas;
-		if (cin.fail() || (pas != 1 && pas != 2)) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Neteisingas pasirinkimas. Iveskite 1 arba 2." << endl;
-		}
-		else {
-			break;
-		}
-	}
-	cout << "Isvesti mediana(1), vidurki(2)?" << endl;
-	while (true) {
-		cin >> pasmv;
-		if (cin.fail() || (pasmv != 1 && pasmv != 2)) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Neteisingas pasirinkimas. Iveskite 1 arba 2." << endl;
-		}
-		else {
-			break;
-		}
-	}
-	if (grupe.empty())
+	if (gautteisinga(pas, "I ekrana(1) ar i faila(2)?", 1, 2))
 	{
-		cout << "Nera ivestu studentu! Programa baigiama." << endl;
-		return 1;
+		int pasmv = 0;
+		gautteisinga(pasmv, "Isvesti mediana(1), vidurki(2)?", 1, 2);
+		if (grupe.empty())
+		{
+			cout << "Studentu nerasta! programa baigiama!";
+			return 1;
+		}
+		else isvedimas(pas, pasmv, grupe);
 	}
-	else isvedimas(pas, pasmv, grupe);
 }

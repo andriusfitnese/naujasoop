@@ -2,9 +2,16 @@
 int main()
 {
 	vector<Stud> grupe;
+	deque<Stud> nerdai;
+	list<Stud> galiorka;
 	Stud laik;
 	bool geras = false;
 	int pasir = 0;
+	/*failogen("1000", 1000);
+	failogen("10000", 10000);
+	failogen("100000", 100000);
+	failogen("1000000", 1000000);
+	failogen("10000000", 10000000);*/
 	while (!geras)
 	{
 		try {

@@ -247,3 +247,65 @@ bool gautteisinga(int& input, const string& prompt, int min, int max) {
 		}
 	}
 }
+void failogen(const string& failopav, int irasuk)
+{
+	ofstream out(failopav);
+	if (!out)
+	{
+		cerr << "Klaida! Neatidarytas failas " << failopav << endl;
+		return;
+	}
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<int> pazymk(1, 20);
+	uniform_int_distribution<int> pazym(1, 10);
+
+	const size_t bufferSize = 20000;
+	vector<string> buffer;
+	buffer.reserve(bufferSize);
+	///int kiekpaz = pazymk(gen);
+	int kiekpaz = 10;
+	out << left << setw(15) << "Vardas" << setw(15) << "Pavarde";
+	for (int i = 1;i <= kiekpaz;i++)
+	{
+		out <<setw(6)<<( "ND" + to_string(i) );
+	}
+	out <<setw(10)<< "Egzaminas\n";
+	for (int i = 1;i <= irasuk;i++)
+	{
+		ostringstream eil;
+		eil << left << setw(15) << ("VardasNR" + to_string(i)) << setw(15) << ("PavardeNR" + to_string(i));
+		for (int j = 0;j < kiekpaz;j++)
+		{
+			eil <<setw(6) << pazym(gen);
+		}
+		eil <<setw(10)<< pazym(gen);
+		eil << endl;
+		buffer.push_back(eil.str());
+
+		if (buffer.size() >= bufferSize)
+		{
+			for (const auto& line : buffer)
+			{
+				out << line;
+			}
+			buffer.clear();
+		}
+	}
+	for (const auto& eil : buffer) {
+		out << eil;
+	}
+
+
+	out.close();
+}
+void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka)
+{
+	for (const auto& n : grupe)
+	{
+		if (n.gal >= 5) nerdai.push_back(n);
+		else galiorka.push_back(n);
+	}
+	grupe.clear();
+	grupe = vector<Stud>();
+}

@@ -12,6 +12,8 @@
 #include <execution>
 #include <future> 
 #include <functional> //del greater ir less funkciju
+#include <deque>
+#include <list>
 
 using std::cout;
 using std::cin;
@@ -38,6 +40,10 @@ using std::future;
 using std::runtime_error;
 using std::ios;
 using std::exception;
+using std::to_string;
+using std::ostringstream;
+using std::deque;
+using std::list;
 
 const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
 const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };
@@ -95,3 +101,4 @@ void rng(string& vardas, string& pavarde);  ///vardu generavimas
 void skaitymas(vector<Stud>& grupe);
 void isvedimas(int pas, int pasmv, const vector<Stud>& grupe);
 bool gautteisinga(int& input, const string& prompt, int min, int max);   ///error handlingas neteisingos ivesties atveju
+void failogen(const string& failopav, int irasuk);

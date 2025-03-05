@@ -18,7 +18,6 @@ int main()
 		try {
 			cout << "Pasirinkite, ar noresite vesti bent kelis duomenis ranka arba generuot (1); ar skaitysite is failo (2)" << endl;
 			cin >> pasir;
-
 			if (cin.fail() || (pasir != 1 && pasir != 2)) {
 				throw runtime_error("Netinkamas pasirinkimas. Iveskite 1 arba 2.");
 			}
@@ -179,4 +178,5 @@ int main()
 			break;
 	}
 	auto endv = high_resolution_clock::now();
+	cout<<"Visos programos veikimo laikas: "<< duration<double>(endv - startv).count() << endl;
 }

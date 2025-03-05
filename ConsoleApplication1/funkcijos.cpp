@@ -95,7 +95,7 @@ void skaitymas(vector<Stud>& grupe)
 {
 	Stud laik;
 	int pasi = 0;
-	cout << "Pasirinkite, koki faila norit atidaryti (1 - kursiokai1.txt [10000 studentu]; 2 - kursiokai2.txt [100000 studentu]; 3 - kursiokai3.txt [1000000 studentu]" << endl;
+	cout << "Pasirinkite, koki faila norit atidaryti (1 - 1000 studentu; 2 - 10000 studentu; 3 - 100000 studentu" << endl;
 	while (true) {
 		cin >> pasi;
 		if (cin.fail() || (pasi != 1 && pasi != 2 && pasi != 3)) {
@@ -299,8 +299,11 @@ void failogen(const string& failopav, int irasuk)
 
 	out.close();
 }
-void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka)
+void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv)
 {
+	string pasir;
+	if (pasmv == 1)pasir = "Mediana";
+	else pasir = "Galutinis";
 	for (const auto& n : grupe)
 	{
 		if (n.gal >= 5) nerdai.push_back(n);
@@ -308,4 +311,8 @@ void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka)
 	}
 	grupe.clear();
 	grupe = vector<Stud>();
+	ofstream outp("nerdai.txt");
+	outp << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
+	ofstream outf("galiorka.txt");
+	outf << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
 }

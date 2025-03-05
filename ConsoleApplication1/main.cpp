@@ -142,17 +142,23 @@ int main()
 			break;
 		}
 	int pas = 0;
+	int pasmv = 0;
 	if (gautteisinga(pas, "Ar isskirti studentus, kurie pazangus ir nepazangus [bus galimas tik isvedimas i faila!] (1) ar ne? (2)", 1, 2))
 		switch (pas)
 		{
 		case 1:
-			atrinkimas(grupe, nerdai, galiorka);
+			gautteisinga(pasmv, "Isvesti mediana(1), vidurki(2)?", 1, 2);
+			if (grupe.empty())
+			{
+				cout << "Studentu nerasta! programa baigiama!";
+				return 1;
+			}
+			else atrinkimas(grupe, nerdai, galiorka,pasmv);
 			break;
 		case 2:
 			pas = 0;
 			if (gautteisinga(pas, "I ekrana(1) ar i faila(2)?", 1, 2))
 			{
-				int pasmv = 0;
 				gautteisinga(pasmv, "Isvesti mediana(1), vidurki(2)?", 1, 2);
 				if (grupe.empty())
 				{

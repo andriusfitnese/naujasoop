@@ -95,7 +95,7 @@ void skaitymas(vector<Stud>& grupe)
 {
 	Stud laik;
 	int pasi = 0;
-	cout << "Pasirinkite, koki faila norit atidaryti (1 - 1000 studentu; 2 - 10000 studentu; 3 - 100000 studentu" << endl;
+	cout << "Pasirinkite, koki faila norit atidaryti (1 - 1000 studentu; 2 - 10000 studentu; 3 - 100000 studentu)" << endl;
 	while (true) {
 		cin >> pasi;
 		if (cin.fail() || (pasi != 1 && pasi != 2 && pasi != 3)) {
@@ -111,13 +111,13 @@ void skaitymas(vector<Stud>& grupe)
 	switch (pasi)
 	{
 	case 1:
-		failopav = "kursiokai1.txt";
+		failopav = "1000";
 		break;
 	case 2:
-		failopav = "kursiokai2.txt";
+		failopav = "10000";
 		break;
 	case 3:
-		failopav = "kursiokai3.txt";
+		failopav = "100000";
 		break;
 	}
 	if (!failasegzistuoja(failopav))
@@ -302,8 +302,20 @@ void failogen(const string& failopav, int irasuk)
 void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv)
 {
 	string pasir;
-	if (pasmv == 1)pasir = "Mediana";
-	else pasir = "Galutinis";
+	string pasis;
+	
+	if (pasmv == 1)
+	{
+		pasir = "Mediana";
+		pasis = "n.med";
+	}
+		
+	else
+	{
+		pasir = "Galutinis";
+		pasis = "n.gal";
+	}
+
 	for (const auto& n : grupe)
 	{
 		if (n.gal >= 5) nerdai.push_back(n);
@@ -313,6 +325,15 @@ void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, 
 	grupe = vector<Stud>();
 	ofstream outp("nerdai.txt");
 	outp << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
+	for (const auto& n : nerdai)
+	{
+		outp << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis;
+
+	}
 	ofstream outf("galiorka.txt");
 	outf << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
+	for (const auto& n : nerdai)
+	{
+		outf << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis;
+	}
 }

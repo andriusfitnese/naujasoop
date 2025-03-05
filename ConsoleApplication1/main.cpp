@@ -1,6 +1,7 @@
 #include "manolib.h"
 int main()
 {
+	auto startv = high_resolution_clock::now();
 	vector<Stud> grupe;
 	deque<Stud> nerdai;
 	list<Stud> galiorka;
@@ -119,28 +120,36 @@ int main()
 		}
 	}
 	int sortpas = 0;
+	string pasirn;
+	auto start = high_resolution_clock::now();
 	if (gautteisinga(sortpas, "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ", 1, 4))
 		switch (sortpas) {
 		case 1:
 			sort(grupe.begin(), grupe.end(), sortVardu);
 			cout << "Surikiuota pagal vardus (abeceles tvarka)." << endl;
+			pasirn = "vardus";
 			break;
 		case 2:
 			sort(grupe.begin(), grupe.end(), sortPav);
 			cout << "Surikiuota pagal pavardes (abeceles tvarka)." << endl;
+			pasirn = "pavardes";
 			break;
 		case 3:
 			sort(grupe.begin(), grupe.end(), sortMed);
 			cout << "Surikiuota pagal mediana." << endl;
+			pasirn = "mediana";
 			break;
 		case 4:
 			sort(grupe.begin(), grupe.end(), sortGal);
 			cout << "Surikiuota pagal galutini pazymi." << endl;
+			pasirn = "galutini pazymi";
 			break;
 		default:
 			cout << "Neteisingas pasirinkimas!" << endl;
 			break;
 		}
+	auto end = high_resolution_clock::now();
+	cout << "Rusiavimo pagal "<<pasirn<<" laikas:" << duration<double>(end - start).count() << endl;
 	int pas = 0;
 	int pasmv = 0;
 	if (gautteisinga(pas, "Ar isskirti studentus, kurie pazangus ir nepazangus [bus galimas tik isvedimas i faila!] (1) ar ne? (2)", 1, 2))
@@ -169,5 +178,5 @@ int main()
 			}
 			break;
 	}
-	
+	auto endv = high_resolution_clock::now();
 }

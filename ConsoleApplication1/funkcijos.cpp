@@ -93,6 +93,7 @@ void rng(string& vardas, string& pavarde)
 }
 void skaitymas(vector<Stud>& grupe)
 {
+	auto start = high_resolution_clock::now();
 	Stud laik;
 	int pasi = 0;
 	cout << "Pasirinkite, koki faila norit atidaryti (1 - 1000 studentu; 2 - 10000 studentu; 3 - 100000 studentu)" << endl;
@@ -179,7 +180,8 @@ void skaitymas(vector<Stud>& grupe)
 	{
 		grupe.push_back(fut.get());
 	}
-	
+	auto end = high_resolution_clock::now();
+	cout << "Failo is " << failopav << " irasu skaitymo laikas: " << duration<double>(end - start).count() << endl;
 }
 void isvedimas(int pas, int pasmv, const vector<Stud>& grupe)
 {
@@ -307,6 +309,7 @@ void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, 
 
 	string pasir = (pasmv == 1) ? "Mediana" : "Galutinis";
 
+	auto start = high_resolution_clock::now();
 	for (const auto& n : grupe)
 	{
 		if (n.gal >= 5) nerdai.push_back(n);
@@ -314,6 +317,9 @@ void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, 
 	}
 	grupe.clear();
 	grupe = vector<Stud>();
+	auto end = high_resolution_clock::now();
+	cout << "Atskyrimo i dvi grupes veikimo laikas panaikinant originalu vektoriu: " << duration<double>(end - start).count() << endl;
+	auto start = high_resolution_clock::now();
 	ofstream outp("nerdai.txt");
 	outp << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : nerdai)
@@ -321,6 +327,9 @@ void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, 
 		outp << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis(n);
 		outp << endl;
 	}
+	auto end = high_resolution_clock::now();
+	cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end - start).count() << endl;
+	auto start = high_resolution_clock::now();
 	ofstream outf("galiorka.txt");
 	outf << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
 	for (const auto& n : galiorka)
@@ -328,4 +337,6 @@ void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, 
 		outf << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis(n);
 		outf << endl;
 	}
+	auto end = high_resolution_clock::now();
+	cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end - start).count() << endl;
 }

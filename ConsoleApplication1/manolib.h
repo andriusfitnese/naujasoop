@@ -13,6 +13,7 @@
 #include <future> 
 #include <functional> //del greater ir less funkciju
 #include <deque>
+#include <chrono>
 #include <list>
 
 using std::cout;
@@ -44,6 +45,9 @@ using std::to_string;
 using std::ostringstream;
 using std::deque;
 using std::list;
+
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
 
 const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
 const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };

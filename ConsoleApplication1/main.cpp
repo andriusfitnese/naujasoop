@@ -1,13 +1,14 @@
 #include "manolib.h"
 int main()
 {
-	auto startv = high_resolution_clock::now();
 	vector<Stud> grupe;
 	deque<Stud> nerdai;
 	list<Stud> galiorka;
 	Stud laik;
 	bool geras = false;
 	int pasir = 0;
+	duration<double>veiklaik;
+
 	/*failogen("1000", 1000);
 	failogen("10000", 10000);
 	failogen("100000", 100000);
@@ -33,7 +34,7 @@ int main()
 
 	if (pasir == 2)
 	{
-		skaitymas(grupe);
+		skaitymas(grupe, veiklaik);
 		cout << "Skaitymas baigtas." << endl;
 	}
 	else {
@@ -120,26 +121,34 @@ int main()
 	}
 	int sortpas = 0;
 	string pasirn;
-	auto start = high_resolution_clock::now();
-	if (gautteisinga(sortpas, "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ", 1, 4))
+	if (gautteisinga(sortpas, "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ", 1, 4)){}
+		high_resolution_clock::time_point start, end;
 		switch (sortpas) {
 		case 1:
+			start = high_resolution_clock::now();
 			sort(grupe.begin(), grupe.end(), sortVardu);
+			end = high_resolution_clock::now();
 			cout << "Surikiuota pagal vardus (abeceles tvarka)." << endl;
 			pasirn = "vardus";
 			break;
 		case 2:
+			start = high_resolution_clock::now();
 			sort(grupe.begin(), grupe.end(), sortPav);
+			end = high_resolution_clock::now();
 			cout << "Surikiuota pagal pavardes (abeceles tvarka)." << endl;
 			pasirn = "pavardes";
 			break;
 		case 3:
+			start = high_resolution_clock::now();
 			sort(grupe.begin(), grupe.end(), sortMed);
+			end = high_resolution_clock::now();
 			cout << "Surikiuota pagal mediana." << endl;
 			pasirn = "mediana";
 			break;
 		case 4:
+			start = high_resolution_clock::now();
 			sort(grupe.begin(), grupe.end(), sortGal);
+			end = high_resolution_clock::now();
 			cout << "Surikiuota pagal galutini pazymi." << endl;
 			pasirn = "galutini pazymi";
 			break;
@@ -147,7 +156,7 @@ int main()
 			cout << "Neteisingas pasirinkimas!" << endl;
 			break;
 		}
-	auto end = high_resolution_clock::now();
+		veiklaik += end - start;
 	cout << "Rusiavimo pagal "<<pasirn<<" laikas:" << duration<double>(end - start).count() << endl;
 	int pas = 0;
 	int pasmv = 0;
@@ -161,7 +170,7 @@ int main()
 				cout << "Studentu nerasta! programa baigiama!";
 				return 1;
 			}
-			else atrinkimas(grupe, nerdai, galiorka,pasmv);
+			else atrinkimas(grupe, nerdai, galiorka,pasmv,veiklaik);
 			break;
 		case 2:
 			pas = 0;
@@ -177,6 +186,5 @@ int main()
 			}
 			break;
 	}
-	auto endv = high_resolution_clock::now();
-	cout<<"Visos programos veikimo laikas: "<< duration<double>(endv - startv).count() << endl;
+	cout<<"Visos programos testo laikas: "<< veiklaik.count() << endl;
 }

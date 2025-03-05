@@ -7,7 +7,7 @@ int main()
 	Stud laik;
 	bool geras = false;
 	int pasir = 0;
-	duration<double>veiklaik;
+	auto veiklaik=duration<double>::zero();
 
 	/*failogen("1000", 1000);
 	failogen("10000", 10000);

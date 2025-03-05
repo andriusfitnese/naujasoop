@@ -96,13 +96,13 @@ void skaitymas(vector<Stud>& grupe, duration<double>& veiklaik)
 	
 	Stud laik;
 	int pasi = 0;
-	cout << "Pasirinkite, koki faila norit atidaryti (1 - 1000 studentu; 2 - 10000 studentu; 3 - 100000 studentu)" << endl;
+	cout << "Pasirinkite, koki faila norit atidaryti (1 - 1000 studentu; 2 - 10000 studentu; 3 - 100000 studentu; 4 - 1000000 studentu)" << endl;
 	while (true) {
 		cin >> pasi;
-		if (cin.fail() || (pasi != 1 && pasi != 2 && pasi != 3)) {
+		if (cin.fail() || (pasi != 1 && pasi != 2 && pasi != 3 && pasi !=4)) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Neteisingas pasirinkimas. Iveskite 1, 2 arba 3" << endl;
+			cout << "Neteisingas pasirinkimas. Iveskite 1, 2, 3 arba 4" << endl;
 		}
 		else {
 			break;
@@ -119,6 +119,9 @@ void skaitymas(vector<Stud>& grupe, duration<double>& veiklaik)
 		break;
 	case 3:
 		failopav = "100000";
+		break;
+	case 4:
+		failopav = "1000000";
 		break;
 	}
 	if (!failasegzistuoja(failopav))

@@ -102,3 +102,4 @@ void skaitymas(vector<Stud>& grupe);
 void isvedimas(int pas, int pasmv, const vector<Stud>& grupe);
 bool gautteisinga(int& input, const string& prompt, int min, int max);   ///error handlingas neteisingos ivesties atveju
 void failogen(const string& failopav, int irasuk);
+void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka);

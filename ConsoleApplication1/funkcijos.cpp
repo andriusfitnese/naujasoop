@@ -318,14 +318,14 @@ void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, 
 	outp << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : nerdai)
 	{
-		outp << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis;
+		outp << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis(n);
 		outp << endl;
 	}
 	ofstream outf("galiorka.txt");
 	outf << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
-	for (const auto& n : nerdai)
+	for (const auto& n : galiorka)
 	{
-		outf << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis;
+		outf << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis(n);
 		outf << endl;
 	}
 }

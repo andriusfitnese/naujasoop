@@ -302,19 +302,11 @@ void failogen(const string& failopav, int irasuk)
 void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv)
 {
 	string pasir;
-	string pasis;
-	
-	if (pasmv == 1)
-	{
-		pasir = "Mediana";
-		pasis = "n.med";
-	}
-		
-	else
-	{
-		pasir = "Galutinis";
-		pasis = "n.gal";
-	}
+	auto pasis = (pasmv == 1) ?
+		[](const Stud& s) { return s.med; } :
+		[](const Stud& s) { return s.gal; };
+
+	string pasir = (pasmv == 1) ? "Mediana" : "Galutinis";
 
 	for (const auto& n : grupe)
 	{
@@ -324,16 +316,17 @@ void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, 
 	grupe.clear();
 	grupe = vector<Stud>();
 	ofstream outp("nerdai.txt");
-	outp << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
+	outp << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : nerdai)
 	{
 		outp << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis;
-
+		outp << endl;
 	}
 	ofstream outf("galiorka.txt");
 	outf << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
 	for (const auto& n : nerdai)
 	{
 		outf << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis;
+		outf << endl;
 	}
 }

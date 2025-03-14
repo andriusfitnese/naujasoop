@@ -45,7 +45,6 @@ using std::to_string;
 using std::ostringstream;
 using std::deque;
 using std::list;
-
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 
@@ -62,8 +61,7 @@ struct Stud {
 	double ndvid;
 	double gal;
 	double med;
-
-	Stud() : P(nullptr), pazkiek(0) {}  ///default konstruktorius
+	/*Stud() : P(nullptr), pazkiek(0) {}  ///default konstruktorius
 
 	~Stud() {
 		delete[]P;
@@ -89,7 +87,7 @@ struct Stud {
 		else {
 			P = nullptr;
 		}
-	}
+	}*/
 };
 
 bool sortVardu(const Stud& a, const Stud& b);
@@ -102,8 +100,8 @@ double ndvid(const vector<int>& paz);
 void rng(vector<int>& paz);  ///nd pazymiu gen
 void rng(int& egrez);  ///egz pazymiu gen
 void rng(string& vardas, string& pavarde);  ///vardu generavimas
-void skaitymas(vector<Stud>& grupe, duration<double>& veiklaik);
-void isvedimas(int pas, int pasmv, const vector<Stud>& grupe);
+void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik);
+void isvedimas(int pas, int pasmv, const deque<Stud>& grupe);
 bool gautteisinga(int& input, const string& prompt, int min, int max);   ///error handlingas neteisingos ivesties atveju
 void failogen(const string& failopav, int irasuk);
-void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
+void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik);

@@ -1,7 +1,7 @@
 #include "manolib.h"
 int main()
 {
-	vector<Stud> grupe;
+	deque<Stud> grupe;
 	deque<Stud> nerdai;
 	list<Stud> galiorka;
 	Stud laik;

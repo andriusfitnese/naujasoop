@@ -18,8 +18,11 @@
 
 using std::cout;
 using std::cin;
+using std::min;
 using std::endl;
 using std::vector;
+using std::stringstream;
+using std::launch;
 using std::fixed;
 using std::setw;
 using std::left;
@@ -105,3 +108,4 @@ void isvedimas(int pas, int pasmv, const deque<Stud>& grupe);
 bool gautteisinga(int& input, const string& prompt, int min, int max);   ///error handlingas neteisingos ivesties atveju
 void failogen(const string& failopav, int irasuk);
 void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
+vector<Stud> processBatch(const vector<string>& lines);

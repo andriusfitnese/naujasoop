@@ -1,4 +1,4 @@
-#include "manolib.h"
+﻿#include "manolib.h"
 
 bool failasegzistuoja(const string& failopav)
 {
@@ -91,103 +91,109 @@ void rng(string& vardas, string& pavarde)
 	pavarde = pavardes[nameDist(gen)];
 	cout << vardas << " " << pavarde << endl;
 }
-void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik)
-{
-	
-	Stud laik;
+vector<Stud> processBatch(const vector<string>& lines) {
+	vector<Stud> batchResults;
+	batchResults.reserve(lines.size());
+
+	for (const auto& line : lines) {
+		Stud laik;
+		istringstream iss(line);
+		iss >> laik.var >> laik.pav;
+
+		int pazym;
+		while (iss >> pazym) {
+			laik.paz.push_back(pazym);
+		}
+
+		if (!laik.paz.empty()) {
+			laik.egrez = laik.paz.back();
+			laik.paz.pop_back();
+		}
+
+		laik.ndvid = ndvid(laik.paz);
+		laik.gal = galvid(laik.egrez, laik.ndvid);
+		laik.med = mediana(laik.paz, laik.egrez);
+		batchResults.push_back(laik);
+	}
+	return batchResults;
+}
+
+// Buffered reading function
+void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 	int pasi = 0;
-	cout << "Pasirinkite, koki faila norit atidaryti (1 - 1000 studentu; 2 - 10000 studentu; 3 - 100000 studentu; 4 - 1000000 studentu)" << endl;
+	cout << "Pasirinkite faila (1 - 1000; 2 - 10000; 3 - 100000; 4 - 1000000; 5 - 10000000): " << endl;
+
 	while (true) {
 		cin >> pasi;
-		if (cin.fail() || (pasi != 1 && pasi != 2 && pasi != 3 && pasi !=4)) {
+		if (cin.fail() || pasi < 1 || pasi > 5) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Neteisingas pasirinkimas. Iveskite 1, 2, 3 arba 4" << endl;
+			cout << "Netinkamas pasirinkimas. Bandykite dar kartą." << endl;
 		}
 		else {
 			break;
 		}
 	}
-	string failopav;
-	switch (pasi)
-	{
-	case 1:
-		failopav = "1000";
-		break;
-	case 2:
-		failopav = "10000";
-		break;
-	case 3:
-		failopav = "100000";
-		break;
-	case 4:
-		failopav = "1000000";
-		break;
-	}
-	if (!failasegzistuoja(failopav))
-	{
-		cerr << "Klaida: failas " << failopav << " neegzistuoja nurodytoje vietoje!" << endl;
-		return;
-	}
-	ifstream in(failopav);
-	if (!in)
-	{
-		cerr << ("Nepavyko atidaryti failo!") << endl;
-		return;
-	}
-	cout << "Failas atidarytas.";
-	auto start4 = high_resolution_clock::now();
-	string temp;
-	getline(in, temp);
-	vector<future<Stud>> futures;
-	while (getline(in, temp))
-	{
-		futures.push_back(std::async(std::launch::async, [temp]() -> Stud {
-			try {
-				Stud laik;
-				istringstream iss(temp);
-				iss >> laik.var >> laik.pav;
-				int pazym;
-				while (iss >> pazym)
-				{
-					laik.paz.push_back(pazym);
-				}
 
-				if (!laik.paz.empty())
-				{
-					laik.egrez = laik.paz.back();
-					laik.paz.pop_back();
-				}
-				else
-				{
-					throw runtime_error("Jokiu pazymiu nerasta mokiniui: " + laik.var + " " + laik.pav + "!");
-					cout << endl;
-				}
-				laik.ndvid = ndvid(laik.paz);
-				laik.gal = galvid(laik.egrez, laik.ndvid);
-				laik.med = mediana(laik.paz, laik.egrez);
-				return laik;
-			}
-			catch (const runtime_error& e)
-			{
-				cerr << "Klaida: " << e.what() << endl;
-			}
-			catch (const exception& e)
-			{
-				cerr << "Nenumatyta klaida: " << e.what() << endl;
-			}
-			return Stud();
-			}));
+	string failopav = to_string(static_cast<int>(pow(10, pasi + 2)));
+	if (!failasegzistuoja(failopav)) {
+		cerr << "Klaida: failas " << failopav << " neegzistuoja!" << endl;
+		return;
 	}
+
+	ifstream in(failopav, ios::in | ios::ate); // atidarom gale paziureti failo dydi
+	if (!in) {
+		cerr << "Nepavyko atidaryti failo!" << endl;
+		return;
+	}
+
+	size_t fileSize = in.tellg(); // gaunam failo dydi
+	in.seekg(0, ios::beg); // einam i prieky failo
+
+	cout << "Failas atidarytas: " << failopav << endl;
+	auto start = high_resolution_clock::now();
+
+	const size_t BUFFER_SIZE = 64 * 1024 * 1024;
+	vector<char> buffer(min(fileSize, BUFFER_SIZE));
+
+	string header;
+	getline(in, header);
+
+	vector<future<vector<Stud>>> futures;
+	vector<string> lines;
+
+	while (in.read(buffer.data(), buffer.size()) || in.gcount() > 0) {
+		stringstream ss(string(buffer.data(), in.gcount()));
+		string line;
+
+		while (getline(ss, line)) {
+			lines.push_back(line);
+
+			if (lines.size() >= 50000) {
+				futures.push_back(async(launch::async, processBatch, lines));
+				lines.clear();
+			}
+		}
+	}
+
 	in.close();
-	for (auto& fut : futures)
-	{
-		grupe.push_back(fut.get());
+
+	// imam likusias eil
+	if (!lines.empty()) {
+		futures.push_back(async(launch::async, processBatch, lines));
 	}
-	auto end4 = high_resolution_clock::now();
-	veiklaik += end4 - start4;
-	cout << "Failo is " << failopav << " irasu skaitymo laikas: " << duration<double>(end4 - start4).count() << endl;
+
+	// surenkam rezultatus
+	for (auto& fut : futures) {
+		vector<Stud> batch = fut.get();
+		grupe.insert(grupe.end(), batch.begin(), batch.end());
+	}
+
+	auto end = high_resolution_clock::now();
+	veiklaik += end - start;
+	cout << "Failo skaitymo laikas: " << duration<double>(end - start).count() << " s" << endl;
 }
+
 void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
 {
 
@@ -338,7 +344,7 @@ void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, i
 	///cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end2 - start2).count() << endl;
 	///auto start3 = high_resolution_clock::now();
 	ofstream outf("galiorka.txt");
-	outf << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir;
+	outf << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : galiorka)
 	{
 		outf << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis(n);

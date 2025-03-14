@@ -25,9 +25,9 @@ Naudojant deque vietoj vector studentams: (be energy saver, su įdetu krauti kom
 ![image](https://github.com/user-attachments/assets/a6ca4d46-c6e6-4846-9adc-924da7aa2541)
 
 
-| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |
-|------------------------------------|-------|-------|--------|---------|
-| Skaitymo laikas                    | 0.14  | 1.07  | 10.70  | 127.38  |
-| Rūšiavimo laikas                   | 0.02  | 0.22  | 1.21   | 16.33   |
-| Atskyrimo i vektorius laikas       | 0.01  | 0.04  | 0.04   | 6.94    |
-| Visas veikimo laikas               | 0.19  | 1.58  | 14.57  | 176     |
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.04  | 0.37  | 3.96   | 40.53   | 334.27 |
+| Rūšiavimo laikas                   | 0.01  | 0.08  | 0.95   | 11.68   | 169.38 |
+| Atskyrimo i vektorius laikas       | 0.003 | 0.03  | 0.35   | 4.48    | 280.20 |
+| Visas veikimo laikas               | 0.05  | 0.48  | 5.26   | 56.68   | 783.85 |

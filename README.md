@@ -1,4 +1,5 @@
 Reiktų paminėt, kad šiuos testus vykdau ant gan lėto kompiuterio ir ant energy saving rėžimo, tai nors ir naudojami buffers ir async vietomis, vykdymas vis tiek gan lėtas.
+Naudojamas paprastas vektorius studentų duomenims laikyti, o nerdai ir galiorka yra atitinkamai deque ir list.
 
 ![image](https://github.com/user-attachments/assets/26fe63ca-9f13-4c7a-bca2-7f6b4fbb439d)
 ![image](https://github.com/user-attachments/assets/c25dac96-640a-4333-adea-6382a7cd63d7)
@@ -12,4 +13,21 @@ Reiktų paminėt, kad šiuos testus vykdau ant gan lėto kompiuterio ir ant ener
 | Atskyrimo i vektorius laikas       | 0.01  | 0.04  | 0.04   | 6.94    |
 | Nerdų surašymo laikas              | 0.01  | 0.15  | 1.35   | 14.84   |
 | Galiorkos surašymo laikas          | 0.01  | 0.10  | 0.94   | 10.52   |
+| Visas veikimo laikas               | 0.19  | 1.58  | 14.57  | 176     |
+
+
+
+Naudojant deque vietoj vector studentams: (be energy saver, su įdetu krauti kompiuteriu)
+
+![image](https://github.com/user-attachments/assets/0fe07ecc-b20a-4e7e-87f2-36e5a9240c0e)
+![image](https://github.com/user-attachments/assets/c914ddb3-7807-496d-9470-6983b5ede27d)
+![image](https://github.com/user-attachments/assets/1fe18547-666e-4e97-86b8-949ffd72b07a)
+![image](https://github.com/user-attachments/assets/a6ca4d46-c6e6-4846-9adc-924da7aa2541)
+
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |
+|------------------------------------|-------|-------|--------|---------|
+| Skaitymo laikas                    | 0.14  | 1.07  | 10.70  | 127.38  |
+| Rūšiavimo laikas                   | 0.02  | 0.22  | 1.21   | 16.33   |
+| Atskyrimo i vektorius laikas       | 0.01  | 0.04  | 0.04   | 6.94    |
 | Visas veikimo laikas               | 0.19  | 1.58  | 14.57  | 176     |

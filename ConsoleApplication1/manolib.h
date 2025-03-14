@@ -97,7 +97,7 @@ bool sortVardu(const Stud& a, const Stud& b);
 bool sortPav(const Stud& a, const Stud& b);
 bool sortMed(const Stud& a, const Stud& b);
 bool sortGal(const Stud& a, const Stud& b);
-double mediana(const vector<int>& paz, double egrez);
+double mediana(const vector<int>& paz, double egrez,string var);
 double galvid(double egrez, double ndvd);
 double ndvid(const vector<int>& paz);
 void rng(vector<int>& paz);  ///nd pazymiu gen

@@ -17,11 +17,11 @@ bool sortMed(const Stud& a, const Stud& b) {
 bool sortGal(const Stud& a, const Stud& b) {
 	return a.gal < b.gal;
 }
-double mediana(const vector<int>& paz, double egrez)
+double mediana(const vector<int>& paz, double egrez, string var)
 {
 	if (paz.empty())
 	{
-		cerr << "Namu darbu pazymiu nera" << endl;
+		cerr << "Namu darbu pazymiu nerasta mokiniui "<< var << endl;
 		return egrez;
 	}
 	vector<int> sorted_paz = paz;
@@ -112,13 +112,12 @@ vector<Stud> processBatch(const vector<string>& lines) {
 
 		laik.ndvid = ndvid(laik.paz);
 		laik.gal = galvid(laik.egrez, laik.ndvid);
-		laik.med = mediana(laik.paz, laik.egrez);
+		laik.med = mediana(laik.paz, laik.egrez, laik.var);
 		batchResults.push_back(laik);
 	}
 	return batchResults;
 }
 
-// Buffered reading function
 void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 	int pasi = 0;
 	cout << "Pasirinkite faila (1 - 1000; 2 - 10000; 3 - 100000; 4 - 1000000; 5 - 10000000): " << endl;
@@ -167,8 +166,29 @@ void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 		string line;
 
 		while (getline(ss, line)) {
-			lines.push_back(line);
 
+			auto trim = [](const string& str) -> string {
+				size_t first = str.find_first_not_of(" \t");
+				size_t last = str.find_last_not_of(" \t");
+				return (first == string::npos || last == string::npos) ? "" : str.substr(first, last - first + 1);
+				};
+			// Split line into fields
+			stringstream lineStream(line);
+			string vardas, pavarde, grade;
+
+			// Read and trim vardas (first part before number)
+			lineStream >> vardas;
+			vardas = trim(vardas);  // Apply trim function to remove extra spaces
+
+			// Read and trim pavarde (second part before number)
+			lineStream >> pavarde;
+			pavarde = trim(pavarde);  // Apply trim function to remove extra spaces
+
+			getline(lineStream, grade);
+
+			if (!vardas.empty() && !pavarde.empty()) {
+				lines.push_back(line);
+			}
 			if (lines.size() >= 50000) {
 				futures.push_back(async(launch::async, processBatch, lines));
 				lines.clear();
@@ -333,10 +353,10 @@ void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, i
 	cout << "Atskyrimo i dvi grupes veikimo laikas panaikinant originalu vektoriu: " << duration<double>(end1 - start1).count() << endl;
 	///auto start2 = high_resolution_clock::now();
 	ofstream outp("nerdai.txt");
-	outp << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir << endl;
+	outp << fixed<<setprecision(2)<<left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : nerdai)
 	{
-		outp << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis(n);
+		outp << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
 		outp << endl;
 	}
 	///auto end2 = high_resolution_clock::now();
@@ -344,13 +364,14 @@ void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, i
 	///cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end2 - start2).count() << endl;
 	///auto start3 = high_resolution_clock::now();
 	ofstream outf("galiorka.txt");
-	outf << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(6) << pasir << endl;
+	outf <<fixed<<setprecision(2)<<left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : galiorka)
 	{
-		outf << left << setw(15) << n.var << setw(15) << n.pav << setw(6) << pasis(n);
+		outf << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
 		outf << endl;
 	}
 	///auto end3 = high_resolution_clock::now();
 	///veiklaik += end3 - start3;
 	///cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
 }
+

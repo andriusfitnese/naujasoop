@@ -114,9 +114,13 @@ int main()
 
 			laik.ndvid = ndvid(laik.paz);
 			laik.gal = galvid(laik.egrez, laik.ndvid);
-			laik.med = mediana(laik.paz, laik.egrez);
+			laik.med = mediana(laik.paz, laik.egrez, laik.var);
 			grupe.emplace_back(std::move(laik));
 			laik.paz.clear();
+			laik.egrez = 0;
+			laik.ndvid = 0.0;
+			laik.gal = 0.0;
+			laik.med = 0.0;
 		}
 	}
 	int sortpas = 0;

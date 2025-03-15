@@ -1,6 +1,15 @@
-Reiktų paminėt, kad šiuos testus vykdau ant gan lėto kompiuterio ir ant energy saving rėžimo, tai nors ir naudojami buffers ir async vietomis, vykdymas vis tiek gan lėtas.
+
+
+Kompiuterio, naudoto testavimui specifikacijos:
+CPU: Ryzen 7 5800U
+RAM: 32GB DDR4 3200MHz
+SSD: 480GB, ne M.2
 Naudojamas paprastas vektorius studentų duomenims laikyti, o nerdai ir galiorka yra atitinkamai deque ir list.
 
+Hipotetiškai, deque ar list vietoj paprasto vektoriaus studentų duomenims laikyti būtų negera mintis, kadangi jie naudoja daugiau atminties.
+Skaitymas visiems yra O(n), o rūšiavimas - O(n log(n)), tačiau list naudoja daugiau atminties dėl daugiau rodyklių, o deque dėl fragmentuotos atminties.
+
+Benchmarkas su iš v0.4 naudojant paprastą vektorių studentų duomenų struktūrai (Reiktų paminėt, kad šiuos testus vykdžiau ant gan lėto kompiuterio ir ant energy saving rėžimo, tai nors ir naudojami buffers ir async vietomis, vykdymas vis tiek gan lėtas.) - 
 ![image](https://github.com/user-attachments/assets/26fe63ca-9f13-4c7a-bca2-7f6b4fbb439d)
 ![image](https://github.com/user-attachments/assets/c25dac96-640a-4333-adea-6382a7cd63d7)
 ![image](https://github.com/user-attachments/assets/7acdc519-32a7-4976-8710-f07c7eede184)
@@ -17,7 +26,7 @@ Naudojamas paprastas vektorius studentų duomenims laikyti, o nerdai ir galiorka
 
 
 
-Naudojant deque vietoj vector studentams: (be energy saver, su įdetu krauti kompiuteriu)
+Naudojant deque vietoj vector studentams: (be energy saver, su įdetu krauti kompiuteriu bei perdarytu skaitymu su buffering, kuris neturėjo tiek daug reikšmės (iki 10%) kaip battery saver išjungimas...)
 
 ![image](https://github.com/user-attachments/assets/0fe07ecc-b20a-4e7e-87f2-36e5a9240c0e)
 ![image](https://github.com/user-attachments/assets/c914ddb3-7807-496d-9470-6983b5ede27d)
@@ -31,3 +40,8 @@ Naudojant deque vietoj vector studentams: (be energy saver, su įdetu krauti kom
 | Rūšiavimo laikas                   | 0.01  | 0.08  | 0.95   | 11.68   | 169.38 |
 | Atskyrimo i vektorius laikas       | 0.003 | 0.03  | 0.35   | 4.48    | 280.20 |
 | Visas veikimo laikas               | 0.05  | 0.48  | 5.26   | 56.68   | 783.85 |
+
+
+Naudojant list studentų duomenims laikyt (taipogi be energy saver)
+
+Kad veiktų list, teko apkeisti rikiavimo algoritmą, kadangi list naudoja tiktais dvikrypčius iteratorius, ne kaip vector, deque ar array, kurie turi laisvosios prieigos iteratorius.

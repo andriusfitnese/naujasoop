@@ -172,17 +172,14 @@ void skaitymas(list<Stud>& grupe, duration<double>& veiklaik) {
 				size_t last = str.find_last_not_of(" \t");
 				return (first == string::npos || last == string::npos) ? "" : str.substr(first, last - first + 1);
 				};
-			// Split line into fields
 			stringstream lineStream(line);
 			string vardas, pavarde, grade;
 
-			// Read and trim vardas (first part before number)
 			lineStream >> vardas;
-			vardas = trim(vardas);  // Apply trim function to remove extra spaces
+			vardas = trim(vardas);
 
-			// Read and trim pavarde (second part before number)
 			lineStream >> pavarde;
-			pavarde = trim(pavarde);  // Apply trim function to remove extra spaces
+			pavarde = trim(pavarde);
 
 			getline(lineStream, grade);
 

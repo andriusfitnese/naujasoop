@@ -1,4 +1,4 @@
-#include "manolib.h"
+﻿#include "manolib.h"
 int main()
 {
 	list<Stud> grupe;
@@ -9,11 +9,22 @@ int main()
 	int pasir = 0;
 	auto veiklaik=duration<double>::zero();
 
-	/*failogen("1000", 1000);
-	failogen("10000", 10000);
-	failogen("100000", 100000);
-	failogen("1000000", 1000000);
-	failogen("10000000", 10000000);*/
+	int pas = 0;
+	if (gautteisinga(pas, "Ar norite pasinaudoti failo generavimo funkcija? Iveskite 1, jei norite, 2, jei nenorite: ", 1, 2))
+	{
+		switch (pas)
+		{
+
+		case 1:
+			string temp;
+			cout << "Iveskite failo pavadinima: ";
+				cin >> temp;
+				pas = 0;
+				if (gautteisinga(pas, "Iveskite norimu irasu kieki (1-10000000): ", 1, 10000000))
+					failogen(temp, pas);
+				break;
+		}
+	}
 	while (!geras)
 	{
 		try {
@@ -166,7 +177,7 @@ int main()
 		}
 		veiklaik += end - start;
 	cout << "Rusiavimo pagal "<<pasirn<<" laikas:" << duration<double>(end - start).count() << endl;
-	int pas = 0;
+	pas = 0;
 	int pasmv = 0;
 	if (gautteisinga(pas, "Ar isskirti studentus, kurie pazangus ir nepazangus [bus galimas tik isvedimas i faila!] (1) ar ne? (2)", 1, 2))
 		switch (pas)

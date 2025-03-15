@@ -118,7 +118,7 @@ vector<Stud> processBatch(const vector<string>& lines) {
 	return batchResults;
 }
 
-void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
+void skaitymas(list<Stud>& grupe, duration<double>& veiklaik) {
 	int pasi = 0;
 	cout << "Pasirinkite faila (1 - 1000; 2 - 10000; 3 - 100000; 4 - 1000000; 5 - 10000000): " << endl;
 
@@ -214,7 +214,7 @@ void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 	cout << "Failo skaitymo laikas: " << duration<double>(end - start).count() << " s" << endl;
 }
 
-void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
+void isvedimas(int pas, int pasmv, const list<Stud>& grupe)
 {
 
 	switch (pas)
@@ -332,7 +332,7 @@ void failogen(const string& failopav, int irasuk)
 
 	out.close();
 }
-void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
+void atrinkimas(list<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
 {
 	auto pasis = (pasmv == 1) ?
 		[](const Stud& s) { return s.med; } :
@@ -347,7 +347,7 @@ void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, i
 		else galiorka.push_back(n);
 	}
 	grupe.clear();
-	grupe = deque<Stud>();
+	grupe = list<Stud>();
 	auto end1 = high_resolution_clock::now();
 	veiklaik += end1 - start1;
 	cout << "Atskyrimo i dvi grupes veikimo laikas panaikinant originalu vektoriu: " << duration<double>(end1 - start1).count() << endl;

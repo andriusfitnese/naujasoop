@@ -1,7 +1,7 @@
 #include "manolib.h"
 int main()
 {
-	deque<Stud> grupe;
+	list<Stud> grupe;
 	deque<Stud> nerdai;
 	list<Stud> galiorka;
 	Stud laik;
@@ -130,28 +130,32 @@ int main()
 		switch (sortpas) {
 		case 1:
 			start = high_resolution_clock::now();
-			sort(grupe.begin(), grupe.end(), sortVardu);
+			///sort(grupe.begin(), grupe.end(), sortVardu);
+			grupe.sort(sortVardu);
 			end = high_resolution_clock::now();
 			cout << "Surikiuota pagal vardus (abeceles tvarka)." << endl;
 			pasirn = "vardus";
 			break;
 		case 2:
 			start = high_resolution_clock::now();
-			sort(grupe.begin(), grupe.end(), sortPav);
+			///sort(grupe.begin(), grupe.end(), sortPav);
+			grupe.sort(sortPav);
 			end = high_resolution_clock::now();
 			cout << "Surikiuota pagal pavardes (abeceles tvarka)." << endl;
 			pasirn = "pavardes";
 			break;
 		case 3:
 			start = high_resolution_clock::now();
-			sort(grupe.begin(), grupe.end(), sortMed);
+			///sort(grupe.begin(), grupe.end(), sortMed);
+			grupe.sort(sortMed);
 			end = high_resolution_clock::now();
 			cout << "Surikiuota pagal mediana." << endl;
 			pasirn = "mediana";
 			break;
 		case 4:
 			start = high_resolution_clock::now();
-			sort(grupe.begin(), grupe.end(), sortGal);
+			///sort(grupe.begin(), grupe.end(), sortGal);
+			grupe.sort(sortGal);
 			end = high_resolution_clock::now();
 			cout << "Surikiuota pagal galutini pazymi." << endl;
 			pasirn = "galutini pazymi";

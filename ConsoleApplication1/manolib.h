@@ -103,9 +103,9 @@ double ndvid(const vector<int>& paz);
 void rng(vector<int>& paz);  ///nd pazymiu gen
 void rng(int& egrez);  ///egz pazymiu gen
 void rng(string& vardas, string& pavarde);  ///vardu generavimas
-void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik);
-void isvedimas(int pas, int pasmv, const deque<Stud>& grupe);
+void skaitymas(list<Stud>& grupe, duration<double>& veiklaik);
+void isvedimas(int pas, int pasmv, const list<Stud>& grupe);
 bool gautteisinga(int& input, const string& prompt, int min, int max);   ///error handlingas neteisingos ivesties atveju
 void failogen(const string& failopav, int irasuk);
-void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
+void atrinkimas(list<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
 vector<Stud> processBatch(const vector<string>& lines);

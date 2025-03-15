@@ -45,3 +45,5 @@ Naudojant deque vietoj vector studentams: (be energy saver, su įdetu krauti kom
 Naudojant list studentų duomenims laikyt (taipogi be energy saver)
 
 Kad veiktų list, teko apkeisti rikiavimo algoritmą, kadangi list naudoja tiktais dvikrypčius iteratorius, ne kaip vector, deque ar array, kurie turi laisvosios prieigos iteratorius.
+
+Tad, pavyzdžiui, norint rikiuot pagal vardą didėjimo tvarka, sort(grupe.begin(), grupe.end(), sortVardu); tapo grupe.sort(sortVardu);

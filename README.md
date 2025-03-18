@@ -9,20 +9,21 @@ Naudojamas paprastas vektorius studentų duomenims laikyti, o nerdai ir galiorka
 Hipotetiškai, deque ar list vietoj paprasto vektoriaus studentų duomenims laikyti būtų negera mintis, kadangi jie naudoja daugiau atminties.
 Skaitymas visiems yra O(n), o rūšiavimas - O(n log(n)), tačiau list naudoja daugiau atminties dėl daugiau rodyklių, o deque dėl fragmentuotos atminties.
 
-Benchmarkas su iš v0.4 naudojant paprastą vektorių studentų duomenų struktūrai (Reiktų paminėt, kad šiuos testus vykdžiau ant gan lėto kompiuterio ir ant energy saving rėžimo, tai nors ir naudojami buffers ir async vietomis, vykdymas vis tiek gan lėtas.) - 
-![image](https://github.com/user-attachments/assets/26fe63ca-9f13-4c7a-bca2-7f6b4fbb439d)
-![image](https://github.com/user-attachments/assets/c25dac96-640a-4333-adea-6382a7cd63d7)
-![image](https://github.com/user-attachments/assets/7acdc519-32a7-4976-8710-f07c7eede184)
-![image](https://github.com/user-attachments/assets/0976d3ab-76b0-4c23-a013-a7b507c1cd60)
+
+Benchmarkas su iš v0.4 naudojant paprastą vektorių studentų duomenų struktūrai
+![image](https://github.com/user-attachments/assets/5cd598f4-c4a4-410a-9d1b-57b20068aa87)
+![image](https://github.com/user-attachments/assets/f6afb370-cbff-4f5c-ab38-3e03df35e2a4)
+![image](https://github.com/user-attachments/assets/a137566b-4f88-433f-9266-bba2ecd17643)
+![image](https://github.com/user-attachments/assets/b41ea4f3-1e87-4cd2-9402-bd6418eb0bdd)
+
+
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |
 |------------------------------------|-------|-------|--------|---------|
-| Skaitymo laikas                    | 0.14  | 1.07  | 10.70  | 127.38  |
-| Rūšiavimo laikas                   | 0.02  | 0.22  | 1.21   | 16.33   |
-| Atskyrimo i vektorius laikas       | 0.01  | 0.04  | 0.04   | 6.94    |
-| Nerdų surašymo laikas              | 0.01  | 0.15  | 1.35   | 14.84   |
-| Galiorkos surašymo laikas          | 0.01  | 0.10  | 0.94   | 10.52   |
-| Visas veikimo laikas               | 0.19  | 1.58  | 14.57  | 176     |
+| Skaitymo laikas                    | 0.14  | 1.07  | 10.70  | 44.46  |
+| Rūšiavimo laikas                   | 0.02  | 0.22  | 1.21   | 8.83   |
+| Atskyrimo i vektorius laikas       | 0.01  | 0.04  | 0.04   | 3.48   |
+| Visas veikimo laikas               | 0.19  | 1.58  | 14.57  | 56.77  |
 
 
 
@@ -52,6 +53,13 @@ Reiktų pastebėti skirtumus, kurie pasireiškia čia - su list, skaitymas vykst
 ![image](https://github.com/user-attachments/assets/9d45a0fa-ba2c-4836-888e-a6c89ffdcf9f)
 ![image](https://github.com/user-attachments/assets/6de021cc-6bc3-42a3-a7ea-a9c94bc406dc)
 ![image](https://github.com/user-attachments/assets/e3f7f0c7-da0e-47ba-90b7-f45b254be181)
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.04  | 0.37  | 3.96   | 40.53   | 334.27 |
+| Rūšiavimo laikas                   | 0.01  | 0.08  | 0.95   | 11.68   | 169.38 |
+| Atskyrimo i vektorius laikas       | 0.003 | 0.03  | 0.35   | 4.48    | 280.20 |
+| Visas veikimo laikas               | 0.05  | 0.48  | 5.26   | 56.68   | 783.85 |
 
 
 

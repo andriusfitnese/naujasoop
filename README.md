@@ -56,10 +56,37 @@ Reiktų pastebėti skirtumus, kurie pasireiškia čia - su list, skaitymas vykst
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
-| Skaitymo laikas                    | 0.04  | 0.37  | 3.96   | 40.53   | 334.27 |
-| Rūšiavimo laikas                   | 0.01  | 0.08  | 0.95   | 11.68   | 169.38 |
-| Atskyrimo i vektorius laikas       | 0.003 | 0.03  | 0.35   | 4.48    | 280.20 |
-| Visas veikimo laikas               | 0.05  | 0.48  | 5.26   | 56.68   | 783.85 |
+| Skaitymo laikas                    | 0.07  | 0.59  | 5.03   | 53.00   | >6min |
+| Rūšiavimo laikas                   | 0.0003  | 0.004 | 0.05   | 0.92 | ~15s |
+| Atskyrimo i vektorius laikas       | 0.003 | 0.03  | 0.32   | 4.29    | >5min  |
+| Visas veikimo laikas               | 0.07  | 0.62  | 5.40   | 58.22   |  ~11min |
+
+
+
+STRATEGIJŲ ANALIZĖ
+Nuo dabar vykdymo laikai gali būti daug trumpesni, kadangi naudojama sukompiliuotos programos, su .exe failais.
+1 Strategija - minimaliai pakeista nuo v0.4, šiek tiek optimizuotos dalys skaitymo bei rūšiavimo v1.0 dev metu.
+
+SU VECTOR
+
+![image](https://github.com/user-attachments/assets/5b8189e9-b568-4e35-b90b-27d1a6a67b29)
+![image](https://github.com/user-attachments/assets/7ff28522-7b56-4b38-a747-7da523573cf6)
+![image](https://github.com/user-attachments/assets/ef3a9b33-300f-42ef-a5dc-b162d25994ad)
+![image](https://github.com/user-attachments/assets/8342d488-783f-46f7-a08c-99d85e674387)
+![image](https://github.com/user-attachments/assets/acacb69b-e780-4a63-bbfb-a4b421b8de5c)
+
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.07  | 0.59  | 5.03   | 53.00   | >6min |
+| Rūšiavimo laikas                   | 0.0003  | 0.004 | 0.05   | 0.92 | ~15s |
+| Atskyrimo i vektorius laikas       | 0.003 | 0.03  | 0.32   | 4.29    | >5min  |
+| Visas veikimo laikas               | 0.07  | 0.62  | 5.40   | 58.22   |  ~11min |
+
+
+
+
+
 
 
 

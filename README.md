@@ -1,18 +1,24 @@
 NAUDOJIMOSI INSTRUKCIJA:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Ačiū, kad parsisiuntėte šią programą! Deja, nesu baisiai protingas, todėl ir rašau naudojimosi instrukciją, kadangi paleidimas nėra vien paprasto .exe failo paspaudimas.
 
 Pradedant nuo pradžių, turite turėti veikiantį GCC, kurio versija palaiko C++17 ar naujesnes versijas.
 Antra, turite turėti veikiantį MinGW, kuris reikalingas programos .exe failo sukūrimui, kuriam reikia mingw32-make komandos. Tam pridedu šią nuorodą: https://nerdyelectronics.com/install-mingw-on-windows-for-make/
 
-Programos paleidimas:
--
+---------------------------------------------------------------------
 Reikalingos komandos:
 
 mingw32-make vector - sukuria .exe versijai su vektoriaus tipo konteineriu
+
 mingw32-make deque  - sukuria .exe versijai su vektoriaus tipo konteineriu
+
 mingw32-make list   - sukuria .exe versijai su vektoriaus tipo konteineriu
+
 mingw32-make clean  - ištrina bin failą, kuriame laikomi sukurti jūsų .exe failai bei sugeneruoti duomenų failai
+
 mingw32-make -B     - rebuildina visų konteinerių tipų .exe failus
+
+--------------------------------------------------------------------------------
 
 Parsisiuntę repo, turite du variantus:
 
@@ -28,7 +34,7 @@ CMD
 
 
 TESTAVIMAS
-
+-
 
 Kompiuterio, naudoto testavimui specifikacijos:
 CPU: Ryzen 7 5800U
@@ -93,12 +99,16 @@ Reiktų pastebėti skirtumus, kurie pasireiškia čia - su list, skaitymas vykst
 
 
 
+--------------------------------------------------------------------------
 STRATEGIJŲ ANALIZĖ
+-
 Nuo dabar vykdymo laikai gali būti daug trumpesni, kadangi naudojama sukompiliuotos programos, su .exe failais.
+
 1 Strategija - minimaliai pakeista nuo v0.4, šiek tiek optimizuotos dalys skaitymo bei rūšiavimo v1.0 dev metu.
+-
 
 SU VECTOR
-
+-
 ![image](https://github.com/user-attachments/assets/5b8189e9-b568-4e35-b90b-27d1a6a67b29)
 ![image](https://github.com/user-attachments/assets/7ff28522-7b56-4b38-a747-7da523573cf6)
 ![image](https://github.com/user-attachments/assets/ef3a9b33-300f-42ef-a5dc-b162d25994ad)
@@ -115,6 +125,7 @@ SU VECTOR
 
 
 SU DEQUE
+-
 
 ![image](https://github.com/user-attachments/assets/74bd2719-6859-4a25-9bfe-ac87e10251ce)
 ![image](https://github.com/user-attachments/assets/3c19fa0e-36bb-4de4-9816-223b1c33b85a)
@@ -156,9 +167,11 @@ Matome, kad list sunkiai tempiasi ypač su dideliais duomenų kiekiais.
 
 
 STRATEGIJA 2
+---------------------------------------------------------------------
+-
 
 SU VECTOR
-
+-
 ![image](https://github.com/user-attachments/assets/1ffdfdb4-5ed8-4e36-a73c-2ac7107d996f)
 ![image](https://github.com/user-attachments/assets/bddeeda1-e03a-4437-a1f6-96478ebb0850)
 ![image](https://github.com/user-attachments/assets/d15e2524-99e8-4851-86aa-5fc5a71918c7)
@@ -175,6 +188,7 @@ SU VECTOR
 | Visas veikimo laikas               | 0.07   | 0.07  |  0.56   | 5.14   |  51.50 |
 
 SU DEQUE
+-
 ![image](https://github.com/user-attachments/assets/28ba876e-cfec-4b51-919a-d30cc97aa59f)
 ![image](https://github.com/user-attachments/assets/c0b95346-fe75-4b75-bb74-18b45f9b19ca)
 ![image](https://github.com/user-attachments/assets/cc9bb7d7-8f61-4bb6-b53a-7b9a17bac422)
@@ -192,6 +206,7 @@ SU DEQUE
 | Visas veikimo laikas               | 0.014  | 0.07  | 0.54   | 5.61   |  51.11 |
 
 SU LIST
+-
 ![image](https://github.com/user-attachments/assets/fb1e5b79-bd4d-40a9-a78c-2b3357d901e2)
 ![image](https://github.com/user-attachments/assets/81d39738-228c-4f95-8f2e-d19a5345664e)
 ![image](https://github.com/user-attachments/assets/72d377d5-bbb9-450d-8cb3-7d882d1beeaa)
@@ -211,8 +226,10 @@ SU LIST
 
 
 STRATEGIJA 3
+----------------------------------------------------------------------------------------
 
 SU VECTOR
+-
 
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
@@ -226,6 +243,7 @@ SU VECTOR
 
 
 SU DEQUE
+-
 
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
@@ -238,6 +256,7 @@ SU DEQUE
 | Visas veikimo laikas               | 0.06  | 0.07  | 0.57   | 5.96   |  58.65 |
 
 SU LIST
+-
 
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|

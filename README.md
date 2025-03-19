@@ -29,7 +29,13 @@ Visual Studio
 CMD
 -
   Atsidaryti command line, (ieškoti cmd paspaudus Windows ikoną), nuvesti path iki šitos repo direktorijos naudojant cd komandą, pvz: cd C:\Users\andri\OneDrive\Desktop\oop naujas\bin ir tada vesti atitinkamas komandas pagal Jūsų poreikį.
-  
+
+
+Tai atlikus, atsiras bin folder'is, kuriame rasite .exe failus.
+Paleidus programą, visi pasirinkimai bus aiškiai jums duoti.
+
+Gero naudojimo!
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -145,6 +151,7 @@ SU DEQUE
 
 
 SU LIST
+-
 
 ![image](https://github.com/user-attachments/assets/e1878e5f-7c01-439f-ace9-7377908fbe8a)
 ![image](https://github.com/user-attachments/assets/bde2f41d-4c75-4320-92e1-845c6a3f9d51)
@@ -162,13 +169,13 @@ SU LIST
 | Irašymo i galiorką laikas          | 0.02  |  0.01  | 0.12  |  1.28 | 13.17 |
 | Visas veikimo laikas               | 0.06  | 0.06  | 0.58   | 6.22  |  62.81 |
 
-Matome, kad list sunkiai tempiasi ypač su dideliais duomenų kiekiais.
+
+Matome, kad list sunkiai tempiasi ypač su dideliais duomenų kiekiais, o vector beveik 2x greičiau dirba su dideliais failais.
 
 
 
 STRATEGIJA 2
----------------------------------------------------------------------
--
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 SU VECTOR
 -
@@ -223,13 +230,44 @@ SU LIST
 | Irašymo i galiorką laikas          |  0.02   |  0.01  |  0.12  |  1.31   |  13.12  |
 | Visas veikimo laikas               | 0.06  | 0.07  | 0.57   | 5.96   |  58.65 |
 
+Įdomus pastebėjimas, kad list ilgiau trunka rūšiuot failus iš sukompiliuotos programos.
 
+Tačiau be to, matosi antros strategijos pranašumas, kuris iki 10% pagreitiną programą dėl sutaupyto laiko vektorių skyrimo metu.
 
 STRATEGIJA 3
-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3 Strategijai nebuvo daug ką pakeist, kadangi jau naudojau porą pasiūlytų algoritmų, tačiau apkeičiau ir padariau taip, kad programa veiktų dar efektyviau.
+2 strategijoje studentų padalijimas veikė taip: 
+
+    for (const auto& n : grupe)
+    {
+	if (n.gal < 5) {
+		galiorka.push_back(n);
+	}
+    }
+    grupe.erase(remove_if(grupe.begin(), grupe.end(), [](const Stud& s) { return s.gal < 5; }), grupe.end());
+    
+Programa praeidavo visus narius studentų vektoriuje, tada radę neišlaikiusį, su push_back nukopijuoja į galiorkos vektorių. Ir taip pro visus narius ji ėjo. Tada antrą kartą ėjo pro visą studentų masyvą ir trynė tuos, kurie turėjo mažesnį balą nei 5. Taip gaunas, kad per vektorių programą turi eiti du kart, kopijuoti ir vėliau ištrinti narius, tad tai nėra efektyvu.
+
+O pakeitimai tokie:
+
+	auto it = partition(grupe.begin(), grupe.end(), [](const Stud& s) { return s.gal >= 5; });
+	copy(it, grupe.end(), std::back_inserter(galiorka));
+	grupe.erase(it, grupe.end());
+
+std::partition visus neišlaikiusius studentus iš eilės permeta į vektoriaus galą, o copy nuo neišlaikiusių pradžios nukopijuoja juos visus į naują galiorkos vektorių. (std::back_inserter) čia reikalingas dėl to, kadangi iš anksto nenusakau galiorkos vektoriaus dydžio, nes tai dar papildomas veiksmas, tai šitas algoritmas naudojamas išvengti out of bounds klaidų.)
 
 SU VECTOR
 -
+
+![image](https://github.com/user-attachments/assets/2f2f3ed8-2e61-4716-86d0-631a65bc9ad1)
+![image](https://github.com/user-attachments/assets/43ee7cb9-27d9-4319-83fc-88a2c2f702e6)
+![image](https://github.com/user-attachments/assets/84f0575e-e823-48bc-93ae-7b7e0d19b5e1)
+![image](https://github.com/user-attachments/assets/cb516335-e314-4b49-9032-7b4f6101fb95)
+![image](https://github.com/user-attachments/assets/3fd6ea07-723b-4d52-9c61-0fc21c758219)
+
+
 
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
@@ -245,6 +283,13 @@ SU VECTOR
 SU DEQUE
 -
 
+![image](https://github.com/user-attachments/assets/c3ae1b2c-2dc0-4f00-b59b-bb3987cb1519)
+![image](https://github.com/user-attachments/assets/a8c17aee-a13b-4611-a72c-1b37a0680032)
+![image](https://github.com/user-attachments/assets/5aacfb15-872e-43c2-834f-f18d8a325354)
+![image](https://github.com/user-attachments/assets/962816c0-c009-40f2-85af-1a859d85308e)
+![image](https://github.com/user-attachments/assets/93356782-bf7e-47f8-bf07-b38d80342bde)
+
+
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
@@ -258,6 +303,12 @@ SU DEQUE
 SU LIST
 -
 
+![image](https://github.com/user-attachments/assets/50d579fd-6e43-4600-92d7-381137a4650c)
+![image](https://github.com/user-attachments/assets/34d5bd99-251e-4fae-a53c-91d16117071e)
+![image](https://github.com/user-attachments/assets/8d96f6b8-2eb4-413a-9957-d6b0b478e114)
+![image](https://github.com/user-attachments/assets/1ce58d19-f1a5-4e31-8df1-77ef3bdcbd26)
+![image](https://github.com/user-attachments/assets/9666ab24-1527-4cc1-8639-a2144f63e4f0)
+
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
@@ -267,3 +318,8 @@ SU LIST
 | Irašymo i nerdus laikas            | 0.03  |  0.02 |  0.19  |  1.99  | 21.04  |
 | Irašymo i galiorką laikas          |  0.02   |  0.01  |  0.12  |  1.31   |  13.12  |
 | Visas veikimo laikas               | 0.06  | 0.07  | 0.57   | 5.96   |  58.65 |
+
+
+
+Na, jei nepastebėjot, mano logiškai skambantis paaiškinimas kodėl tai ir tai yra geriau nieko nereiškė. Kodėl su šia strategija lėčiau - nebežinau, bet net grįžęs prie antros strategijos gavau panašius laikus, kaip trečioje. Gali būti, kad tai dėl to, kad Windows eilinį kartą neatsiklausęs pradėjo naujinimus siųsti kai testuoju. Bet kokiu atveju, rodos, iš tiesų 3 ir 2 strategija beveik lygios vykdymo laiku.
+List yra lėtesnis, 

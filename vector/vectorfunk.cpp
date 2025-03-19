@@ -329,7 +329,7 @@ void failogen(const string& failopav, int irasuk)
 
 	out.close();
 }
-void atrinkimas(vector<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
+void atrinkimas(vector<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
 {
 	auto pasis = (pasmv == 1) ?
 		[](const Stud& s) { return s.med; } :

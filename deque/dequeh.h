@@ -110,6 +110,6 @@ void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik);
 void isvedimas(int pas, int pasmv, const deque<Stud>& grupe);
 bool gautteisinga(int& input, const string& prompt, int min, int max);   ///error handlingas neteisingos ivesties atveju
 void failogen(const string& failopav, int irasuk);
-void atrinkimas(deque<Stud>& grupe, deque<Stud>& nerdai, list<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
+void atrinkimas(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
 vector<Stud> processBatch(const vector<string>& lines);
 #endif

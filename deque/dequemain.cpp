@@ -3,8 +3,8 @@
 int main()
 {
 	deque<Stud> grupe;
-	deque<Stud> nerdai;
-	list<Stud> galiorka;
+	vector<Stud> nerdai;
+	vector<Stud> galiorka;
 	Stud laik;
 	bool geras = false;
 	int pasir = 0;
@@ -71,7 +71,7 @@ int main()
 				try
 				{
 					cin >> pazym;
-					if (cin.fail() or (pazym > 10 or pazym < 1) and pazym != -2 and pazym != -1)
+					if (cin.fail() or ((pazym > 10 or pazym < 1) and pazym != -2 and pazym != -1))
 					{
 						throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
 					}
@@ -207,4 +207,8 @@ int main()
 			break;
 		}
 	cout << "Visos programos testo laikas: " << veiklaik.count() << endl;
+	cout << "Paspauskite Enter uzdaryti programa.";
+	std::cin.ignore();
+	std::cin.get();
+	return 0;
 }

@@ -2,7 +2,6 @@
 int main()
 {
 	vector<Stud> grupe;
-	vector<Stud> nerdai;
 	vector<Stud> galiorka;
 	Stud laik;
 	bool geras = false;
@@ -189,7 +188,7 @@ int main()
 				cout << "Studentu nerasta! programa baigiama!";
 				return 1;
 			}
-			else atrinkimas(grupe, nerdai, galiorka, pasmv, veiklaik);
+			else atrinkimas(grupe, galiorka, pasmv, veiklaik);
 			break;
 		case 2:
 			pas = 0;

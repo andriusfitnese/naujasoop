@@ -140,19 +140,19 @@ void skaitymas(list<Stud>& grupe, duration<double>& veiklaik) {
 		return;
 	}
 
-	ifstream in(failopav, ios::in | ios::ate); // atidarom gale paziureti failo dydi
+	ifstream in(failopav, ios::in | ios::ate); // atidarom faila pamatyti ilgi
 	if (!in) {
 		cerr << "Nepavyko atidaryti failo!" << endl;
 		return;
 	}
 
 	size_t fileSize = in.tellg(); // gaunam failo dydi
-	in.seekg(0, ios::beg); // einam i prieky failo
+	in.seekg(0, ios::beg); // einam i failo pradzia
 
 	cout << "Failas atidarytas: " << failopav << endl;
 	auto start = high_resolution_clock::now();
 
-	const size_t BUFFER_SIZE = 64 * 1024 * 1024;
+	const size_t BUFFER_SIZE = 64 * 1024 * 1024; // 64MB bufferis, kompams su daugiau ramo padeda didesnis
 	vector<char> buffer(min(fileSize, BUFFER_SIZE));
 
 	string header;
@@ -160,42 +160,36 @@ void skaitymas(list<Stud>& grupe, duration<double>& veiklaik) {
 
 	vector<future<vector<Stud>>> futures;
 	vector<string> lines;
+	string leftover; // jeigu eilute neuzbaigta bufferiui baigiantis, issaugosim likuti
 
 	while (in.read(buffer.data(), buffer.size()) || in.gcount() > 0) {
-		stringstream ss(string(buffer.data(), in.gcount()));
+		string chunk = leftover + string(buffer.data(), in.gcount());
+		stringstream ss(chunk);
 		string line;
 
+		leftover.clear(); // resetinam likuti kitam chunk'ui
 		while (getline(ss, line)) {
-
-			auto trim = [](const string& str) -> string {
-				size_t first = str.find_first_not_of(" \t");
-				size_t last = str.find_last_not_of(" \t");
-				return (first == string::npos || last == string::npos) ? "" : str.substr(first, last - first + 1);
-				};
-			stringstream lineStream(line);
-			string vardas, pavarde, grade;
-
-			lineStream >> vardas;
-			vardas = trim(vardas);
-
-			lineStream >> pavarde;
-			pavarde = trim(pavarde);
-
-			getline(lineStream, grade);
-
-			if (!vardas.empty() && !pavarde.empty()) {
+			if (ss.eof()) {
+				leftover = line; // issaugom paskutine eilute jeigu nesibaige
+			}
+			else {
 				lines.push_back(line);
 			}
-			if (lines.size() >= 100000) {
-				futures.push_back(async(launch::async, processBatch, lines));
-				lines.clear();
-			}
+		}
+
+		if (lines.size() >= 100000) {
+			futures.push_back(async(launch::async, processBatch, lines));
+			lines.clear();
 		}
 	}
 
 	in.close();
 
-	// imam likusias eil
+	// praeinam likusias eilutes, jei yra
+	if (!leftover.empty()) {
+		lines.push_back(leftover);
+	}
+
 	if (!lines.empty()) {
 		futures.push_back(async(launch::async, processBatch, lines));
 	}
@@ -210,6 +204,7 @@ void skaitymas(list<Stud>& grupe, duration<double>& veiklaik) {
 	veiklaik += end - start;
 	cout << "Failo skaitymo laikas: " << duration<double>(end - start).count() << " s" << endl;
 }
+
 
 void isvedimas(int pas, int pasmv, const list<Stud>& grupe)
 {
@@ -340,26 +335,26 @@ void atrinkimas(list<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka,
 	auto start1 = high_resolution_clock::now();
 	for (const auto& n : grupe)
 	{
-		if (n.gal >= 5) nerdai.push_back(n);
-		else galiorka.push_back(n);
+		if (n.gal < 5) {
+			galiorka.push_back(n);
+		}
 	}
-	grupe.clear();
-	grupe = list<Stud>();
+	grupe.erase(remove_if(grupe.begin(), grupe.end(), [](const Stud& s) { return s.gal < 5; }), grupe.end());
 	auto end1 = high_resolution_clock::now();
 	veiklaik += end1 - start1;
-	cout << "Atskyrimo i dvi grupes veikimo laikas panaikinant originalu vektoriu: " << duration<double>(end1 - start1).count() << endl;
-	///auto start2 = high_resolution_clock::now();
+	cout << "Atskyrimo i dvi grupes veikimo laikas nepanaikinant originalaus vektoriaus: " << duration<double>(end1 - start1).count() << endl;
+	auto start2 = high_resolution_clock::now();
 	ofstream outp("nerdai.txt");
 	outp << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
-	for (const auto& n : nerdai)
+	for (const auto& n : grupe)
 	{
 		outp << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
 		outp << endl;
 	}
-	///auto end2 = high_resolution_clock::now();
-	///veiklaik += end2 - start2;
-	///cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end2 - start2).count() << endl;
-	///auto start3 = high_resolution_clock::now();
+	auto end2 = high_resolution_clock::now();
+	veiklaik += end2 - start2;
+	cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end2 - start2).count() << endl;
+	auto start3 = high_resolution_clock::now();
 	ofstream outf("galiorka.txt");
 	outf << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : galiorka)
@@ -367,8 +362,8 @@ void atrinkimas(list<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka,
 		outf << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
 		outf << endl;
 	}
-	///auto end3 = high_resolution_clock::now();
-	///veiklaik += end3 - start3;
-	///cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
+	auto end3 = high_resolution_clock::now();
+	veiklaik += end3 - start3;
+	cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
 }
 

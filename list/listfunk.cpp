@@ -324,7 +324,51 @@ void failogen(const string& failopav, int irasuk)
 
 	out.close();
 }
-void atrinkimas(list<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
+void atrinkimas1(list<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
+{
+	auto pasis = (pasmv == 1) ?
+		[](const Stud& s) { return s.med; } :
+		[](const Stud& s) { return s.gal; };
+
+	string pasir = (pasmv == 1) ? "Mediana" : "Galutinis";
+
+	auto start1 = high_resolution_clock::now();
+	for (const auto& n : grupe)
+	{
+		if (n.gal >= 5) nerdai.push_back(n);
+		else galiorka.push_back(n);
+	}
+	grupe.clear();
+	grupe = list<Stud>();
+	auto end1 = high_resolution_clock::now();
+	veiklaik += end1 - start1;
+	cout << "Atskyrimo i dvi grupes veikimo laikas panaikinant originalu vektoriu: " << duration<double>(end1 - start1).count() << endl;
+	///auto start2 = high_resolution_clock::now();
+	ofstream outp("nerdai.txt");
+	outp << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
+	for (const auto& n : nerdai)
+	{
+		outp << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outp << endl;
+	}
+	///auto end2 = high_resolution_clock::now();
+	///veiklaik += end2 - start2;
+	///cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end2 - start2).count() << endl;
+	///auto start3 = high_resolution_clock::now();
+	ofstream outf("galiorka.txt");
+	outf << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
+	for (const auto& n : galiorka)
+	{
+		outf << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outf << endl;
+	}
+	///auto end3 = high_resolution_clock::now();
+	///veiklaik += end3 - start3;
+	///cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
+}
+
+
+void atrinkimas2(list<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
 {
 	auto pasis = (pasmv == 1) ?
 		[](const Stud& s) { return s.med; } :
@@ -366,4 +410,41 @@ void atrinkimas(list<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka,
 	veiklaik += end3 - start3;
 	cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
 }
+void atrinkimas3(list<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
+{
+	auto pasis = (pasmv == 1) ?
+		[](const Stud& s) { return s.med; } :
+		[](const Stud& s) { return s.gal; };
 
+	string pasir = (pasmv == 1) ? "Mediana" : "Galutinis";
+
+	auto start1 = high_resolution_clock::now();
+	auto it = partition(grupe.begin(), grupe.end(), [](const Stud& s) { return s.gal >= 5; });
+	copy(it, grupe.end(), back_inserter(galiorka));
+	grupe.erase(it, grupe.end());
+	auto end1 = high_resolution_clock::now();
+	veiklaik += end1 - start1;
+	cout << "Atskyrimo i dvi grupes veikimo laikas nepanaikinant originalaus vektoriaus: " << duration<double>(end1 - start1).count() << endl;
+	auto start2 = high_resolution_clock::now();
+	ofstream outp("nerdai.txt");
+	outp << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
+	for (const auto& n : grupe)
+	{
+		outp << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outp << endl;
+	}
+	auto end2 = high_resolution_clock::now();
+	veiklaik += end2 - start2;
+	cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end2 - start2).count() << endl;
+	auto start3 = high_resolution_clock::now();
+	ofstream outf("galiorka.txt");
+	outf << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
+	for (const auto& n : galiorka)
+	{
+		outf << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outf << endl;
+	}
+	auto end3 = high_resolution_clock::now();
+	veiklaik += end3 - start3;
+	cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
+}

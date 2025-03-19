@@ -1,4 +1,4 @@
-
+﻿
 #include "dequeh.h"
 int main()
 {
@@ -190,7 +190,22 @@ int main()
 				cout << "Studentu nerasta! programa baigiama!";
 				return 1;
 			}
-			else atrinkimas(grupe, nerdai, galiorka, pasmv, veiklaik);
+			else {
+				int pas1 = 0;
+				if (gautteisinga(pas1, "Kuria strategija (1-3) noretute panaudoti?", 1, 3))
+					switch (pas1)
+					{
+					case 1:
+						atrinkimas1(grupe, nerdai, galiorka, pasmv, veiklaik);
+						break;
+					case 2:
+						atrinkimas2(grupe, galiorka, pasmv, veiklaik);
+						break;
+					case 3:
+						atrinkimas3(grupe, galiorka, pasmv, veiklaik);
+						break;
+					}
+			}
 			break;
 		case 2:
 			pas = 0;

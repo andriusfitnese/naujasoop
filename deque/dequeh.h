@@ -51,6 +51,8 @@ using std::deque;
 using std::list;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration;
+using std::copy;
+using std::back_inserter;
 
 const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
 const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };
@@ -110,6 +112,8 @@ void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik);
 void isvedimas(int pas, int pasmv, const deque<Stud>& grupe);
 bool gautteisinga(int& input, const string& prompt, int min, int max);   ///error handlingas neteisingos ivesties atveju
 void failogen(const string& failopav, int irasuk);
-void atrinkimas(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
+void atrinkimas1(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
+void atrinkimas2(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
+void atrinkimas3(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik);
 vector<Stud> processBatch(const vector<string>& lines);
 #endif

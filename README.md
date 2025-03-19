@@ -272,12 +272,12 @@ SU VECTOR
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
-| Skaitymo laikas                    | 0.006 | 0.04  | 0.20   | 1.66   | 8.88 |
-| Rūšiavimo laikas                   | 0.0002  | 0.002 | 0.03   | 0.55 | 10.28 |
-| Atskyrimo i vektorius laikas       | 0.0002 | 0.002  | 0.03   | 0.45    | 5.33  |
-| Irašymo i nerdus laikas            | 0.03  |  0.02 |  0.19  |  1.99  | 21.04  |
-| Irašymo i galiorką laikas          |  0.02   |  0.01  |  0.12  |  1.31   |  13.12  |
-| Visas veikimo laikas               | 0.06  | 0.07  | 0.57   | 5.96   |  58.65 |
+| Skaitymo laikas                    | 0.003 | 0.02  | 0.19   | 1.46   | 11.89 |
+| Rūšiavimo laikas                   | 0.0001 | 0.001 | 0.01   | 0.17 | 2.89 |
+| Atskyrimo i vektorius laikas       | 0.0002 | 0.001  | 0.01   | 0.24    | 3.89  |
+| Irašymo i nerdus laikas            | 0.03  |  0.03 |  0.26  |  1.88  | 33.35  |
+| Irašymo i galiorką laikas          |  0.005   |  0.01  |  0.18  |  2.27   |  16.41 |
+| Visas veikimo laikas               | 0.03  | 0.06  | 0.67   | 6.02   |  68.43 |
 
 
 SU DEQUE
@@ -293,12 +293,12 @@ SU DEQUE
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
-| Skaitymo laikas                    | 0.006 | 0.04  | 0.20   | 1.66   | 8.88 |
-| Rūšiavimo laikas                   | 0.0002  | 0.002 | 0.03   | 0.55 | 10.28 |
-| Atskyrimo i vektorius laikas       | 0.0002 | 0.002  | 0.03   | 0.45    | 5.33  |
-| Irašymo i nerdus laikas            | 0.03  |  0.02 |  0.19  |  1.99  | 21.04  |
-| Irašymo i galiorką laikas          |  0.02   |  0.01  |  0.12  |  1.31   |  13.12  |
-| Visas veikimo laikas               | 0.06  | 0.07  | 0.57   | 5.96   |  58.65 |
+| Skaitymo laikas                    | 0.003 | 0.04  | 0.21   | 1.41   | 11.89 |
+| Rūšiavimo laikas                   | 0.0003  | 0.002 | 0.02   | 0.30 | 3.62 |
+| Atskyrimo i vektorius laikas       | 0.0003 | 0.001  | 0.02   | 0.28    | 2.97  |
+| Irašymo i nerdus laikas            | 0.04  |  0.03 |  0.22  |  3.03 | 31.71 |
+| Irašymo i galiorką laikas          |  0.02   |  0.01  |  0.12  |  1.81   |  21.29  |
+| Visas veikimo laikas               | 0.06  | 0.08  | 0.58   | 6.82   |  72.49 |
 
 SU LIST
 -
@@ -312,14 +312,13 @@ SU LIST
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
-| Skaitymo laikas                    | 0.006 | 0.04  | 0.20   | 1.66   | 8.88 |
-| Rūšiavimo laikas                   | 0.0002  | 0.002 | 0.03   | 0.55 | 10.28 |
-| Atskyrimo i vektorius laikas       | 0.0002 | 0.002  | 0.03   | 0.45    | 5.33  |
-| Irašymo i nerdus laikas            | 0.03  |  0.02 |  0.19  |  1.99  | 21.04  |
-| Irašymo i galiorką laikas          |  0.02   |  0.01  |  0.12  |  1.31   |  13.12  |
-| Visas veikimo laikas               | 0.06  | 0.07  | 0.57   | 5.96   |  58.65 |
+| Skaitymo laikas                    | 0.02 | 0.04  | 0.21   | 1.47   | 9.33 |
+| Rūšiavimo laikas                   | 0.0002  | 0.002 | 0.02   | 0.53 | 9.82 |
+| Atskyrimo i vektorius laikas       | 0.0002 | 0.002  | 0.02   | 0.34   | 3.97  |
+| Irašymo i nerdus laikas            | 0.03  |  0.03 |  0.23  |  3.11  | 34.44  |
+| Irašymo i galiorką laikas          |  0.02   |  0.02  |  0.12  |  1.95   |  19.43  |
+| Visas veikimo laikas               | 0.07  | 0.08  | 0.60   | 7.40   |  77.00 |
 
 
 
 Na, jei nepastebėjot, mano logiškai skambantis paaiškinimas kodėl tai ir tai yra geriau nieko nereiškė. Kodėl su šia strategija lėčiau - nebežinau, bet net grįžęs prie antros strategijos gavau panašius laikus, kaip trečioje. Gali būti, kad tai dėl to, kad Windows eilinį kartą neatsiklausęs pradėjo naujinimus siųsti kai testuoju. Bet kokiu atveju, rodos, iš tiesų 3 ir 2 strategija beveik lygios vykdymo laiku.
-List yra lėtesnis, 

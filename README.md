@@ -78,16 +78,140 @@ SU VECTOR
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
-| Skaitymo laikas                    | 0.07  | 0.59  | 5.03   | 53.00   | >6min |
-| Rūšiavimo laikas                   | 0.0003  | 0.004 | 0.05   | 0.92 | ~15s |
-| Atskyrimo i vektorius laikas       | 0.003 | 0.03  | 0.32   | 4.29    | >5min  |
-| Visas veikimo laikas               | 0.07  | 0.62  | 5.40   | 58.22   |  ~11min |
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |
+
+
+SU DEQUE
+
+![image](https://github.com/user-attachments/assets/74bd2719-6859-4a25-9bfe-ac87e10251ce)
+![image](https://github.com/user-attachments/assets/3c19fa0e-36bb-4de4-9816-223b1c33b85a)
+![image](https://github.com/user-attachments/assets/94957b03-4406-4a6b-8d50-e3b787a07297)
+![image](https://github.com/user-attachments/assets/9892dd2d-43f9-43f4-a71f-2e7178f7b349)
+![image](https://github.com/user-attachments/assets/64a62a23-a271-41eb-9b4a-91f4ec6e4d2b)
+
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Irašymo i nerdus laikas            |        |        |        |        |       |
+| Irašymo i galiorką laikas          |        |        |        |        |       |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |
+
+
+SU LIST
+
+![image](https://github.com/user-attachments/assets/e1878e5f-7c01-439f-ace9-7377908fbe8a)
+![image](https://github.com/user-attachments/assets/bde2f41d-4c75-4320-92e1-845c6a3f9d51)
+![image](https://github.com/user-attachments/assets/1f410158-0952-4b29-997d-a480c8d196da)
+![image](https://github.com/user-attachments/assets/2c118cbd-3e39-403e-a0a2-584ee4eaae71)
+![image](https://github.com/user-attachments/assets/d7d11035-fb02-4515-8d74-c1a324a3dab2)
+
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Irašymo i nerdus laikas            |        |        |        |        |       |
+| Irašymo i galiorką laikas          |        |        |        |        |       |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |
+
+Matome, kad list sunkiai tempiasi ypač su dideliais duomenų kiekiais.
 
 
 
+STRATEGIJA 2
+
+SU VECTOR
+
+![image](https://github.com/user-attachments/assets/1ffdfdb4-5ed8-4e36-a73c-2ac7107d996f)
+![image](https://github.com/user-attachments/assets/bddeeda1-e03a-4437-a1f6-96478ebb0850)
+![image](https://github.com/user-attachments/assets/d15e2524-99e8-4851-86aa-5fc5a71918c7)
+![image](https://github.com/user-attachments/assets/94e882bf-fdd2-4db7-b581-bd82a325d81a)
+![image](https://github.com/user-attachments/assets/127b8c6d-4c7e-4011-a777-aea8bf5c5d3e)
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Irašymo i nerdus laikas            |        |        |        |        |       |
+| Irašymo i galiorką laikas          |        |        |        |        |       |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |
+
+SU DEQUE
+![image](https://github.com/user-attachments/assets/28ba876e-cfec-4b51-919a-d30cc97aa59f)
+![image](https://github.com/user-attachments/assets/c0b95346-fe75-4b75-bb74-18b45f9b19ca)
+![image](https://github.com/user-attachments/assets/cc9bb7d7-8f61-4bb6-b53a-7b9a17bac422)
+![image](https://github.com/user-attachments/assets/7a73de78-d77e-4ceb-94ae-a4da5768f8c1)
+![image](https://github.com/user-attachments/assets/b7e190e0-20a6-4124-8f63-0c5bf21ba378)
+
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Irašymo i nerdus laikas            |        |        |        |        |       |
+| Irašymo i galiorką laikas          |        |        |        |        |       |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |
+
+SU LIST
+![image](https://github.com/user-attachments/assets/fb1e5b79-bd4d-40a9-a78c-2b3357d901e2)
+![image](https://github.com/user-attachments/assets/81d39738-228c-4f95-8f2e-d19a5345664e)
+![image](https://github.com/user-attachments/assets/72d377d5-bbb9-450d-8cb3-7d882d1beeaa)
+![image](https://github.com/user-attachments/assets/27ccd5f7-e8cb-436b-9578-2d5f67c8b10b)
+![image](https://github.com/user-attachments/assets/ce9524d7-769d-4296-b28a-42169b6e4fb6)
+
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Irašymo i nerdus laikas            |        |        |        |        |       |
+| Irašymo i galiorką laikas          |        |        |        |        |       |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |
 
 
 
+STRATEGIJA 3
+
+SU VECTOR
 
 
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Irašymo i nerdus laikas            |        |        |        |        |       |
+| Irašymo i galiorką laikas          |        |        |        |        |       |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |
 
+SU DEQUE
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Irašymo i nerdus laikas            |        |        |        |        |       |
+| Irašymo i galiorką laikas          |        |        |        |        |       |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |
+
+SU LIST
+
+| Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
+|------------------------------------|-------|-------|--------|---------|--------|
+| Skaitymo laikas                    | 0.003  | 0.02  | 0.23   | 1.11   | 8.90 |
+| Rūšiavimo laikas                   | 0.0001  | 0.002 | 0.01   | 0.17 | 10.09 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.04   | 0.56    | 9.78  |
+| Irašymo i nerdus laikas            |        |        |        |        |       |
+| Irašymo i galiorką laikas          |        |        |        |        |       |
+| Visas veikimo laikas               | 0.004  | 0.03  | 0.29   | 1.84   |  28.77 |

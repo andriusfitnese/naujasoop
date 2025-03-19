@@ -117,7 +117,7 @@ vector<Stud> processBatch(const vector<string>& lines) {
 	}
 	return batchResults;
 }
-
+ 
 void skaitymas(vector<Stud>& grupe, duration<double>& veiklaik) {
 	int pasi = 0;
 	cout << "Pasirinkite faila (1 - 1000; 2 - 10000; 3 - 100000; 4 - 1000000; 5 - 10000000): " << endl;

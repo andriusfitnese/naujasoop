@@ -119,25 +119,17 @@ vector<Stud> processBatch(const vector<string>& lines) {
 }
 
 void skaitymas(list<Stud>& grupe, duration<double>& veiklaik) {
-	int pasi = 0;
-	cout << "Pasirinkite faila (1 - 1000; 2 - 10000; 3 - 100000; 4 - 1000000; 5 - 10000000): " << endl;
-
+	string failopav;
+	cout << "Iveskite failo pavadinima: " << endl;
 	while (true) {
-		cin >> pasi;
-		if (cin.fail() || pasi < 1 || pasi > 5) {
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Netinkamas pasirinkimas. Bandykite dar kartą." << endl;
+		cin >> failopav;
+		if (!failasegzistuoja(failopav)) {
+			cerr << "Klaida: failas " << failopav << " neegzistuoja!" << endl;
+			return;
 		}
 		else {
 			break;
 		}
-	}
-
-	string failopav = to_string(static_cast<int>(pow(10, pasi + 2)));
-	if (!failasegzistuoja(failopav)) {
-		cerr << "Klaida: failas " << failopav << " neegzistuoja!" << endl;
-		return;
 	}
 
 	ifstream in(failopav, ios::in | ios::ate); // atidarom faila pamatyti ilgi

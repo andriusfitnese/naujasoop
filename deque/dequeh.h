@@ -42,6 +42,7 @@ using std::istringstream;
 using std::cerr;
 using std::nth_element;
 using std::future;
+using std::istream;
 using std::runtime_error;
 using std::ios;
 using std::exception;
@@ -57,45 +58,46 @@ using std::back_inserter;
 const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
 const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };
 
-struct Stud {
+class Stud {
+
+private:
+
+	string var_;
+	string pav_;
+	string egrez_;
+	vector<int>paz_;
+
+public:
+	Stud();
+
+	Stud(const string& vardas, const string& pavarde, const vector<int>& pazymiai, const int egzaminas);
+
+	Stud(istream& is);
+
+	const string& getVardas() const { return var_; }
+	const string& getPavarde() const { return pav_; }
+	const vector<int>& getPazymiai() const { return paz_; }
+	int getEgzaminas() const { return egrez_; }
+	double getNdvid() const { return ndvid_; }
+	double getGalutinis() const { return gal_; }
+	double getMediana() const { return med_; }
+	double galBalas(double (*) (std::vector<double>) = mediana) const;
+
+
+
+};
+
+
+/*struct Stud {
 	string pav;
 	string var;
 	int egrez;
-	int pazkiek = 0;
-	int* P;
 	vector<int> paz;
 	double ndvid;
 	double gal;
 	double med;
-	/*Stud() : P(nullptr), pazkiek(0) {}  ///default konstruktorius
-
-	~Stud() {
-		delete[]P;
-		P = nullptr; ///kad nebutu kabanti rodykle
-	}
-
-	Stud(const Stud& other)  ///kopijavimo konstruktorius
-	{
-		var = other.var;
-		pav = other.pav;
-		pazkiek = other.pazkiek;
-		egrez = other.egrez;
-		ndvid = other.ndvid;
-		gal = other.gal;
-		med = other.med;
-
-		if (other.P != nullptr) {
-			P = new int[pazkiek];
-			for (int i = 0; i < pazkiek; i++) {
-				P[i] = other.P[i];
-			}
-		}
-		else {
-			P = nullptr;
-		}
-	}*/
 };
-
+*/
 
 
 bool sortVardu(const Stud& a, const Stud& b);

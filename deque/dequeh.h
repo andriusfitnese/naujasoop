@@ -16,6 +16,7 @@
 #include <deque>
 #include <chrono>
 #include <list>
+#include <numeric>
 
 using std::cout;
 using std::cin;
@@ -54,6 +55,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 using std::copy;
 using std::back_inserter;
+using std::accumulate;
 
 const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
 const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };
@@ -64,27 +66,57 @@ private:
 
 	string var_;
 	string pav_;
-	string egrez_;
 	vector<int>paz_;
+	int egrez_;
+	double gal_;
+	double ndvid_;
+	double med_;
+	
 
 public:
 	Stud();
+	~Stud();
 
 	Stud(const string& vardas, const string& pavarde, const vector<int>& pazymiai, const int egzaminas);
-
 	Stud(istream& is);
 
-	const string& getVardas() const { return var_; }
-	const string& getPavarde() const { return pav_; }
-	const vector<int>& getPazymiai() const { return paz_; }
-	int getEgzaminas() const { return egrez_; }
-	double getNdvid() const { return ndvid_; }
-	double getGalutinis() const { return gal_; }
-	double getMediana() const { return med_; }
-	double galBalas(double (*) (std::vector<double>) = mediana) const;
+	///setteriai
+	void setVar(const string& v) { var_ = v; }
+	void setPav(const string& p) { pav_ = p; }
+	void addPaz(int p) { paz_.push_back(p); }
+	void setEgrez(int e) { egrez_ = e; }
+	void setNdvid(double v) { ndvid_ = v; }
+	void setGal(double g) { gal_ = g; }
+	void setMed(double m) { med_ = m; }
+	void clearPaz() { paz_.clear(); }
 
 
+	/// getteriai 
+	inline const string& getVardas() const { return var_; }
+	inline const string& getPavarde() const { return pav_; }
+	inline vector<int>& getPazymiai() { return paz_; }
+	inline int getEgzaminas() const { return egrez_; }
+	inline double getNdvid() const { return ndvid_; }
+	inline double getGalutinis() const { return gal_; }
+	inline double getMediana() const { return med_; }
+	
+	/*double mediana(const vector<double>& paz);
+	double vidurkis(const vector<double>& paz);
+	double galBalas(double (*func)(const vector<double>&));
 
+	void computeGrades(double (*calc)(const vector<double>&)) {
+		vector<double> paz_double(paz_.begin(), paz_.end());
+		gal_ = 0.4 * calc(paz_double) + 0.6 * egrez_;
+		med_ = Stud::mediana(paz_double);
+		ndvid_ = Stud::vidurkis(paz_double);
+	}
+	*/
+	void paskaiciuoti_vid_ir_med();
+	void paskaiciuoti_gal();
+	double galutinis_vidurkis() const { return gal_; }
+	double galutinis_mediana() const { return med_; }
+
+	istream& readStudent(istream& in);
 };
 
 

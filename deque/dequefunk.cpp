@@ -6,52 +6,74 @@ bool failasegzistuoja(const string& failopav)
 	return failas.good();
 }
 bool sortVardu(const Stud& a, const Stud& b) {
-	return a.var < b.var;
+	return a.getVardas() < b.getVardas();
 }
 bool sortPav(const Stud& a, const Stud& b) {
-	return a.pav < b.pav;
+	return a.getPavarde() < b.getPavarde();
 }
 bool sortMed(const Stud& a, const Stud& b) {
-	return a.med < b.med;
+	return a.getMediana() < b.getMediana();
 }
 bool sortGal(const Stud& a, const Stud& b) {
-	return a.gal < b.gal;
-}
-double mediana(const vector<int>& paz, double egrez, string var)
-{
-	if (paz.empty())
-	{
-		cerr << "Namu darbu pazymiu nerasta mokiniui " << var << endl;
-		return egrez;
-	}
-	vector<int> sorted_paz = paz;
-	size_t size = sorted_paz.size();
-	nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2, sorted_paz.end());
-	double med = sorted_paz[size / 2];
-	if (size % 2 == 0)
-	{
-		nth_element(sorted_paz.begin(), sorted_paz.begin() + size / 2 - 1, sorted_paz.end());
-		med = (med + sorted_paz[size / 2 - 1]) / 2.0;
-	}
-	return (0.4 * med) + (0.6 * double(egrez));
-}
-double galvid(double egrez, double ndvd)
-{
-	double galutinis = (0.6 * egrez) + (0.4 * ndvd);
-	return galutinis;
+	return a.getGalutinis() < b.getGalutinis();
 }
 
-double ndvid(const vector<int>& paz)
-{
-	double sum = 0.0;
-	if (paz.empty()) return 0.0;
-	for (double pazym : paz)
-	{
-		sum += pazym;
-	}
-	double ndvd = sum / paz.size();
-	return ndvd;
+Stud::Stud() : egrez_(0) {}
+Stud::Stud(const string& vardas, const string& pavarde, const vector<int>& pazymiai, const int egzaminas)
+	: var_(vardas), pav_(pavarde), egrez_(egzaminas), gal_(0), ndvid_(0), med_(0), paz_(pazymiai) {
 }
+
+
+
+
+void Stud::paskaiciuoti_vid_ir_med() {
+	if (paz_.empty()) {
+		ndvid_ = 0;
+		med_ = 0;
+		return;
+	}
+	int sum = std::accumulate(paz_.begin(), paz_.end(), 0);
+	int medianos_poz;
+
+	ndvid_ = double(sum) / paz_.size();
+	sort(paz_.begin(), paz_.end());
+
+	if (paz_.size() % 2 == 0) {
+		medianos_poz = paz_.size() / 2;
+		med_ = (paz_.at(medianos_poz) + paz_.at(medianos_poz - 1)) / 2.0;
+	}
+	else {
+		medianos_poz = paz_.size() / 2;
+		med_ = paz_.at(medianos_poz);
+	}
+
+}
+
+void Stud::paskaiciuoti_gal() {
+	gal_ = (0.4 * ndvid_ + 0.6 * egrez_);
+	med_ = (0.4 * med_ + 0.6 * egrez_);
+}
+
+/*double Stud::mediana(const vector<double>& paz) {
+	if (paz.empty()) return 0;
+	sort(paz.begin(), paz.end());
+	size_t n = paz.size();
+	if (n % 2 == 0)
+		return (paz[n / 2 - 1] + paz[n / 2]) / 2.0;
+	else
+		return paz[n / 2];
+}
+double Stud::vidurkis(const vector<double>& paz) {
+	if (paz.empty()) return 0;
+	double sum = accumulate(paz.begin(), paz.end(), 0.0);
+	return sum / paz.size();
+}
+
+double Stud::galBalas(double (*func)(const vector<double>&)){
+	vector<double> paz_double(paz_.begin(), paz_.end());
+	return 0.4 * func(paz_double) + 0.6 * getEgzaminas();
+}
+*/
 void rng(vector<int>& paz)
 {
 	random_device rd;
@@ -96,26 +118,39 @@ vector<Stud> processBatch(const vector<string>& lines) {
 	batchResults.reserve(lines.size());
 
 	for (const auto& line : lines) {
-		Stud laik;
 		istringstream iss(line);
-		iss >> laik.var >> laik.pav;
+		Stud laik(iss);
 
-		int pazym;
-		while (iss >> pazym) {
-			laik.paz.push_back(pazym);
-		}
-
-		if (!laik.paz.empty()) {
-			laik.egrez = laik.paz.back();
-			laik.paz.pop_back();
-		}
-
-		laik.ndvid = ndvid(laik.paz);
-		laik.gal = galvid(laik.egrez, laik.ndvid);
-		laik.med = mediana(laik.paz, laik.egrez, laik.var);
+		laik.paskaiciuoti_vid_ir_med();
+		laik.paskaiciuoti_gal();
 		batchResults.push_back(laik);
 	}
 	return batchResults;
+}
+
+Stud::Stud(istream& is) {
+	is >> var_ >> pav_;
+	int pazym;
+	while (is >> pazym) {
+		paz_.push_back(pazym);
+	}
+	if (!paz_.empty()) {
+		egrez_ = paz_.back();
+		paz_.pop_back();
+	}
+	gal_ = 0;
+	ndvid_ = 0;
+	med_ = 0;
+}
+
+Stud::~Stud() {
+	paz_.clear();
+	var_ = "";
+	pav_ = "";
+	egrez_ = 0;
+	ndvid_ = 0;
+	med_ = 0;
+	gal_ = 0;
 }
 
 void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
@@ -210,7 +245,7 @@ void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
 			cout << string(52, '-') << endl;
 			for (const auto& n : grupe)
 			{
-				cout << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
+				cout << fixed << left << setw(15) << setprecision(2) << n.getVardas() << setw(18) << n.getPavarde() << setw(8) << n.getMediana() << endl;
 			}
 			break;
 
@@ -219,7 +254,7 @@ void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
 			cout << string(52, '-') << endl;
 			for (const auto& n : grupe)
 			{
-				cout << fixed << left << setw(15) << setprecision(2) << n.pav << setw(18) << n.var << setw(8) << n.gal << endl;
+				cout << fixed << left << setw(15) << setprecision(2) << n.getPavarde() << setw(18) << n.getVardas() << setw(8) << n.getGalutinis() << endl;
 			}
 			break;
 		}
@@ -233,7 +268,7 @@ void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
 			out << string(52, '-') << endl;
 			for (const auto& n : grupe)
 			{
-				out << fixed << left << setw(15) << setprecision(2) << n.var << setw(18) << n.pav << setw(8) << n.med << endl;
+				out << fixed << left << setw(15) << setprecision(2) << n.getVardas() << setw(18) << n.getPavarde() << setw(8) << n.getMediana() << endl;
 			}
 			break;
 		case 2:
@@ -241,7 +276,7 @@ void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
 			out << string(52, '-') << endl;
 			for (const auto& n : grupe)
 			{
-				out << fixed << left << setw(15) << setprecision(2) << n.pav << setw(18) << n.var << setw(8) << n.gal << endl;
+				out << fixed << left << setw(15) << setprecision(2) << n.getVardas() << setw(18) << n.getPavarde() << setw(8) << n.getGalutinis() << endl;
 			}
 			break;
 		}
@@ -318,15 +353,15 @@ void failogen(const string& failopav, int irasuk)
 void atrinkimas1(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
 {
 	auto pasis = (pasmv == 1) ?
-		[](const Stud& s) { return s.med; } :
-		[](const Stud& s) { return s.gal; };
+		[](const Stud& s) { return s.getMediana(); } :
+		[](const Stud& s) { return s.getGalutinis(); };
 
 	string pasir = (pasmv == 1) ? "Mediana" : "Galutinis";
 
 	auto start1 = high_resolution_clock::now();
 	for (const auto& n : grupe)
 	{
-		if (n.gal >= 5) nerdai.push_back(n);
+		if (n.getGalutinis() >= 5) nerdai.push_back(n);
 		else galiorka.push_back(n);
 	}
 	grupe.clear();
@@ -339,7 +374,7 @@ void atrinkimas1(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiork
 	outp << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : nerdai)
 	{
-		outp << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outp << left << setw(25) << n.getVardas() << setw(25) << n.getPavarde() << setw(6) << pasis(n);
 		outp << endl;
 	}
 	///auto end2 = high_resolution_clock::now();
@@ -350,7 +385,7 @@ void atrinkimas1(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiork
 	outf << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : galiorka)
 	{
-		outf << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outf << left << setw(25) << n.getVardas() << setw(25) << n.getPavarde() << setw(6) << pasis(n);
 		outf << endl;
 	}
 	///auto end3 = high_resolution_clock::now();
@@ -361,19 +396,19 @@ void atrinkimas1(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiork
 void atrinkimas2(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
 {
 	auto pasis = (pasmv == 1) ?
-		[](const Stud& s) { return s.med; } :
-		[](const Stud& s) { return s.gal; };
+		[](const Stud& s) { return s.getMediana(); } :
+		[](const Stud& s) { return s.getGalutinis(); };
 
 	string pasir = (pasmv == 1) ? "Mediana" : "Galutinis";
 
 	auto start1 = high_resolution_clock::now();
 	for (const auto& n : grupe)
 	{
-		if (n.gal < 5) {
+		if (n.getGalutinis() < 5) {
 			galiorka.push_back(n);
 		}
 	}
-	grupe.erase(remove_if(grupe.begin(), grupe.end(), [](const Stud& s) { return s.gal < 5; }), grupe.end());
+	grupe.erase(remove_if(grupe.begin(), grupe.end(), [](const Stud& s) { return s.getGalutinis() < 5; }), grupe.end());
 	auto end1 = high_resolution_clock::now();
 	veiklaik += end1 - start1;
 	cout << "Atskyrimo i dvi grupes veikimo laikas nepanaikinant originalaus vektoriaus: " << duration<double>(end1 - start1).count() << endl;
@@ -382,7 +417,7 @@ void atrinkimas2(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration
 	outp << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : grupe)
 	{
-		outp << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outp << left << setw(25) << n.getVardas() << setw(25) << n.getPavarde() << setw(6) << pasis(n);
 		outp << endl;
 	}
 	auto end2 = high_resolution_clock::now();
@@ -393,7 +428,7 @@ void atrinkimas2(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration
 	outf << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : galiorka)
 	{
-		outf << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outf << left << setw(25) << n.getVardas() << setw(25) << n.getPavarde() << setw(6) << pasis(n);
 		outf << endl;
 	}
 	auto end3 = high_resolution_clock::now();
@@ -401,16 +436,20 @@ void atrinkimas2(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration
 	cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
 }
 
+
+/// cia kazkur problema, i galiorka isveda ir tuos, kuriu pazymys 5.00
+// taip pat galima problema rikiavime dar yra
+
 void atrinkimas3(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
 {
 	auto pasis = (pasmv == 1) ?
-		[](const Stud& s) { return s.med; } :
-		[](const Stud& s) { return s.gal; };
+		[](const Stud& s) { return s.getMediana(); } :
+		[](const Stud& s) { return s.getGalutinis(); };
 
 	string pasir = (pasmv == 1) ? "Mediana" : "Galutinis";
 
 	auto start1 = high_resolution_clock::now();
-	auto it = partition(grupe.begin(), grupe.end(), [](const Stud& s) { return s.gal >= 5; });
+	auto it = partition(grupe.begin(), grupe.end(), [](const Stud& s) { return s.getGalutinis() >= 5; });
 	copy(it, grupe.end(), back_inserter(galiorka));
 	grupe.erase(it, grupe.end());
 	auto end1 = high_resolution_clock::now();
@@ -421,7 +460,7 @@ void atrinkimas3(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration
 	outp << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : grupe)
 	{
-		outp << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outp << left << setw(25) << n.getVardas() << setw(25) << n.getPavarde() << setw(6) << pasis(n);
 		outp << endl;
 	}
 	auto end2 = high_resolution_clock::now();
@@ -432,7 +471,7 @@ void atrinkimas3(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration
 	outf << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : galiorka)
 	{
-		outf << left << setw(25) << n.var << setw(25) << n.pav << setw(6) << pasis(n);
+		outf << left << setw(25) << n.getVardas() << setw(25) << n.getPavarde() << setw(6) << pasis(n);
 		outf << endl;
 	}
 	auto end3 = high_resolution_clock::now();

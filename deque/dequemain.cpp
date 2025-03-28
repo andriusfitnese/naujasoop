@@ -52,14 +52,24 @@ int main()
 	else {
 		while (true)
 		{
+			string v;
 			cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
-			cin >> laik.var;
-			if (laik.var == "stop") break;
-			if (laik.var == "gen") rng(laik.var, laik.pav);
+			cin >> v;
+			if (v == "stop") break;
+			laik.setVar(v);
+			string p;
+			if (v == "gen")
+			{
+				string rv, rp;
+				rng(rv, rp);
+				laik.setVar(rv);
+				laik.setPav(rp);
+			}
 			else
 			{
 				cout << "Iveskite jo pavarde" << endl;
-				cin >> laik.pav;
+				cin >> p;
+				laik.setPav(p);
 			}
 
 			cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, ivede visus, parasykite -1)" << endl;
@@ -77,7 +87,7 @@ int main()
 					}
 					if (pazym == -2 and i < 1)
 					{
-						rng(laik.paz);
+						rng(laik.getPazymiai());
 						break;
 					}
 					else if (pazym == -2 and i > 0)
@@ -88,7 +98,7 @@ int main()
 					else if (pazym == -1 and i < 1) throw runtime_error("Neivedete nei vieno namu darbu pazymio!");
 					else
 					{
-						laik.paz.push_back(pazym);
+						laik.addPaz(pazym);
 						i++;
 					}
 				}
@@ -101,20 +111,24 @@ int main()
 			}
 			tinka = false;
 			cout << "Iveskite jo egzamino rezultata. (jei norite, kad butu sugeneruotas, rasykite -1)" << endl;
+			int egz;
 			while (!tinka)
 			{
 				try {
-					cin >> laik.egrez;
-					if (cin.fail() or (laik.egrez < 1 and laik.egrez != -1) or (laik.egrez > 10 and laik.egrez != -1))
+					cin >> egz;
+					if (cin.fail() or (egz < 1 and egz != -1) or (egz > 10 and egz != -1))
 					{
 						throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
 					}
-					else if (laik.egrez == -1)
+					else if (egz == -1)
 					{
-						rng(laik.egrez);
+						rng(egz);
 						break;
 					}
-					else break;
+					else {
+						laik.setEgrez(egz);
+						break;
+					}
 				}
 				catch (const runtime_error& e)
 				{
@@ -124,7 +138,9 @@ int main()
 				}
 			}
 
-			laik.ndvid = ndvid(laik.paz);
+			laik.paskaiciuoti_vid_ir_med();
+			laik.paskaiciuoti_gal();
+			/*laik.ndvid = ndvid(laik.paz);
 			laik.gal = galvid(laik.egrez, laik.ndvid);
 			laik.med = mediana(laik.paz, laik.egrez, laik.var);
 			grupe.emplace_back(std::move(laik));
@@ -132,7 +148,7 @@ int main()
 			laik.egrez = 0;
 			laik.ndvid = 0.0;
 			laik.gal = 0.0;
-			laik.med = 0.0;
+			laik.med = 0.0;*/
 		}
 	}
 	int sortpas = 0;
@@ -188,7 +204,7 @@ int main()
 			if (grupe.empty())
 			{
 				cout << "Studentu nerasta! programa baigiama!";
-				return 1;
+				///return 1;
 			}
 			else {
 				int pas1 = 0;

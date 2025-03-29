@@ -20,8 +20,9 @@ bool sortGal(const Stud& a, const Stud& b) {
 
 Stud::Stud() : egrez_(0) {}
 Stud::Stud(const string& vardas, const string& pavarde, const vector<int>& pazymiai, const int egzaminas)
-	: var_(vardas), pav_(pavarde), egrez_(egzaminas), gal_(0), ndvid_(0), med_(0), paz_(pazymiai) {
+	: var_(vardas), pav_(pavarde), paz_(pazymiai), egrez_(egzaminas), gal_(0), ndvid_(0), med_(0) {
 }
+
 
 
 

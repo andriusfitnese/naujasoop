@@ -115,12 +115,12 @@ O1
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
-| Skaitymo laikas                    | 0.003 | 0.02  | 0.20   | 1.62   | 14.45 |
-| Rūšiavimo laikas                   | 0.0004  | 0.005 | 0.06   | 0.80 | 14.45 |
-| Atskyrimo i vektorius laikas       | 0.0003 | 0.002  | 0.02   | 0.21    | 2.78  |
-| Irašymo i nerdus laikas            | 0.007  |  0.02 |  0.17  |  1.72 | 18.21 |
-| Irašymo i galiorką laikas          |  0.005   |  0.01  |  0.12  |  1.19   |  12.29  |
-| Visas veikimo laikas               | 0.02  | 0.06  | 0.56   | 5.54   |  60.00 |
+| Skaitymo laikas                    | 0.004 | 0.04  | 0.20   | 1.81   | 12.48 |
+| Rūšiavimo laikas                   | 0.0004  | 0.005 | 0.06   | 0.85 | 14.91 |
+| Atskyrimo i vektorius laikas       | 0.0003 | 0.003  | 0.02   | 0.24    | 3.28  |
+| Irašymo i nerdus laikas            | 0.003  |  0.02 |  0.17  |  1.75 | 19.69 |
+| Irašymo i galiorką laikas          |  0.002   |  0.01  |  0.12  |  1.18   |  13.42  |
+| Visas veikimo laikas               | 0.01  | 0.08  | 0.58   | 5.83   |  63.77 |
 
 O2
 -
@@ -134,12 +134,12 @@ O2
 
 | Studentų kiekis                    | 1000  | 10000 | 100000 | 1000000 |10000000|
 |------------------------------------|-------|-------|--------|---------|--------|
-| Skaitymo laikas                    | 0.003 | 0.02  | 0.20   | 1.62   | 14.45 |
-| Rūšiavimo laikas                   | 0.0004  | 0.005 | 0.06   | 0.80 | 14.45 |
-| Atskyrimo i vektorius laikas       | 0.0003 | 0.002  | 0.02   | 0.21    | 2.78  |
-| Irašymo i nerdus laikas            | 0.007  |  0.02 |  0.17  |  1.72 | 18.21 |
-| Irašymo i galiorką laikas          |  0.005   |  0.01  |  0.12  |  1.19   |  12.29  |
-| Visas veikimo laikas               | 0.02  | 0.06  | 0.56   | 5.54   |  60.00 |
+| Skaitymo laikas                    | 0.02 | 0.04  | 0.22   | 1.72   | 12.39 |
+| Rūšiavimo laikas                   | 0.0005  | 0.005 | 0.07   | 0.84 | 14.92 |
+| Atskyrimo i vektorius laikas       | 0.0004 | 0.003  | 0.02   | 0.21    | 2.79  |
+| Irašymo i nerdus laikas            | 0.03 |  0.02 |  0.17  |  1.71 | 17.73 |
+| Irašymo i galiorką laikas          |  0.02   |  0.01  |  0.12  |  1.22   |  12.72  |
+| Visas veikimo laikas               | 0.07  | 0.08  | 0.59   | 5.69   |  60.56 |
 
 
 O3
@@ -162,3 +162,6 @@ O3
 | Irašymo i nerdus laikas            | 0.007  |  0.02 |  0.17  |  1.72 | 18.21 |
 | Irašymo i galiorką laikas          |  0.005   |  0.01  |  0.12  |  1.19   |  12.29  |
 | Visas veikimo laikas               | 0.02  | 0.06  | 0.56   | 5.54   |  60.00 |
+
+
+Matome, kad skirtumai nėra žymūs, tiktais make trunka ilgiau kurti executable failus kylant optimizacijos lygiui.

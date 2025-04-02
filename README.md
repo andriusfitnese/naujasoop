@@ -10,9 +10,9 @@ Reikalingos komandos:
 
 mingw32-make vector - sukuria .exe versijai su vektoriaus tipo konteineriu
 
-mingw32-make deque  - sukuria .exe versijai su vektoriaus tipo konteineriu
+mingw32-make class  - sukuria .exe versijai su deque tipo konteineriu, bet naudojant klasę.
 
-mingw32-make list   - sukuria .exe versijai su vektoriaus tipo konteineriu
+mingw32-make list   - sukuria .exe versijai su list tipo konteineriu
 
 mingw32-make clean  - ištrina bin failą, kuriame laikomi sukurti jūsų .exe failai bei sugeneruoti duomenų failai
 

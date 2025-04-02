@@ -438,8 +438,6 @@ void atrinkimas2(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration
 }
 
 
-/// cia kazkur problema, i galiorka isveda ir tuos, kuriu pazymys 5.00
-// taip pat galima problema rikiavime dar yra
 
 void atrinkimas3(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)
 {

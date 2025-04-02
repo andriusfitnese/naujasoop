@@ -370,7 +370,7 @@ void atrinkimas1(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiork
 	auto end1 = high_resolution_clock::now();
 	veiklaik += end1 - start1;
 	cout << "Atskyrimo i dvi grupes veikimo laikas panaikinant originalu vektoriu: " << duration<double>(end1 - start1).count() << endl;
-	///auto start2 = high_resolution_clock::now();
+	auto start2 = high_resolution_clock::now();
 	ofstream outp("nerdai.txt");
 	outp << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : nerdai)
@@ -378,10 +378,10 @@ void atrinkimas1(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiork
 		outp << left << setw(25) << n.getVardas() << setw(25) << n.getPavarde() << setw(6) << pasis(n);
 		outp << endl;
 	}
-	///auto end2 = high_resolution_clock::now();
-	///veiklaik += end2 - start2;
-	///cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end2 - start2).count() << endl;
-	///auto start3 = high_resolution_clock::now();
+	auto end2 = high_resolution_clock::now();
+	veiklaik += end2 - start2;
+	cout << "Nerdu irasymo i faila veikimo laikas: " << duration<double>(end2 - start2).count() << endl;
+	auto start3 = high_resolution_clock::now();
 	ofstream outf("galiorka.txt");
 	outf << fixed << setprecision(2) << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(6) << pasir << endl;
 	for (const auto& n : galiorka)
@@ -389,9 +389,9 @@ void atrinkimas1(deque<Stud>& grupe, vector<Stud>& nerdai, vector<Stud>& galiork
 		outf << left << setw(25) << n.getVardas() << setw(25) << n.getPavarde() << setw(6) << pasis(n);
 		outf << endl;
 	}
-	///auto end3 = high_resolution_clock::now();
-	///veiklaik += end3 - start3;
-	///cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
+	auto end3 = high_resolution_clock::now();
+	veiklaik += end3 - start3;
+	cout << "Galiorkos irasymo i faila veikimo laikas:  " << duration<double>(end3 - start3).count() << endl;
 }
 
 void atrinkimas2(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration<double>& veiklaik)

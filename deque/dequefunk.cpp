@@ -55,26 +55,6 @@ void Stud::paskaiciuoti_gal() {
 	med_ = (0.4 * med_ + 0.6 * egrez_);
 }
 
-/*double Stud::mediana(const vector<double>& paz) {
-	if (paz.empty()) return 0;
-	sort(paz.begin(), paz.end());
-	size_t n = paz.size();
-	if (n % 2 == 0)
-		return (paz[n / 2 - 1] + paz[n / 2]) / 2.0;
-	else
-		return paz[n / 2];
-}
-double Stud::vidurkis(const vector<double>& paz) {
-	if (paz.empty()) return 0;
-	double sum = accumulate(paz.begin(), paz.end(), 0.0);
-	return sum / paz.size();
-}
-
-double Stud::galBalas(double (*func)(const vector<double>&)){
-	vector<double> paz_double(paz_.begin(), paz_.end());
-	return 0.4 * func(paz_double) + 0.6 * getEgzaminas();
-}
-*/
 void rng(vector<int>& paz)
 {
 	random_device rd;

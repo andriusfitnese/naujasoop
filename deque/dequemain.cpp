@@ -54,7 +54,7 @@ int main()
 		{
 			string v;
 			cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
-			cin >> v;
+			cin >> laik;
 			if (v == "stop") break;
 			laik.setVar(v);
 			string p;
@@ -222,7 +222,7 @@ int main()
 				if (grupe.empty())
 				{
 					cout << "Studentu nerasta! programa baigiama!";
-					return 1;
+					///return 1;
 				}
 				else isvedimas(pas, pasmv, grupe);
 			}

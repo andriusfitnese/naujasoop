@@ -78,9 +78,12 @@ public:
 	~Stud();
 
 	Stud(const Stud& other);  ///kopijavimo konstruktorius
-	Stud& operator=(const Stud&) = default; ///kopijavimo assignment
-	Stud(Stud&&) noexcept = default;  ///kelimo konstruktorius
-	Stud& operator=(Stud&&) noexcept = default;  ///kelimo assignment
+	Stud& operator=(const Stud&); ///kopijavimo assignment
+	Stud(Stud&&) noexcept;  ///kelimo konstruktorius
+	Stud& operator=(Stud&&) noexcept;  ///kelimo assignment
+
+
+
 
 	Stud(const string& vardas, const string& pavarde, const vector<int>& pazymiai, const int egzaminas);
 	Stud(istream& is);
@@ -124,6 +127,8 @@ public:
 	istream& readStudent(istream& in);
 };
 
+std::istream& operator>>(std::istream& is, Stud& s);
+std::ostream& operator<<(std::ostream& os, const Stud& s);
 
 /*struct Stud {
 	string pav;

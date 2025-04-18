@@ -168,6 +168,50 @@ Stud::~Stud() {
 	gal_ = 0;
 }
 
+std::istream& operator>>(std::istream& is, Stud& s) {
+	string vardas, pavarde;
+	vector<int> nd;
+	int egz = 0;
+
+	cout << "Iveskite varda ir pavarde: ";
+	is >> vardas >> pavarde;
+
+	cout << "Iveskite namu darbu pazymius (baigti -1): ";
+	int paz;
+	while (is >> paz && paz != -1) {
+		if (paz >= 1 && paz <= 10)
+			nd.push_back(paz);
+		else
+			cout << "Pazymys turi buti 1-10. Bandykite dar kartą: ";
+	}
+
+	cout << "Iveskite egzamino rezultata: ";
+	while (true) {
+		is >> egz;
+		if (egz >= 1 && egz <= 10) break;
+		else cout << "Egzamino pazymys turi buti 1-10. Bandykite dar kartą: ";
+	}
+
+	s.setVar(vardas);
+	s.setPav(pavarde);
+	s.clearPaz();
+	for (auto p : nd) s.addPaz(p);
+	s.setEgrez(egz);
+	s.paskaiciuoti_vid_ir_med();
+	s.paskaiciuoti_gal();
+
+	return is;
+}
+
+std::ostream& operator<<(std::ostream& os, const Stud& s) {
+	os << std::left << std::setw(15) << s.getVardas()
+		<< std::setw(15) << s.getPavarde()
+		<< std::fixed << std::setprecision(2)
+		<< std::setw(10) << s.getGalutinis()
+		<< std::setw(10) << s.getMediana();
+	return os;
+}
+
 void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 	string failopav;
 	cout << "Iveskite failo pavadinima: " << endl;

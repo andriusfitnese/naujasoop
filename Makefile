@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -O2 -Wall -std=c++17
+CXXFLAGS = -O3 -Wall -std=c++17
 
 VECTOR_SRCS = $(wildcard vector/*.cpp)
 CLASS_SRCS = $(wildcard deque/*.cpp)

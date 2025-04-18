@@ -23,9 +23,43 @@ Stud::Stud(const string& vardas, const string& pavarde, const vector<int>& pazym
 	: var_(vardas), pav_(pavarde), paz_(pazymiai), egrez_(egzaminas), gal_(0), ndvid_(0), med_(0) {
 }
 
+Stud::Stud(const Stud& other)
+	: var_(other.var_), pav_(other.pav_), paz_(other.paz_),
+	egrez_(other.egrez_), gal_(other.gal_),
+	ndvid_(other.ndvid_), med_(other.med_) {
+}
 
+Stud& Stud::operator=(const Stud& other) {
+	if (this != &other) {
+		var_ = other.var_;
+		pav_ = other.pav_;
+		paz_ = other.paz_;
+		egrez_ = other.egrez_;
+		gal_ = other.gal_;
+		ndvid_ = other.ndvid_;
+		med_ = other.med_;
+	}
+	return *this;
+}
 
+Stud::Stud(Stud&& other) noexcept
+	: var_(std::move(other.var_)), pav_(std::move(other.pav_)),
+	paz_(std::move(other.paz_)), egrez_(other.egrez_),
+	gal_(other.gal_), ndvid_(other.ndvid_), med_(other.med_) {
+}
 
+Stud& Stud::operator=(Stud&& other) noexcept {
+	if (this != &other) {
+		var_ = std::move(other.var_);
+		pav_ = std::move(other.pav_);
+		paz_ = std::move(other.paz_);
+		egrez_ = other.egrez_;
+		gal_ = other.gal_;
+		ndvid_ = other.ndvid_;
+		med_ = other.med_;
+	}
+	return *this;
+}
 
 void Stud::paskaiciuoti_vid_ir_med() {
 	if (paz_.empty()) {

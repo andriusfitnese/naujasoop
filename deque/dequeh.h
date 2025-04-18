@@ -77,6 +77,11 @@ public:
 	Stud();
 	~Stud();
 
+	Stud(const Stud& other);  ///kopijavimo konstruktorius
+	Stud& operator=(const Stud&) = default; ///kopijavimo assignment
+	Stud(Stud&&) noexcept = default;  ///kelimo konstruktorius
+	Stud& operator=(Stud&&) noexcept = default;  ///kelimo assignment
+
 	Stud(const string& vardas, const string& pavarde, const vector<int>& pazymiai, const int egzaminas);
 	Stud(istream& is);
 

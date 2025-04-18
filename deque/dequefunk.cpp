@@ -1,5 +1,8 @@
 ﻿#include "dequeh.h"
 
+int g_printMode = 1;
+/// 1 - mediana, 2 - vidurkis (isvedimui)
+
 bool failasegzistuoja(const string& failopav)
 {
 	ifstream failas(failopav);
@@ -265,46 +268,21 @@ std::istream& operator>>(std::istream& is, Stud& s) { ///perkelt viska is skaity
 	s.paskaiciuoti_gal();
 	return is;
 }
-	/*string vardas, pavarde;
-	vector<int> nd;
-	int egz = 0;
-
-	cout << "Iveskite varda ir pavarde: ";
-	is >> vardas >> pavarde;
-
-	cout << "Iveskite namu darbu pazymius (baigti -1): ";
-	int paz;
-	while (is >> paz && paz != -1) {
-		if (paz >= 1 && paz <= 10)
-			nd.push_back(paz);
-		else
-			cout << "Pazymys turi buti 1-10. Bandykite dar kartą: ";
-	}
-
-	cout << "Iveskite egzamino rezultata: ";
-	while (true) {
-		is >> egz;
-		if (egz >= 1 && egz <= 10) break;
-		else cout << "Egzamino pazymys turi buti 1-10. Bandykite dar kartą: ";
-	}
-
-	s.setVar(vardas);
-	s.setPav(pavarde);
-	s.clearPaz();
-	for (auto p : nd) s.addPaz(p);
-	s.setEgrez(egz);
-	s.paskaiciuoti_vid_ir_med();
-	s.paskaiciuoti_gal();
-
-	return is;
-	*/
 
 std::ostream& operator<<(std::ostream& os, const Stud& s) {
-	os << std::left << std::setw(15) << s.getVardas()
-		<< std::setw(15) << s.getPavarde()
-		<< std::fixed << std::setprecision(2)
-		<< std::setw(10) << s.getGalutinis()
-		<< std::setw(10) << s.getMediana();
+	os
+		<< std::fixed
+		<< std::setprecision(2)
+		<< std::left
+		<< std::setw(15) << s.getVardas()
+		<< std::setw(18) << s.getPavarde();
+
+	if (g_printMode == 1) {
+		os << std::setw(8) << s.getMediana();
+	}
+	else {
+		os << std::setw(8) << s.getGalutinis();
+	}
 	return os;
 }
 
@@ -389,7 +367,7 @@ void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 
 void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
 {
-
+	g_printMode = pasmv;
 	switch (pas)
 	{
 	case 1:
@@ -400,7 +378,7 @@ void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
 			cout << string(52, '-') << endl;
 			for (const auto& n : grupe)
 			{
-				cout << fixed << left << setw(15) << setprecision(2) << n.getVardas() << setw(18) << n.getPavarde() << setw(8) << n.getMediana() << endl;
+				cout << n << '\n';
 			}
 			break;
 
@@ -409,7 +387,7 @@ void isvedimas(int pas, int pasmv, const deque<Stud>& grupe)
 			cout << string(52, '-') << endl;
 			for (const auto& n : grupe)
 			{
-				cout << fixed << left << setw(15) << setprecision(2) << n.getPavarde() << setw(18) << n.getVardas() << setw(8) << n.getGalutinis() << endl;
+				cout << n << '\n';
 			}
 			break;
 		}

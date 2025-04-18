@@ -56,7 +56,7 @@ int main()
 			///cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
 			cin >> laik;
 			if (laik.getVardas() == "stop") break;
-
+			grupe.push_back(laik);
 			/*if (v == "stop") break;
 			laik.setVar(v);
 			string p;

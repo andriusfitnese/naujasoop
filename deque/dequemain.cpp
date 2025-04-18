@@ -52,10 +52,12 @@ int main()
 	else {
 		while (true)
 		{
-			string v;
-			cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
+			///string v;
+			///cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
 			cin >> laik;
-			if (v == "stop") break;
+			if (laik.getVardas() == "stop") break;
+
+			/*if (v == "stop") break;
 			laik.setVar(v);
 			string p;
 			if (v == "gen")
@@ -140,97 +142,98 @@ int main()
 
 			laik.paskaiciuoti_vid_ir_med();
 			laik.paskaiciuoti_gal();
+		}*/
 		}
-	}
-	int sortpas = 0;
-	string pasirn;
-	if (gautteisinga(sortpas, "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ", 1, 4)) {}
-	high_resolution_clock::time_point start, end;
-	switch (sortpas) {
-	case 1:
-		start = high_resolution_clock::now();
-		sort(grupe.begin(), grupe.end(), sortVardu);
-		///grupe.sort(sortVardu);
-		end = high_resolution_clock::now();
-		cout << "Surikiuota pagal vardus (abeceles tvarka)." << endl;
-		pasirn = "vardus";
-		break;
-	case 2:
-		start = high_resolution_clock::now();
-		sort(grupe.begin(), grupe.end(), sortPav);
-		///grupe.sort(sortPav);
-		end = high_resolution_clock::now();
-		cout << "Surikiuota pagal pavardes (abeceles tvarka)." << endl;
-		pasirn = "pavardes";
-		break;
-	case 3:
-		start = high_resolution_clock::now();
-		sort(grupe.begin(), grupe.end(), sortMed);
-		///grupe.sort(sortMed);
-		end = high_resolution_clock::now();
-		cout << "Surikiuota pagal mediana." << endl;
-		pasirn = "mediana";
-		break;
-	case 4:
-		start = high_resolution_clock::now();
-		sort(grupe.begin(), grupe.end(), sortGal);
-		///grupe.sort(sortGal);
-		end = high_resolution_clock::now();
-		cout << "Surikiuota pagal galutini pazymi." << endl;
-		pasirn = "galutini pazymi";
-		break;
-	default:
-		cout << "Neteisingas pasirinkimas!" << endl;
-		break;
-	}
-	veiklaik += end - start;
-	cout << "Rusiavimo pagal " << pasirn << " laikas:" << duration<double>(end - start).count() << endl;
-	pas = 0;
-	int pasmv = 0;
-	if (gautteisinga(pas, "Ar isskirti studentus, kurie pazangus ir nepazangus [bus galimas tik isvedimas i faila!] (1) ar ne? (2)", 1, 2))
-		switch (pas)
-		{
+		int sortpas = 0;
+		string pasirn;
+		if (gautteisinga(sortpas, "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ", 1, 4)) {}
+		high_resolution_clock::time_point start, end;
+		switch (sortpas) {
 		case 1:
-			gautteisinga(pasmv, "Isvesti mediana(1), vidurki(2)?", 1, 2);
-			if (grupe.empty())
-			{
-				cout << "Studentu nerasta! programa baigiama!";
-				///return 1;
-			}
-			else {
-				int pas1 = 0;
-				if (gautteisinga(pas1, "Kuria strategija (1-3) noretute panaudoti?", 1, 3))
-					switch (pas1)
-					{
-					case 1:
-						atrinkimas1(grupe, nerdai, galiorka, pasmv, veiklaik);
-						break;
-					case 2:
-						atrinkimas2(grupe, galiorka, pasmv, veiklaik);
-						break;
-					case 3:
-						atrinkimas3(grupe, galiorka, pasmv, veiklaik);
-						break;
-					}
-			}
+			start = high_resolution_clock::now();
+			sort(grupe.begin(), grupe.end(), sortVardu);
+			///grupe.sort(sortVardu);
+			end = high_resolution_clock::now();
+			cout << "Surikiuota pagal vardus (abeceles tvarka)." << endl;
+			pasirn = "vardus";
 			break;
 		case 2:
-			pas = 0;
-			if (gautteisinga(pas, "I ekrana(1) ar i faila(2)?", 1, 2))
+			start = high_resolution_clock::now();
+			sort(grupe.begin(), grupe.end(), sortPav);
+			///grupe.sort(sortPav);
+			end = high_resolution_clock::now();
+			cout << "Surikiuota pagal pavardes (abeceles tvarka)." << endl;
+			pasirn = "pavardes";
+			break;
+		case 3:
+			start = high_resolution_clock::now();
+			sort(grupe.begin(), grupe.end(), sortMed);
+			///grupe.sort(sortMed);
+			end = high_resolution_clock::now();
+			cout << "Surikiuota pagal mediana." << endl;
+			pasirn = "mediana";
+			break;
+		case 4:
+			start = high_resolution_clock::now();
+			sort(grupe.begin(), grupe.end(), sortGal);
+			///grupe.sort(sortGal);
+			end = high_resolution_clock::now();
+			cout << "Surikiuota pagal galutini pazymi." << endl;
+			pasirn = "galutini pazymi";
+			break;
+		default:
+			cout << "Neteisingas pasirinkimas!" << endl;
+			break;
+		}
+		veiklaik += end - start;
+		cout << "Rusiavimo pagal " << pasirn << " laikas:" << duration<double>(end - start).count() << endl;
+		pas = 0;
+		int pasmv = 0;
+		if (gautteisinga(pas, "Ar isskirti studentus, kurie pazangus ir nepazangus [bus galimas tik isvedimas i faila!] (1) ar ne? (2)", 1, 2))
+			switch (pas)
 			{
+			case 1:
 				gautteisinga(pasmv, "Isvesti mediana(1), vidurki(2)?", 1, 2);
 				if (grupe.empty())
 				{
 					cout << "Studentu nerasta! programa baigiama!";
 					///return 1;
 				}
-				else isvedimas(pas, pasmv, grupe);
+				else {
+					int pas1 = 0;
+					if (gautteisinga(pas1, "Kuria strategija (1-3) noretute panaudoti?", 1, 3))
+						switch (pas1)
+						{
+						case 1:
+							atrinkimas1(grupe, nerdai, galiorka, pasmv, veiklaik);
+							break;
+						case 2:
+							atrinkimas2(grupe, galiorka, pasmv, veiklaik);
+							break;
+						case 3:
+							atrinkimas3(grupe, galiorka, pasmv, veiklaik);
+							break;
+						}
+				}
+				break;
+			case 2:
+				pas = 0;
+				if (gautteisinga(pas, "I ekrana(1) ar i faila(2)?", 1, 2))
+				{
+					gautteisinga(pasmv, "Isvesti mediana(1), vidurki(2)?", 1, 2);
+					if (grupe.empty())
+					{
+						cout << "Studentu nerasta! programa baigiama!";
+						///return 1;
+					}
+					else isvedimas(pas, pasmv, grupe);
+				}
+				break;
 			}
-			break;
-		}
-	cout << "Visos programos testo laikas: " << veiklaik.count() << endl;
-	cout << "Paspauskite Enter uzdaryti programa.";
-	std::cin.ignore();
-	std::cin.get();
-	return 0;
+		cout << "Visos programos testo laikas: " << veiklaik.count() << endl;
+		cout << "Paspauskite Enter uzdaryti programa.";
+		std::cin.ignore();
+		std::cin.get();
+		return 0;
+	}
 }

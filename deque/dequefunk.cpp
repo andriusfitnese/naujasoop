@@ -168,8 +168,104 @@ Stud::~Stud() {
 	gal_ = 0;
 }
 
-std::istream& operator>>(std::istream& is, Stud& s) {
-	string vardas, pavarde;
+std::istream& operator>>(std::istream& is, Stud& s) { ///perkelt viska is skaitymo
+	string v;
+	cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
+	is >> v;
+	if (v == "stop")
+	{
+		v = "stop";
+		s.setVar(v);
+		return is;
+	}
+	s.setVar(v);
+	string p;
+	if (v == "gen")
+	{
+		string rv, rp;
+		rng(rv, rp);
+		s.setVar(rv);
+		s.setPav(rp);
+	}
+	else
+	{
+		cout << "Iveskite jo pavarde" << endl;
+		is >> p;
+		s.setPav(p);
+	}
+
+	cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, ivede visus, parasykite -1)" << endl;
+	int pazym;
+	int i = 0;
+	bool tinka = false;
+	while (!tinka)
+	{
+		try
+		{
+			is >> pazym;
+			if (cin.fail() or ((pazym > 10 or pazym < 1) and pazym != -2 and pazym != -1))
+			{
+				throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
+			}
+			if (pazym == -2 and i < 1)
+			{
+				rng(s.getPazymiai());
+				break;
+			}
+			else if (pazym == -2 and i > 0)
+			{
+				throw runtime_error("Generuoti galima tik is pradziu.Veskite ranka arba uzbaikite su -1.");
+			}
+			if (pazym == -1 and i > 0)break;
+			else if (pazym == -1 and i < 1) throw runtime_error("Neivedete nei vieno namu darbu pazymio!");
+			else
+			{
+				s.addPaz(pazym);
+				i++;
+			}
+		}
+		catch (runtime_error& e)
+		{
+			cerr << "Klaida: " << e.what() << endl;
+			is.clear();
+			is.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+	
+	cout << "Iveskite jo egzamino rezultata. (jei norite, kad butu sugeneruotas, rasykite -1)" << endl;
+	tinka = false;
+	int egz;
+	while (!tinka)
+	{
+		try {
+			is >> egz;
+			if (is.fail() or (egz < 1 and egz != -1) or (egz > 10 and egz != -1))
+			{
+				throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
+			}
+			else if (egz == -1)
+			{
+				rng(egz);
+				break;
+			}
+			else {
+				s.setEgrez(egz);
+				break;
+			}
+		}
+		catch (const runtime_error& e)
+		{
+			cerr << "Klaida: " << e.what() << endl;
+			is.clear();
+			is.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+
+	s.paskaiciuoti_vid_ir_med();
+	s.paskaiciuoti_gal();
+	return is;
+}
+	/*string vardas, pavarde;
 	vector<int> nd;
 	int egz = 0;
 
@@ -201,7 +297,7 @@ std::istream& operator>>(std::istream& is, Stud& s) {
 	s.paskaiciuoti_gal();
 
 	return is;
-}
+	*/
 
 std::ostream& operator<<(std::ostream& os, const Stud& s) {
 	os << std::left << std::setw(15) << s.getVardas()

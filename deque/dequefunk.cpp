@@ -131,20 +131,6 @@ void rng(string& vardas, string& pavarde)
 	pavarde = pavardes[nameDist(gen)];
 	cout << vardas << " " << pavarde << endl;
 }
-vector<Stud> processBatch(const vector<string>& lines) {
-	vector<Stud> batchResults;
-	batchResults.reserve(lines.size());
-
-	for (const auto& line : lines) {
-		istringstream iss(line);
-		Stud laik(iss);
-
-		laik.paskaiciuoti_vid_ir_med();
-		laik.paskaiciuoti_gal();
-		batchResults.push_back(laik);
-	}
-	return batchResults;
-}
 
 Stud::Stud(istream& is) {
 	is >> var_ >> pav_;
@@ -171,33 +157,33 @@ Stud::~Stud() {
 	gal_ = 0;
 }
 
-std::istream& operator>>(std::istream& is, Stud& s) { ///perkelt viska is skaitymo
+std::istream& Stud::readStudent(std::istream& is) { ///rankinis/automatinis irasymas ( ne is failo )
 	string v;
 	cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
 	is >> v;
 	if (v == "stop")
 	{
-		v = "stop";
-		s.setVar(v);
+		var_ = "stop";
 		return is;
 	}
-	s.setVar(v);
+	setVar(v);
 	string p;
 	if (v == "gen")
 	{
 		string rv, rp;
 		rng(rv, rp);
-		s.setVar(rv);
-		s.setPav(rp);
+		setVar(rv);
+		setPav(rp);
 	}
 	else
 	{
 		cout << "Iveskite jo pavarde" << endl;
 		is >> p;
-		s.setPav(p);
+		setPav(p);
 	}
 
 	cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, ivede visus, parasykite -1)" << endl;
+	paz_.clear();
 	int pazym;
 	int i = 0;
 	bool tinka = false;
@@ -206,13 +192,13 @@ std::istream& operator>>(std::istream& is, Stud& s) { ///perkelt viska is skaity
 		try
 		{
 			is >> pazym;
-			if (cin.fail() or ((pazym > 10 or pazym < 1) and pazym != -2 and pazym != -1))
+			if (is.fail() or ((pazym > 10 or pazym < 1) and pazym != -2 and pazym != -1))
 			{
 				throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
 			}
 			if (pazym == -2 and i < 1)
 			{
-				rng(s.getPazymiai());
+				rng(paz_);
 				break;
 			}
 			else if (pazym == -2 and i > 0)
@@ -223,7 +209,7 @@ std::istream& operator>>(std::istream& is, Stud& s) { ///perkelt viska is skaity
 			else if (pazym == -1 and i < 1) throw runtime_error("Neivedete nei vieno namu darbu pazymio!");
 			else
 			{
-				s.addPaz(pazym);
+				paz_.push_back(pazym);
 				i++;
 			}
 		}
@@ -234,7 +220,7 @@ std::istream& operator>>(std::istream& is, Stud& s) { ///perkelt viska is skaity
 			is.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
-	
+
 	cout << "Iveskite jo egzamino rezultata. (jei norite, kad butu sugeneruotas, rasykite -1)" << endl;
 	tinka = false;
 	int egz;
@@ -252,7 +238,7 @@ std::istream& operator>>(std::istream& is, Stud& s) { ///perkelt viska is skaity
 				break;
 			}
 			else {
-				s.setEgrez(egz);
+				setEgrez(egz);
 				break;
 			}
 		}
@@ -264,9 +250,27 @@ std::istream& operator>>(std::istream& is, Stud& s) { ///perkelt viska is skaity
 		}
 	}
 
+	paskaiciuoti_vid_ir_med();
+	paskaiciuoti_gal();
+	return is;
+}
+
+std::istream& operator>>(std::istream& in, Stud& s) {
+	in >> s.var_ >> s.pav_;
+	std::vector<int> tmp;
+	int x;
+	while (in >> x) {
+		tmp.push_back(x);
+		if (in.peek() == '\n' || in.eof()) break;
+	}
+	if (!tmp.empty()) {
+		s.egrez_ = tmp.back();
+		tmp.pop_back();
+		s.paz_ = std::move(tmp);
+	}
 	s.paskaiciuoti_vid_ir_med();
 	s.paskaiciuoti_gal();
-	return is;
+	return in;
 }
 
 std::ostream& operator<<(std::ostream& os, const Stud& s) {
@@ -286,6 +290,21 @@ std::ostream& operator<<(std::ostream& os, const Stud& s) {
 	return os;
 }
 
+vector<Stud> processBatch(const vector<string>& lines) {
+	vector<Stud> batchResults;
+	batchResults.reserve(lines.size());
+
+	for (const auto& line : lines) {
+		istringstream iss(line);
+		Stud laik(iss);
+
+		laik.paskaiciuoti_vid_ir_med();
+		laik.paskaiciuoti_gal();
+		batchResults.push_back(laik);
+	}
+	return batchResults;
+}
+
 void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 	string failopav;
 	cout << "Iveskite failo pavadinima: " << endl;
@@ -293,7 +312,7 @@ void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 		cin >> failopav;
 		if (!failasegzistuoja(failopav)) {
 			cerr << "Klaida: failas " << failopav << " neegzistuoja!" << endl;
-			return;
+			///return;
 		}
 		else {
 			break;
@@ -303,7 +322,7 @@ void skaitymas(deque<Stud>& grupe, duration<double>& veiklaik) {
 	ifstream in(failopav, ios::in | ios::ate); // atidarom faila pamatyti ilgi
 	if (!in) {
 		cerr << "Nepavyko atidaryti failo!" << endl;
-		return;
+		///return;
 	}
 
 	size_t fileSize = in.tellg(); // gaunam failo dydi

@@ -52,98 +52,12 @@ int main()
 	else {
 		while (true)
 		{
-			///string v;
-			///cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
-			cin >> laik;
-			if (laik.getVardas() == "stop") break;
-			grupe.push_back(laik);
-			/*if (v == "stop") break;
-			laik.setVar(v);
-			string p;
-			if (v == "gen")
-			{
-				string rv, rp;
-				rng(rv, rp);
-				laik.setVar(rv);
-				laik.setPav(rp);
-			}
-			else
-			{
-				cout << "Iveskite jo pavarde" << endl;
-				cin >> p;
-				laik.setPav(p);
-			}
-
-			cout << "Iveskite jo namu darbu rezultatus ( jei norit, kad butu sugeneruoti, parasykite -2, ivede visus, parasykite -1)" << endl;
-			int pazym;
-			int i = 0;
-			bool tinka = false;
-			while (!tinka)
-			{
-				try
-				{
-					cin >> pazym;
-					if (cin.fail() or ((pazym > 10 or pazym < 1) and pazym != -2 and pazym != -1))
-					{
-						throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
-					}
-					if (pazym == -2 and i < 1)
-					{
-						rng(laik.getPazymiai());
-						break;
-					}
-					else if (pazym == -2 and i > 0)
-					{
-						throw runtime_error("Generuoti galima tik is pradziu.Veskite ranka arba uzbaikite su -1.");
-					}
-					if (pazym == -1 and i > 0)break;
-					else if (pazym == -1 and i < 1) throw runtime_error("Neivedete nei vieno namu darbu pazymio!");
-					else
-					{
-						laik.addPaz(pazym);
-						i++;
-					}
-				}
-				catch (runtime_error& e)
-				{
-					cerr << "Klaida: " << e.what() << endl;
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				}
-			}
-			tinka = false;
-			cout << "Iveskite jo egzamino rezultata. (jei norite, kad butu sugeneruotas, rasykite -1)" << endl;
-			int egz;
-			while (!tinka)
-			{
-				try {
-					cin >> egz;
-					if (cin.fail() or (egz < 1 and egz != -1) or (egz > 10 and egz != -1))
-					{
-						throw runtime_error("Ivestas netinkamas simbolis/skaicius! Iveskite sveika skaiciu nuo 1 iki 10!");
-					}
-					else if (egz == -1)
-					{
-						rng(egz);
-						break;
-					}
-					else {
-						laik.setEgrez(egz);
-						break;
-					}
-				}
-				catch (const runtime_error& e)
-				{
-					cerr << "Klaida: " << e.what() << endl;
-					cin.clear();
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				}
-			}
-
-			laik.paskaiciuoti_vid_ir_med();
-			laik.paskaiciuoti_gal();
-		}*/
+			Stud s;
+			s.readStudent(cin);
+			if (s.getVardas() == "stop") break;
+			grupe.push_back(s);
 		}
+	}
 		int sortpas = 0;
 		string pasirn;
 		if (gautteisinga(sortpas, "Pasirinkite, kaip norite surikiuoti (1 - Vardas, 2 - Pavarde, 3 - Mediana, 4 - Galutinis pazymys): ", 1, 4)) {}
@@ -186,7 +100,7 @@ int main()
 			break;
 		}
 		veiklaik += end - start;
-		cout << "Rusiavimo pagal " << pasirn << " laikas:" << duration<double>(end - start).count() << endl;
+		///cout << "Rusiavimo pagal " << pasirn << " laikas:" << duration<double>(end - start).count() << endl;
 		pas = 0;
 		int pasmv = 0;
 		if (gautteisinga(pas, "Ar isskirti studentus, kurie pazangus ir nepazangus [bus galimas tik isvedimas i faila!] (1) ar ne? (2)", 1, 2))
@@ -230,10 +144,9 @@ int main()
 				}
 				break;
 			}
-		cout << "Visos programos testo laikas: " << veiklaik.count() << endl;
+		///cout << "Visos programos testo laikas: " << veiklaik.count() << endl;
 		cout << "Paspauskite Enter uzdaryti programa.";
 		std::cin.ignore();
 		std::cin.get();
 		return 0;
 	}
-}

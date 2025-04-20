@@ -124,10 +124,11 @@ public:
 	double galutinis_vidurkis() const { return gal_; }
 	double galutinis_mediana() const { return med_; }
 
-	istream& readStudent(istream& in);
+	istream& readStudent(istream& is);
+	friend std::istream& operator>>(std::istream& is, Stud& s);
 };
 
-std::istream& operator>>(std::istream& is, Stud& s);
+
 std::ostream& operator<<(std::ostream& os, const Stud& s);
 
 /*struct Stud {

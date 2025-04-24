@@ -90,8 +90,8 @@ private:
 	
 
 public:
-	Stud() = default;
-	~Stud() = default;
+	Stud();
+	~Stud() override = default;
 
 	Stud(const Stud& other);  ///kopijavimo konstruktorius
 	Stud& operator=(const Stud&); ///kopijavimo assignment
@@ -128,10 +128,19 @@ public:
 	double galutinis_mediana() const { return med_; }
 
 	istream& readStudent(istream& is);
-	friend std::istream& operator>>(std::istream& is, Stud& s);
-};
 
-std::ostream& operator<<(std::ostream& os, const Stud& s);
+	std::istream& read(std::istream& in) override;
+	std::ostream& print(std::ostream& out) const override;
+
+	friend std::istream& operator>>(std::istream& in, Stud& s) {
+		return s.read(in);
+	}
+	friend std::ostream& operator<<(std::ostream& os, const Stud& s) {
+		return s.print(os);
+	}
+};
+std::istream& operator>>(std::istream& in, Zmogus& z);
+std::ostream& operator<<(std::ostream& os, Zmogus const& z);
 
 bool sortVardu(const Stud& a, const Stud& b);
 bool sortPav(const Stud& a, const Stud& b);

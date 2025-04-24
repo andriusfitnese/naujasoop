@@ -23,11 +23,11 @@ bool sortGal(const Stud& a, const Stud& b) {
 
 Stud::Stud() : egrez_(0) {}
 Stud::Stud(const string& vardas, const string& pavarde, const vector<int>& pazymiai, const int egzaminas)
-	: var_(vardas), pav_(pavarde), paz_(pazymiai), egrez_(egzaminas), gal_(0), ndvid_(0), med_(0) {
+	: Zmogus(vardas, pavarde), paz_(pazymiai), egrez_(egzaminas), gal_(0), ndvid_(0), med_(0) {
 }
 
 Stud::Stud(const Stud& other)
-	: var_(other.var_), pav_(other.pav_), paz_(other.paz_),
+	: Zmogus(other), paz_(other.paz_),
 	egrez_(other.egrez_), gal_(other.gal_),
 	ndvid_(other.ndvid_), med_(other.med_) {
 }
@@ -46,15 +46,14 @@ Stud& Stud::operator=(const Stud& other) {
 }
 
 Stud::Stud(Stud&& other) noexcept
-	: var_(std::move(other.var_)), pav_(std::move(other.pav_)),
+	: Zmogus(std::move(other)),
 	paz_(std::move(other.paz_)), egrez_(other.egrez_),
 	gal_(other.gal_), ndvid_(other.ndvid_), med_(other.med_) {
 }
 
 Stud& Stud::operator=(Stud&& other) noexcept {
 	if (this != &other) {
-		var_ = std::move(other.var_);
-		pav_ = std::move(other.pav_);
+		Zmogus::operator=(std::move(other));
 		paz_ = std::move(other.paz_);
 		egrez_ = other.egrez_;
 		gal_ = other.gal_;
@@ -147,7 +146,7 @@ Stud::Stud(istream& is) {
 	med_ = 0;
 }
 
-Stud::~Stud() {
+/*Stud::~Stud() {
 	paz_.clear();
 	var_ = "";
 	pav_ = "";
@@ -156,7 +155,7 @@ Stud::~Stud() {
 	med_ = 0;
 	gal_ = 0;
 }
-
+*/
 std::istream& Stud::readStudent(std::istream& is) { ///rankinis/automatinis irasymas ( ne is failo )
 	string v;
 	cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
@@ -255,8 +254,15 @@ std::istream& Stud::readStudent(std::istream& is) { ///rankinis/automatinis iras
 	return is;
 }
 
-std::istream& operator>>(std::istream& in, Stud& s) {
-	in >> s.var_ >> s.pav_;
+std::istream& operator>>(std::istream& in, Zmogus& z) {
+	return z.read(in);
+}
+std::ostream& operator<<(std::ostream& os, const Zmogus& z) {
+	return z.print(os);
+}
+
+std::istream& Stud::read(std::istream& in) {
+	in >> var_ >> pav_;
 	std::vector<int> tmp;
 	int x;
 	while (in >> x) {
@@ -264,28 +270,28 @@ std::istream& operator>>(std::istream& in, Stud& s) {
 		if (in.peek() == '\n' || in.eof()) break;
 	}
 	if (!tmp.empty()) {
-		s.egrez_ = tmp.back();
+		egrez_ = tmp.back();
 		tmp.pop_back();
-		s.paz_ = std::move(tmp);
+		paz_ = std::move(tmp);
 	}
-	s.paskaiciuoti_vid_ir_med();
-	s.paskaiciuoti_gal();
+	paskaiciuoti_vid_ir_med();
+	paskaiciuoti_gal();
 	return in;
 }
 
-std::ostream& operator<<(std::ostream& os, const Stud& s) {
+std::ostream& Stud::print(std::ostream& os) const {
 	os
 		<< std::fixed
 		<< std::setprecision(2)
 		<< std::left
-		<< std::setw(15) << s.getVardas()
-		<< std::setw(18) << s.getPavarde();
+		<< std::setw(15) << var_
+		<< std::setw(18) << pav_;
 
 	if (g_printMode == 1) {
-		os << std::setw(8) << s.getMediana();
+		os << std::setw(8) << med_;
 	}
 	else {
-		os << std::setw(8) << s.getGalutinis();
+		os << std::setw(8) << gal_;
 	}
 	return os;
 }

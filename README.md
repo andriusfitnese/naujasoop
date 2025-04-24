@@ -99,3 +99,19 @@ Po -
 Dabar cout<<n ne tik paprastai išveda į ekraną n, o aktyvuoja viską, kas yra išvedimo operatoriuje -
 ![image](https://github.com/user-attachments/assets/2c9b8263-a832-4ef2-b1c3-833dad52847e)
 
+
+
+
+
+
+V1.5
+------------------------------------------------------------------------------------------------------------
+
+Versijai 1.5 pritaikyta abstrakti klasė Zmogus, kuri bus naudinga ateityje. Kol kas, tai pakeitė tik studento klasės realizaciją - ji dabar yra išvestinė klasė Zmogus abstrakčiąjai (visi studentai žmonės, lygtais..)
+
+Visas veikimas bus identiškas į V1.2.
+
+![image](https://github.com/user-attachments/assets/ebab23b8-74cd-46b7-9898-5f63ae04085c)
+
+
+![image](https://github.com/user-attachments/assets/e517dab3-1ac3-409f-8370-b7889e075f3c)

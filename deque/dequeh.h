@@ -60,6 +60,24 @@ using std::accumulate;
 const string vardai[] = { "Jonas", "Petras", "Marius", "Lukas", "Tomas", "Simas", "Andrius", "Darius" };
 const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas", "Bagdonas", "Vaitkus", "Urbonas", "Grigas" };
 
+class Zmogus {
+protected:
+	string vardas_;
+	string pavarde_;
+public:
+	Zmogus() = default;
+	Zmogus(std::string v, std::string p)
+		: vardas_(std::move(v)), pavarde_(std::move(p)) {
+	}
+	virtual ~Zmogus() = 0;
+	virtual std::istream& read(std::istream& in) = 0;
+	virtual std::ostream& print(std::ostream& out) const = 0;
+
+	const std::string& getVardas()  const { return vardas_; }
+	const std::string& getPavarde() const { return pavarde_; }
+};
+inline Zmogus::~Zmogus() {}
+
 class Stud {
 
 private:

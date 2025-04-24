@@ -62,28 +62,26 @@ const string pavardes[] = { "Kazlauskas", "Petraitis", "Jonaitis", "Mikalauskas"
 
 class Zmogus {
 protected:
-	string vardas_;
-	string pavarde_;
+	string var_;
+	string pav_;
 public:
 	Zmogus() = default;
 	Zmogus(std::string v, std::string p)
-		: vardas_(std::move(v)), pavarde_(std::move(p)) {
+		: var_(std::move(v)), pav_(std::move(p)) {
 	}
 	virtual ~Zmogus() = 0;
 	virtual std::istream& read(std::istream& in) = 0;
 	virtual std::ostream& print(std::ostream& out) const = 0;
 
-	const std::string& getVardas()  const { return vardas_; }
-	const std::string& getPavarde() const { return pavarde_; }
+	const std::string& getVardas()  const { return var_; }
+	const std::string& getPavarde() const { return pav_; }
 };
-inline Zmogus::~Zmogus() {}
+inline Zmogus::~Zmogus() = default;
 
-class Stud {
+class Stud : public Zmogus {
 
 private:
 
-	string var_;
-	string pav_;
 	vector<int>paz_;
 	int egrez_;
 	double gal_;
@@ -92,8 +90,8 @@ private:
 	
 
 public:
-	Stud();
-	~Stud();
+	Stud() = default;
+	~Stud() = default;
 
 	Stud(const Stud& other);  ///kopijavimo konstruktorius
 	Stud& operator=(const Stud&); ///kopijavimo assignment
@@ -118,25 +116,12 @@ public:
 
 
 	/// getteriai 
-	inline const string& getVardas() const { return var_; }
-	inline const string& getPavarde() const { return pav_; }
 	inline vector<int>& getPazymiai() { return paz_; }
 	inline int getEgzaminas() const { return egrez_; }
 	inline double getNdvid() const { return ndvid_; }
 	inline double getGalutinis() const { return gal_; }
 	inline double getMediana() const { return med_; }
 	
-	/*double mediana(const vector<double>& paz);
-	double vidurkis(const vector<double>& paz);
-	double galBalas(double (*func)(const vector<double>&));
-
-	void computeGrades(double (*calc)(const vector<double>&)) {
-		vector<double> paz_double(paz_.begin(), paz_.end());
-		gal_ = 0.4 * calc(paz_double) + 0.6 * egrez_;
-		med_ = Stud::mediana(paz_double);
-		ndvid_ = Stud::vidurkis(paz_double);
-	}
-	*/
 	void paskaiciuoti_vid_ir_med();
 	void paskaiciuoti_gal();
 	double galutinis_vidurkis() const { return gal_; }
@@ -146,20 +131,7 @@ public:
 	friend std::istream& operator>>(std::istream& is, Stud& s);
 };
 
-
 std::ostream& operator<<(std::ostream& os, const Stud& s);
-
-/*struct Stud {
-	string pav;
-	string var;
-	int egrez;
-	vector<int> paz;
-	double ndvid;
-	double gal;
-	double med;
-};
-*/
-
 
 bool sortVardu(const Stud& a, const Stud& b);
 bool sortPav(const Stud& a, const Stud& b);

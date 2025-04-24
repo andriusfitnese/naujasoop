@@ -55,7 +55,11 @@ void test_io() {
 }
 
 int main() {
+    //Zmogus zm;
     test_rule_of_five();
     test_io();
-
+    cout << "Paspauskite Enter uzdaryti programa.";
+    std::cin.ignore();
+    std::cin.get();
+    return 0;
 }

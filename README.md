@@ -99,3 +99,31 @@ Po -
 Dabar cout<<n ne tik paprastai išveda į ekraną n, o aktyvuoja viską, kas yra išvedimo operatoriuje -
 ![image](https://github.com/user-attachments/assets/2c9b8263-a832-4ef2-b1c3-833dad52847e)
 
+
+Įvairių išvesties/įvesties būdų iššaukimas
+
+Įvedimas:
+| Duomenų įvedimo būdas | Metodas, funkcija |
+| ------ | ------------ |
+| Rankinis įvedimas/generavimas duomenų | readStudent() |
+| Automatinis (iš failo) | skaitymas() |
+| Per >> operatorių | Perdengtas >> operatorius, minėta ankščiau |
+
+Programos veikimo metu naudotojams duodamas pasirinkimas ką generuoti, t.y - gali įvairiai - tik vardus, tik egzamino pažymį, namų darbų pažymius, įvairias ankščiau paminėtų kombinacijas ar apskritai viską.
+
+Išvedimas:
+
+Išvedimas pakeistas minimaliai, t.y - lieka viena išvedimo funkcija, o programos veikimo metu naudotojas gali pasirinkt, kaip išvesti, pagal ką išvesti, ar atskirti išlaikiusius ar ne. 
+Taip pat, aišku, kaip ankščiau paminėta, irgi perdengtas << operatorius, taip pat atsirado paskaiciuoti_vid_ir_med() bei paskaiciuoti_gal().
+
+
+###### TESTAVIMAS
+
+Buvo paruošti įvairūs testai parodyti, kad iš tiesų veikia pritaikyti metodai, kurie buvo paminėti ankščiau.
+test.cpp failas taip pat yra įtrauktas, jei kažką kito norite pasibandyti.
+
+![image](https://github.com/user-attachments/assets/3074ffc5-6c03-4f8e-be37-787a2bed2d2d)
+
+![image](https://github.com/user-attachments/assets/4f2557dd-b44d-4e22-ab8c-6a034c166e73)
+
+

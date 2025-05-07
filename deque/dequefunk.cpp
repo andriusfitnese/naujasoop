@@ -48,7 +48,12 @@ Stud& Stud::operator=(const Stud& other) {
 Stud::Stud(Stud&& other) noexcept
 	: var_(std::move(other.var_)), pav_(std::move(other.pav_)),
 	paz_(std::move(other.paz_)), egrez_(other.egrez_),
-	gal_(other.gal_), ndvid_(other.ndvid_), med_(other.med_) {
+	gal_(other.gal_), ndvid_(other.ndvid_), med_(other.med_) 
+{
+	other.egrez_ = 0;
+	other.gal_ = 0;
+	other.ndvid_ = 0;
+	other.med_ = 0;
 }
 
 Stud& Stud::operator=(Stud&& other) noexcept {
@@ -60,6 +65,10 @@ Stud& Stud::operator=(Stud&& other) noexcept {
 		gal_ = other.gal_;
 		ndvid_ = other.ndvid_;
 		med_ = other.med_;
+		other.egrez_ = 0;
+		other.gal_ = 0;
+		other.ndvid_ = 0;
+		other.med_ = 0;
 	}
 	return *this;
 }

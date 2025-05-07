@@ -11,24 +11,24 @@ void test_rule_of_five() {
     cout << "Pradinis studentas (a):\n" << a << "\n";
     cout << string(80, '-') << endl;
 
-    Stud b(a);  // Copy constructor
+    Stud b(a);
     cout << "Kopijavimo kosntruktorius (b = a). Naujas studentas(b): \n" << b << "\n";
     cout << "Senas studentas (a): \n" << a << endl;
     cout << string(80, '-') << endl;
 
-    Stud c(std::move(a));  // Move constructor
+    Stud c(std::move(a));
     cout << "Kelimo konstruktorius (c = std::move(a)). Naujas studentas (c): \n" << c << "\n";
     cout << "Senas studentas (a): \n" << a << endl;
     cout << string(80, '-') << endl;
 
     Stud d;
-    d = b;  // Copy assignment
+    d = b;
     cout << "Kopijavimo assignment'as (d = b). Naujas studentas (d): \n" << d << "\n";
     cout << "Senas studentas (b): \n" << b << endl;
     cout << string(80, '-') << endl;
 
     Stud e;
-    e = std::move(b);  // Move assignment
+    e = std::move(b);
     cout << "Move assignment (e = std::move(b)). Naujas studentas (e): \n" << e << "\n";
     cout << "Senas studentas (b): \n" << b << endl;
     cout << string(80, '-') << endl;

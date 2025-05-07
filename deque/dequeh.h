@@ -87,7 +87,6 @@ private:
 	double gal_;
 	double ndvid_;
 	double med_;
-	
 
 public:
 	Stud();
@@ -97,9 +96,6 @@ public:
 	Stud& operator=(const Stud&); ///kopijavimo assignment
 	Stud(Stud&&) noexcept;  ///kelimo konstruktorius
 	Stud& operator=(Stud&&) noexcept;  ///kelimo assignment
-
-
-
 
 	Stud(const string& vardas, const string& pavarde, const vector<int>& pazymiai, const int egzaminas);
 	Stud(istream& is);
@@ -121,14 +117,12 @@ public:
 	inline double getNdvid() const { return ndvid_; }
 	inline double getGalutinis() const { return gal_; }
 	inline double getMediana() const { return med_; }
-	
 	void paskaiciuoti_vid_ir_med();
 	void paskaiciuoti_gal();
 	double galutinis_vidurkis() const { return gal_; }
 	double galutinis_mediana() const { return med_; }
 
 	istream& readStudent(istream& is);
-
 	std::istream& read(std::istream& in) override;
 	std::ostream& print(std::ostream& out) const override;
 

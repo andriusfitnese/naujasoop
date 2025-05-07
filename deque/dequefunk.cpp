@@ -49,6 +49,10 @@ Stud::Stud(Stud&& other) noexcept
 	: Zmogus(std::move(other)),
 	paz_(std::move(other.paz_)), egrez_(other.egrez_),
 	gal_(other.gal_), ndvid_(other.ndvid_), med_(other.med_) {
+	other.egrez_ = 0;
+	other.gal_ = 0;
+	other.ndvid_ = 0;
+	other.med_ = 0;
 }
 
 Stud& Stud::operator=(Stud&& other) noexcept {
@@ -59,6 +63,10 @@ Stud& Stud::operator=(Stud&& other) noexcept {
 		gal_ = other.gal_;
 		ndvid_ = other.ndvid_;
 		med_ = other.med_;
+		other.egrez_ = 0;
+		other.gal_ = 0;
+		other.ndvid_ = 0;
+		other.med_ = 0;
 	}
 	return *this;
 }

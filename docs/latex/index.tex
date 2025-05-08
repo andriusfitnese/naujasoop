@@ -1,0 +1,94 @@
+\chapter{NAUDOJIMOSI INSTRUKCIJA\+:}
+\hypertarget{index}{}\label{index}\index{NAUDOJIMOSI INSTRUKCIJA:@{NAUDOJIMOSI INSTRUKCIJA:}}
+\label{index_md__r_e_a_d_m_e}%
+\Hypertarget{index_md__r_e_a_d_m_e}%
+
+
+Ačiū, kad parsisiuntėte šią programą! Deja, nesu baisiai protingas, todėl ir rašau naudojimosi instrukciją, kadangi paleidimas nėra vien paprasto .exe failo paspaudimas.
+
+Pradedant nuo pradžių, turite turėti veikiantį GCC, kurio versija palaiko C++17 ar naujesnes versijas. Antra, turite turėti veikiantį Min\+GW, kuris reikalingas programos .exe failo sukūrimui, kuriam reikia mingw32-\/make komandos. Tam pridedu šią nuorodą\+: \href{https://nerdyelectronics.com/install-mingw-on-windows-for-make/}{\texttt{ https\+://nerdyelectronics.\+com/install-\/mingw-\/on-\/windows-\/for-\/make/}}
+
+\DoxyHorRuler{0}
+ Reikalingos komandos\+:
+
+mingw32-\/make vector -\/ sukuria .exe versijai su vektoriaus tipo konteineriu
+
+mingw32-\/make class -\/ sukuria .exe versijai su deque tipo konteineriu, bet naudojant klasę.
+
+mingw32-\/make list -\/ sukuria .exe versijai su list tipo konteineriu
+
+mingw32-\/make clean -\/ ištrina bin failą, kuriame laikomi sukurti jūsų .exe failai bei sugeneruoti duomenų failai
+
+mingw32-\/make -\/B -\/ rebuildina visų konteinerių tipų .exe failus
+
+\DoxyHorRuler{0}
+
+
+Parsisiuntę repo, turite du variantus\+:
+
+Visual Studio
+\begin{DoxyItemize}
+\item Atsidaryti .sln failą, kuris atidarys visą projektą per Visual Studio, per kurį galėsite atsidaryti terminalą (CTRL+\texorpdfstring{$\sim$}{\string~}) ir suvesti atitinkamas komandas, surašytas viršuje.
+\end{DoxyItemize}
+
+CMD
+\begin{DoxyItemize}
+\item Atsidaryti command line, (ieškoti cmd paspaudus Windows ikoną), nuvesti path iki šitos repo direktorijos naudojant cd komandą, pvz\+: cd C\+:\textbackslash{}\+Users\textbackslash{}andri\textbackslash{}\+One\+Drive\textbackslash{}\+Desktop\textbackslash{}oop naujas\textbackslash{}bin ir tada vesti atitinkamas komandas pagal Jūsų poreikį.
+\end{DoxyItemize}
+
+Tai atlikus, atsiras bin folder\textquotesingle{}is, kuriame rasite .exe failus. Paleidus programą, visi pasirinkimai bus aiškiai jums duoti.
+
+Gero naudojimo!
+
+\DoxyHorRuler{0}
+
+
+TESTAVIMAS
+\begin{DoxyItemize}
+\item Kompiuterio, naudoto testavimui specifikacijos\+: CPU\+: Ryzen 7 5800U RAM\+: 32GB DDR4 3200MHz SSD\+: 480GB, ne M.\+2
+\end{DoxyItemize}
+
+v1.\+1 benchmark\textquotesingle{}as (O3 optimizacija)
+\begin{DoxyItemize}
+\item     
+\end{DoxyItemize}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{6}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Studentų kiekis   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 1000   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 10000   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 100000   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 1000000   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 10000000    }\\\cline{1-6}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Studentų kiekis   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 1000   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 10000   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 100000   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 1000000   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 10000000    }\\\cline{1-6}
+\endhead
+Skaitymo laikas   &0.\+003   &0.\+02   &0.\+20   &1.\+62   &14.\+45    \\\cline{1-6}
+Rūšiavimo laikas   &0.\+0004   &0.\+005   &0.\+06   &0.\+80   &14.\+45    \\\cline{1-6}
+Atskyrimo i vektorius laikas   &0.\+0003   &0.\+002   &0.\+02   &0.\+21   &2.\+78    \\\cline{1-6}
+Irašymo i nerdus laikas   &0.\+007   &0.\+02   &0.\+17   &1.\+72   &18.\+21    \\\cline{1-6}
+Irašymo i galiorką laikas   &0.\+005   &0.\+01   &0.\+12   &1.\+19   &12.\+29    \\\cline{1-6}
+Visas veikimo laikas   &0.\+02   &0.\+06   &0.\+56   &5.\+54   &60.\+00   \\\cline{1-6}
+\end{longtabu}
+\hypertarget{index_autotoc_md3}{}\doxysection{\texorpdfstring{Naujienos}{Naujienos}}\label{index_autotoc_md3}
+v1.\+2 buvo pritaikyta klasei penkių metodų taisyklė -\/ t.\+y kopijavimo ir kėlimo konstruktoriai bei assign\textquotesingle{}eriai ir destruktorius. Taip pat pridėti operatorių išvesties ir įvesties būdai\hypertarget{index_autotoc_md4}{}\doxysection{\texorpdfstring{Ką jie daro?}{Ką jie daro?}}\label{index_autotoc_md4}
+
+
+Šios taisyklės pagerina optimizaciją ir tuo pat programos veikimą, tiksliai parodantys klasei, kaip ką apdoroti, kelti, kopijuoti, bei naikinti.
+
+Su išvesties ir įvesties metodais supaprastintas įvedimas ir išvedimas ranka arba atsitiktinai generuojant, t.\+y -\/ viskas, kas nesusiję su darbu su failu. Tuose operatoriuose dabar perkelta faktiškai viskas, kas buvo kitose dalyse kodo ir susiję su rankiniu įvedimu bei išvedimu.  (Šios eilutės užėmė daug vietos main.\+cpp faile, o dabar yra atskirai ir tvarkingai laikomos operatoriuje funkcijų .cpp faile, kur jas daug lengviau iššaukti.)
+
+Su išvedimu tas pats -\/ paprasčiau suprast kodą, lengviau iššaukt.
+
+Prieš -\/ 
+
+Po -\/ 
+
+Dabar cout\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}n ne tik paprastai išveda į ekraną n, o aktyvuoja viską, kas yra išvedimo operatoriuje -\/ \hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{V1.\+5}{V1.\+5}}\label{index_autotoc_md5}
+Versijai 1.\+5 pritaikyta abstrakti klasė \doxylink{class_zmogus}{Zmogus}, kuri bus naudinga ateityje. Kol kas, tai pakeitė tik studento klasės realizaciją -\/ ji dabar yra išvestinė klasė \doxylink{class_zmogus}{Zmogus} abstrakčiąjai (visi studentai žmonės, lygtais..)
+
+Visas veikimas bus identiškas į V1.\+2.
+
+
+
+ 

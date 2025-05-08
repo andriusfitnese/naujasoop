@@ -2,6 +2,8 @@
 #include <cassert>
 #include <iostream>
 #include <sstream>
+#include <string>
+
 void test_rule_of_five() {
     cout << "Bandomas rule of 5\n";
 
@@ -11,7 +13,7 @@ void test_rule_of_five() {
     cout << "Pradinis studentas (a):\n" << a << "\n";
     cout << string(80, '-') << endl;
 
-    Stud b = a;  // Copy constructor
+    Stud b(a);  // Copy constructor
     cout << "Kopijavimo kosntruktorius (b = a). Naujas studentas(b): \n" << b << "\n";
     cout << "Senas studentas (a): \n" << a << endl;
     cout << string(80, '-') << endl;

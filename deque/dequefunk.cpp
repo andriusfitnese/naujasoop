@@ -159,7 +159,7 @@ Stud::Stud(istream& is) {
 	med_ = 0;
 }
 
-/*Stud::~Stud() {
+Stud::~Stud() {
 	paz_.clear();
 	var_ = "";
 	pav_ = "";
@@ -168,7 +168,7 @@ Stud::Stud(istream& is) {
 	med_ = 0;
 	gal_ = 0;
 }
-*/
+
 std::istream& Stud::readStudent(std::istream& is) { ///rankinis/automatinis irasymas ( ne is failo )
 	string v;
 	cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;
@@ -620,6 +620,7 @@ void atrinkimas3(deque<Stud>& grupe, vector<Stud>& galiorka, int pasmv, duration
 	auto start1 = high_resolution_clock::now();
 	auto it = partition(grupe.begin(), grupe.end(), [](const Stud& s) { return s.getGalutinis() >= 5; });
 	copy(it, grupe.end(), back_inserter(galiorka));
+
 	grupe.erase(it, grupe.end());
 	auto end1 = high_resolution_clock::now();
 	veiklaik += end1 - start1;

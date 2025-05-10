@@ -8,16 +8,15 @@ Antra, turite turėti veikiantį MinGW, kuris reikalingas programos .exe failo s
 ---------------------------------------------------------------------
 Reikalingos komandos:
 
-mingw32-make vector - sukuria .exe versijai su vektoriaus tipo konteineriu
+mingw32-make -B     - buildina visue .exe failus
 
 mingw32-make class  - sukuria .exe versijai su deque tipo konteineriu, bet naudojant klasę.
 
-mingw32-make list   - sukuria .exe versijai su list tipo konteineriu
-
 mingw32-make clean  - ištrina bin failą, kuriame laikomi sukurti jūsų .exe failai bei sugeneruoti duomenų failai
 
-mingw32-make -B     - rebuildina visų konteinerių tipų .exe failus
+Test.exe taip pat pakeistas į catch_tests.exe , naudojantis unit testais, tad jį paleist reiktų atsidaryt komandinę eilutę, naviguoti į šio repo directory, į bin (jau turite būt paleidę mingw32-make bent kartą, kad bin ten būtų), ir jei esate and Windows, tereikia suvesti catch_tests.exe. Žemiau įkelsiu screenshot, kaip tai pas mane ant Windows 11 atrodo.
 
+![image](https://github.com/user-attachments/assets/32dca57e-a640-41e7-be35-c251a82659bb)
 --------------------------------------------------------------------------------
 
 Parsisiuntę repo, turite du variantus:
@@ -30,9 +29,13 @@ CMD
 -
   Atsidaryti command line, (ieškoti cmd paspaudus Windows ikoną), nuvesti path iki šitos repo direktorijos naudojant cd komandą, pvz: cd C:\Users\andri\OneDrive\Desktop\oop naujas\bin ir tada vesti atitinkamas komandas pagal Jūsų poreikį.
 
+![image](https://github.com/user-attachments/assets/dca6b442-b0ee-4910-a348-7c9574be7ef3)
+
 
 Tai atlikus, atsiras bin folder'is, kuriame rasite .exe failus.
 Paleidus programą, visi pasirinkimai bus aiškiai jums duoti.
+
+**Rekomendacija** - Jei naudojate atskyrimą išlaikiusių ir neišlaikiusių studentų, rekomenduojama gavus klausimą pasirinkti antrą strategiją - ji patikimiausia bei greičiausiai veikianti.
 
 Gero naudojimo!
 
@@ -115,3 +118,16 @@ Visas veikimas bus identiškas į V1.2.
 
 
 ![image](https://github.com/user-attachments/assets/e517dab3-1ac3-409f-8370-b7889e075f3c)
+
+
+
+V2.0
+------------------------------------------------------------------------------------------------------------
+
+Ši versija atneša kelias naujoves -
+
+**Doxygen dokumentacija** - 📄 [Nuoroda į PDF failą](docs/latex/refman.pdf)
+
+**Unit testus** - Pasinaudota Catch2, kuris leis ir man greičiau išbandyt naujas idėjas ar kodo perrašymą mažiau sukant galvą, ar viskas vistiek veiks taip, kaip noriu, ir tuo pat gali būt reikalinga jums.
+
+Taip pat pastebima (ypač jei sekėt senesnes versijas), kad pagaliau išliko tiktais klasių versija, kadangi kitos yra jau be galo senos ir nebereikalingos tolesnėm realizacijom.

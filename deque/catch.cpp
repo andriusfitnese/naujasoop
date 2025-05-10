@@ -4,25 +4,25 @@
 #include <sstream>
 #include <string>
 
-TEST_CASE("Rule of Five works correctly", "[RuleOfFive]") {
+TEST_CASE("Rule of Five veikia", "[RuleOfFive]") {
     Stud a;
     std::stringstream ss("Jonas Jonaitis 9 8 7 6 10 -1 4");
     a.readStudent(ss);
 
-    SECTION("Copy constructor") {
+    SECTION("Copy konstruktorius") {
         Stud b(a);
         REQUIRE(b.getVardas() == a.getVardas());
         REQUIRE(b.getPavarde() == a.getPavarde());
     }
 
-    SECTION("Move constructor") {
-        Stud movedFrom(a);  // reset a again
+    SECTION("Move konstruktorius") {
+        Stud movedFrom(a);
         Stud c(std::move(movedFrom));
         REQUIRE(c.getVardas() == "Jonas");
         REQUIRE(c.getPavarde() == "Jonaitis");
     }
 
-    SECTION("Copy assignment") {
+    SECTION("Copy priskyrimas") {
         Stud b(a);
         Stud d;
         d = b;
@@ -30,7 +30,7 @@ TEST_CASE("Rule of Five works correctly", "[RuleOfFive]") {
         REQUIRE(d.getPavarde() == b.getPavarde());
     }
 
-    SECTION("Move assignment") {
+    SECTION("Move priskyrimas") {
         Stud b(a);
         Stud e;
         e = std::move(b);
@@ -39,8 +39,8 @@ TEST_CASE("Rule of Five works correctly", "[RuleOfFive]") {
     }
 }
 
-TEST_CASE("Operator input/output works", "[IO]") {
-    SECTION("Operator >> parses student correctly") {
+TEST_CASE("Ivedimo/isvedimo operatorius veikia", "[IO]") {
+    SECTION("Operatorius >> teisingai praziuri studentus") {
         Stud s;
         std::stringstream ss("Vardenis Pavardenis 8");
         ss >> s;
@@ -49,7 +49,7 @@ TEST_CASE("Operator input/output works", "[IO]") {
         REQUIRE(s.getEgzaminas() == 8);
     }
 
-    SECTION("Operator << outputs student data") {
+    SECTION("Operatorius << isveda teisinga studentu informacija") {
         Stud a;
         std::stringstream ss("Antanas Antanaitis 7 6 5 10 -1 8");
         a.readStudent(ss);

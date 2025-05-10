@@ -5,7 +5,6 @@ VECTOR_SRCS    = $(wildcard vector/*.cpp)
 LIST_SRCS      = $(wildcard list/*.cpp)
 DEQUE_ALL_SRCS = $(wildcard deque/*.cpp)
 
-# strip out any files that aren't library code
 DEQUE_LIB_SRCS   = $(filter-out \
                      deque/dequemain.cpp \
                      deque/test.cpp       \
@@ -30,7 +29,6 @@ $(BIN_DIR)/vector_program: $(VECTOR_SRCS) | $(BIN_DIR)
 $(BIN_DIR)/list_program: $(LIST_SRCS) | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -o $@ $(LIST_SRCS)
 
-# Production build: only your real main + library
 $(BIN_DIR)/class_program: deque/dequemain.cpp $(DEQUE_LIB_SRCS) | $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -o $@ deque/dequemain.cpp $(DEQUE_LIB_SRCS)
 

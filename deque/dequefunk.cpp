@@ -159,7 +159,7 @@ Stud::Stud(istream& is) {
 	med_ = 0;
 }
 
-Stud::~Stud() {
+/*Stud::~Stud() {
 	paz_.clear();
 	var_ = "";
 	pav_ = "";
@@ -168,7 +168,7 @@ Stud::~Stud() {
 	med_ = 0;
 	gal_ = 0;
 }
-
+*/
 std::istream& Stud::readStudent(std::istream& is) { ///rankinis/automatinis irasymas ( ne is failo )
 	string v;
 	cout << "Iveskite studento varda (parasykite stop, jei esate jau ivede visus, parasykite gen, jei norite varda sugeneruoti)" << endl;

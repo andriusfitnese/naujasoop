@@ -132,9 +132,15 @@ public:
 
 	//---------------------------------------------------------------------------------------------- capacity
 
+
+
 	bool empty() const noexcept { return size_ == 0; }
 	size_type size() const noexcept { return size_; }
 	size_type capacity() const noexcept { return cap_; }
+	size_type max_size() const noexcept {
+		return std::allocator_traits<Allocator>::max_size(alloc_);
+	}
+
 
 	void reserve(size_type new_cap) {
 		if (new_cap <= cap_) return;
@@ -434,5 +440,99 @@ private:
 
 };
 
+//---------------------------------------------------------------------------------------------- non member funkcijos
+template<typename T, typename Alloc>
+void swap(Vector<T, Alloc>& a, Vector<T, Alloc>& b) noexcept(noexcept(a.swap(b))) {
+	a.swap(b);
+}
+
+template<typename T, typename Alloc>
+bool operator==(const Vector<T, Alloc>& a, const Vector<T, Alloc>& b) {
+	if (a.size() != b.size()) return false;
+	return std::equal(a.begin(), a.end(), b.begin());
+}
+
+template<typename T, typename Alloc>
+bool operator!=(const Vector<T, Alloc>& a, const Vector<T, Alloc>& b) {
+	return !(a == b);
+}
+
+template<typename T, typename Alloc>
+bool operator<(const Vector<T, Alloc>& a, const Vector<T, Alloc>& b) {
+	return std::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end());
+}
+
+template<typename T, typename Alloc>
+bool operator>(const Vector<T, Alloc>& a, const Vector<T, Alloc>& b) {
+	return b < a;
+}
+
+template<typename T, typename Alloc>
+bool operator<=(const Vector<T, Alloc>& a, const Vector<T, Alloc>& b) {
+	return !(b < a);
+}
+
+template<typename T, typename Alloc>
+bool operator>=(const Vector<T, Alloc>& a, const Vector<T, Alloc>& b) {
+	return !(a < b);
+}
+
+template<typename T, typename Alloc>
+std::ostream& operator<<(std::ostream& os, const Vector<T, Alloc>& vec) {
+	os << "[";
+	for (size_t i = 0; i < vec.size(); ++i) {
+		os << vec[i];
+		if (i < vec.size() - 1) os << ", ";
+	}
+	return os << "]";
+}
+
+/*template<typename T, typename Alloc>
+std::istream& operator>>(std::istream& is, Vector<T, Alloc>& vec) {
+	vec.clear();
+
+	// Read initial ‘[’
+	char ch;
+	if (!(is >> ch) || ch != '[') {
+		is.setstate(std::ios::failbit);
+		return is;
+	}
+
+	// Now read values until ']' or failure
+	for (;;) {
+		// Skip whitespace
+		is >> std::ws;
+
+		// Peek to see if next is closing bracket
+		if (is.peek() == ']') {
+			is.get(ch);  // consume ']'
+			break;
+		}
+
+		// Read one element
+		T value;
+		if (!(is >> value)) {
+			// failed to read T
+			return is;
+		}
+		vec.push_back(std::move(value));
+
+		// After a value, read comma or closing bracket
+		if (!(is >> ch)) {
+			return is;
+		}
+		if (ch == ']') {
+			break;
+		}
+		if (ch != ',') {
+			is.setstate(std::ios::failbit);
+			return is;
+		}
+		// else loop to read next element
+	}
+
+	return is;
+}
+*/
 
 #endif

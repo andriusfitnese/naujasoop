@@ -220,11 +220,72 @@ public:
 		return *(data_ + size_++);
 	}
 
+	template<class... Args>
+	iterator emplace(const_iterator pos, Args&&... args) {
+		size_type idx = pos - data_;
+		if (size_ == capacity_) {
+			reserve(capacity_ ? capacity_ * 2 : 1);
+		}
+		for (size_type i = size_; i > idx; --i) {
+			std::allocator_traits<Allocator>::construct(
+				alloc_, data_ + i,
+				std::move_if_noexcept(data_[i - 1])
+			);
+			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i - 1);
+		}
+		std::allocator_traits<Allocator>::construct(
+			alloc_, data_ + idx, std::forward<Args>(args)...
+		);
+		++size_;
+		return data_ + idx;
+	}
+
 	void pop_back() noexcept {
 		if (size_ > 0) {
 			--size_;
 			std::allocator_traits<Allocator>::destroy(alloc_, data_ + size_);
 		}
+	}
+
+	void resize(size_type count, const T& value = T()) {
+		if (count < size_) {
+			// destroy tail
+			for (size_type i = count; i < size_; ++i) {
+				std::allocator_traits<Allocator>::destroy(alloc_, data_ + i);
+			}
+			size_ = count;
+		}
+		else if (count > size_) {
+			if (count > capacity_) reserve(count);
+			// construct new elements
+			size_type i = size_;
+			try {
+				for (; i < count; ++i) {
+					std::allocator_traits<Allocator>::construct(
+						alloc_, data_ + i, value
+					);
+				}
+			}
+			catch (...) {
+				// rollback partial constructs
+				for (size_type j = size_; j < i; ++j) {
+					std::allocator_traits<Allocator>::destroy(alloc_, data_ + j);
+				}
+				throw;
+			}
+			size_ = count;
+		}
+	}
+
+	void swap(Vector& other) noexcept(
+		std::is_nothrow_swappable<Allocator>::value &&
+		noexcept(std::swap(data_, other.data_))
+		) {
+		using std::swap;
+		swap(data_, other.data_);
+		swap(size_, other.size_);
+		swap(capacity_, other.capacity_);
+		swap(alloc_, other.alloc_);
 	}
 
 private:

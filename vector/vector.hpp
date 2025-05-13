@@ -249,7 +249,6 @@ public:
 
 	void resize(size_type count, const T& value = T()) {
 		if (count < size_) {
-			// destroy tail
 			for (size_type i = count; i < size_; ++i) {
 				std::allocator_traits<Allocator>::destroy(alloc_, data_ + i);
 			}
@@ -257,7 +256,6 @@ public:
 		}
 		else if (count > size_) {
 			if (count > capacity_) reserve(count);
-			// construct new elements
 			size_type i = size_;
 			try {
 				for (; i < count; ++i) {
@@ -267,7 +265,6 @@ public:
 				}
 			}
 			catch (...) {
-				// rollback partial constructs
 				for (size_type j = size_; j < i; ++j) {
 					std::allocator_traits<Allocator>::destroy(alloc_, data_ + j);
 				}

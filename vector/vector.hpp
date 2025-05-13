@@ -285,6 +285,146 @@ public:
 		swap(alloc_, other.alloc_);
 	}
 
+	iterator erase(const_iterator pos) {
+		size_type idx = pos - data_;
+		std::allocator_traits<Allocator>::destroy(alloc_, data_ + idx);
+		for (size_type i = idx; i + 1 < size_; ++i) {  //sunaikinam elementa ir patraukiam i kaire
+			std::allocator_traits<Allocator>::construct(
+				alloc_, data_ + i,
+				std::move_if_noexcept(data_[i + 1])
+			);
+			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i + 1);
+		}
+		--size_;
+		return data_ + idx;
+	}
+
+	iterator erase(const_iterator first, const_iterator last) {
+		size_type idx1 = first - data_;
+		size_type idx2 = last - data_;
+		size_type n = idx2 - idx1;
+		if (n == 0) return data_ + idx1;
+
+		for (size_type i = idx1; i < idx2; ++i) {
+			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i);
+		}
+		for (size_type i = idx2; i < size_; ++i) {
+			std::allocator_traits<Allocator>::construct(
+				alloc_, data_ + (i - n),
+				std::move_if_noexcept(data_[i])
+			);
+			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i);
+		}
+		size_ -= n;
+		return data_ + idx1;
+	}
+
+	template<typename InputIt> // leidzia assign dirbti ant bet kokio iteratoriaus range
+	void assign(InputIt first, InputIt last) {
+		clear();
+		reserve(std::distance(first, last));
+		for (; first != last; ++first)
+			push_back(*first);
+	}
+
+	iterator insert(const_iterator pos, T&& value) {
+		size_type idx = pos - data_;
+		if (size_ == capacity_) {
+			reserve(capacity_ ? capacity_ * 2 : 1);
+		}
+		// patraukiam tada emplacinam
+		for (size_type i = size_; i > idx; --i) {
+			std::allocator_traits<Allocator>::construct(
+				alloc_, data_ + i,
+				std::move_if_noexcept(data_[i - 1])
+			);
+			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i - 1);
+		}
+		std::allocator_traits<Allocator>::construct(
+			alloc_, data_ + idx, std::move(value)
+		);
+		++size_;
+		return data_ + idx;
+	}
+
+	// fill insert
+	iterator insert(const_iterator pos, size_type n, const T& value) {
+		size_type idx = pos - data_;
+		if (n == 0) return data_ + idx;
+		// uztikrinam del talpos
+		if (size_ + n > capacity_) {
+			reserve(std::max(capacity_ * 2, size_ + n));
+		}
+		// patraukiam senus elementus
+		for (size_type i = size_ + n - 1; i >= idx + n; --i) {
+			std::allocator_traits<Allocator>::construct(
+				alloc_, data_ + i,
+				std::move_if_noexcept(data_[i - n])
+			);
+			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i - n);
+		}
+		for (size_type i = 0; i < n; ++i) { //uzpildom tarpa
+			std::allocator_traits<Allocator>::construct(alloc_, data_ + idx + i, value);
+		}
+		size_ += n;
+		return data_ + idx;
+	}
+
+	template<class InputIt,
+		class = typename std::enable_if<!std::is_integral<InputIt>::value>::type>
+	iterator insert(const_iterator pos, InputIt first, InputIt last) {
+		size_type idx = pos - data_;
+		size_type n = std::distance(first, last);
+		if (n == 0) return data_ + idx;
+		if (size_ + n > capacity_) {
+			reserve(std::max(capacity_ * 2, size_ + n));
+		}
+		for (size_type i = size_ + n - 1; i >= idx + n; --i) {
+			std::allocator_traits<Allocator>::construct(
+				alloc_, data_ + i,
+				std::move_if_noexcept(data_[i - n])
+			);
+			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i - n);
+		}
+		size_type i = idx;
+		for (InputIt it = first; it != last; ++it, ++i) {
+			std::allocator_traits<Allocator>::construct(alloc_, data_ + i, *it);
+		}
+		size_ += n;
+		return data_ + idx;
+	}
+
+	//---------------------------------------------------------------------------------------------- elementu access
+
+// netikrinamas
+	reference       operator[](size_type idx) noexcept { return data_[idx]; }
+	const_reference operator[](size_type idx) const noexcept { return data_[idx]; }
+
+	//patikrinamas access (meta std::out_of_range ant invalid idx)
+	reference at(size_type idx) {
+		if (idx >= size_) {
+			throw std::out_of_range("Vector::at() index out of range");
+		}
+		return data_[idx];
+	}
+	const_reference at(size_type idx) const {
+		if (idx >= size_) {
+			throw std::out_of_range("Vector::at() index out of range");
+		}
+		return data_[idx];
+	}
+
+	// accessina pirma ir paskutini el (undefined behaviour jei tuscias)
+	reference       front() noexcept { return data_[0]; }
+	const_reference front() const noexcept { return data_[0]; }
+
+	reference       back() noexcept { return data_[size_ - 1]; }
+	const_reference back() const noexcept { return data_[size_ - 1]; }
+
+	// tiesiogine prieiga i masyva ( nullptr jei tuscia)
+	pointer         data() noexcept { return data_; }
+	const_pointer   data() const noexcept { return data_; }
+
 private:
 	Allocator allocator_;
 	pointer data_;

@@ -487,7 +487,7 @@ std::ostream& operator<<(std::ostream& os, const Vector<T, Alloc>& vec) {
 	return os << "]";
 }
 
-/*template<typename T, typename Alloc>
+template<typename T, typename Alloc>
 std::istream& operator>>(std::istream& is, Vector<T, Alloc>& vec) {
 	vec.clear();
 
@@ -533,6 +533,6 @@ std::istream& operator>>(std::istream& is, Vector<T, Alloc>& vec) {
 
 	return is;
 }
-*/
+
 
 #endif

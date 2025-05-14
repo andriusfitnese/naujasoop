@@ -1,4 +1,4 @@
-﻿#define CATCH_CONFIG_MAIN
+﻿#define CATCH_CONFIG_RUNNER
 #include "catch_amalgamated.hpp"
 #include "vector.hpp"
 #include <sstream>

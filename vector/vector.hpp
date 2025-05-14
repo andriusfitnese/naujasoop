@@ -1,4 +1,4 @@
-#ifndef VECTOR_HPP
+ï»¿#ifndef VECTOR_HPP
 #define VECTOR_HPP
 
 #include <cstddef>
@@ -173,33 +173,57 @@ public:
 	}
 
 	void shrink_to_fit() {
-		if (size_ == capacity_) return; 
+		if (size_ == capacity_)
+			return;
 
-		pointer new_data = std::allocator_traits<Allocator>::allocate(allocator_, size_);
+		// 1) remember the current size
+		size_type old_size = size_;
+
+		// 2) allocate exactly old_size slots
+		pointer new_data = std::allocator_traits<Allocator>::
+			allocate(allocator_, old_size);
+
+		// 3) move-construct each element into new_data
 		size_type i = 0;
-
 		try {
-			for (; i < size_; ++i) {
+			for (; i < old_size; ++i) {
 				std::allocator_traits<Allocator>::construct(
-					allocator_, new_data + i,
+					allocator_,
+					new_data + i,
 					std::move_if_noexcept(data_[i])
 				);
 			}
 		}
 		catch (...) {
-			for (size_type j = 0; j < i; ++j)
-				std::allocator_traits<Allocator>::destroy(allocator_, new_data + j);
-			std::allocator_traits<Allocator>::deallocate(allocator_, new_data, size_);
+			// if any construct throws, roll back what we built so far
+			for (size_type j = 0; j < i; ++j) {
+				std::allocator_traits<Allocator>::destroy(
+					allocator_, new_data + j
+				);
+			}
+			std::allocator_traits<Allocator>::deallocate(
+				allocator_, new_data, old_size
+			);
 			throw;
 		}
-		clear();
-		if (data_) {
-			std::allocator_traits<Allocator>::deallocate(allocator_, data_, capacity_);
-		}
 
+		// 4) destroy old elements (but do not touch size_ yet)
+		for (size_type j = 0; j < old_size; ++j) {
+			std::allocator_traits<Allocator>::destroy(
+				allocator_, data_ + j
+			);
+		}
+		// 5) free old storage
+		std::allocator_traits<Allocator>::deallocate(
+			allocator_, data_, capacity_
+		);
+
+		// 6) commit the new buffer
 		data_ = new_data;
-		capacity_ = size_;
+		capacity_ = old_size;
+		size_ = old_size;  // restore size
 	}
+
 
 	//---------------------------------------------------------------------------------------------- modifiers
 
@@ -452,7 +476,7 @@ private:
 	pointer data_;
 	size_type size_;
 	size_type capacity_;
-	
+
 
 };
 
@@ -507,7 +531,7 @@ template<typename T, typename Alloc>
 std::istream& operator>>(std::istream& is, Vector<T, Alloc>& vec) {
 	vec.clear();
 
-	// Read initial ‘[’
+	// Read initial Â‘[Â’
 	char ch;
 	if (!(is >> ch) || ch != '[') {
 		is.setstate(std::ios::failbit);

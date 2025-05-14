@@ -5,7 +5,6 @@
 #include <string>
 #include <type_traits>
 
-
 TEST_CASE("Vector default‐constructs empty", "[Vector][ctor]") {
     Vector<int> v;
     REQUIRE(v.size() == 0);
@@ -129,7 +128,6 @@ TEST_CASE("Vector Move Constructor", "[Vector][move][ctor]") {
     Vector<int> moved(std::move(orig));  // move ctor
 
     REQUIRE((orig.size() == 0 || orig.capacity() == 0));
-
     REQUIRE(moved.size() == 3);
     REQUIRE(moved.capacity() >= 16);
     REQUIRE(moved[0] == 10);
@@ -144,7 +142,6 @@ TEST_CASE("Vector Move Assignment", "[Vector][move][assign]") {
     b = std::move(a);  // move assign
 
     REQUIRE((a.size() == 0 || a.capacity() == 0));
-
     REQUIRE(b.size() == 3);
     REQUIRE(b.capacity() >= 12);
     REQUIRE(b[1] == 8);

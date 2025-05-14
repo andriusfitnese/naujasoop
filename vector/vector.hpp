@@ -16,6 +16,7 @@ class Vector {
 public:
 	using value_type = T;
 	using allocator_type = Allocator;
+	using allocator_traits = std::allocator_traits<allocator_type>;
 	using size_type = std::size_t;
 	using difference_type = std::ptrdiff_t;
 	using reference = T&;
@@ -29,29 +30,29 @@ public:
 
 	//---------------------------------------------------------------------------------------------- konstruktoriai
 
-	Vector() noexcept(std::is_nothrow_default_constructible<Alloc>::value) // default
+	Vector() noexcept(std::is_nothrow_default_constructible<Allocator>::value) // default
 		: allocator_(), data_(nullptr), size_(0), capacity_(0) {
 	}
 
 	explicit Vector(size_type count, const T& value, const Allocator& alloc = Allocator())  // count
-		: alloc_(alloc), size_(count), cap_(count)
+		: allocator_(alloc), size_(count), capacity_(count)
 	{
-		data_ = std::allocator_traits<Allocator>::allocate(alloc_, cap_);
+		data_ = std::allocator_traits<Allocator>::allocate(allocator_, capacity_);
 		for (size_type i = 0; i < size_; ++i)
-			std::allocator_traits<Allocator>::construct(alloc_, data_ + i, value);
+			std::allocator_traits<Allocator>::construct(allocator_, data_ + i, value);
 	}
 
 
 	template <typename InputIt, //range 
 		typename = std::enable_if_t<!std::is_integral<InputIt>::value>>  // ne enable_if, kadangi butu dviprasmiskumas jei vartotojas duotu 2 int
-		Vector(InputIt first, InputIt last, const Allocator& alloc = Allocator())
-		: alloc_(alloc)
+		Vector(InputIt first, InputIt last, const Allocator& allocate = Allocator())
+		: allocator_(allocate)
 	{
-		size_ = cap_ = std::distance(first, last);
-		data_ = std::allocator_traits<Allocator>::allocate(alloc_, cap_);
+		size_ = capacity_ = std::distance(first, last);
+		data_ = std::allocator_traits<Allocator>::allocate(allocator_, capacity_);
 		size_type i = 0;
 		for (InputIt it = first; it != last; ++it, ++i)
-			std::allocator_traits<Allocator>::construct(alloc_, data_ + i, *it);
+			std::allocator_traits<Allocator>::construct(allocator_, data_ + i, *it);
 	}
 
 	Vector(const Vector& other) //kopijavimo
@@ -136,47 +137,64 @@ public:
 
 	bool empty() const noexcept { return size_ == 0; }
 	size_type size() const noexcept { return size_; }
-	size_type capacity() const noexcept { return cap_; }
+	size_type capacity() const noexcept { return capacity_; }
 	size_type max_size() const noexcept {
-		return std::allocator_traits<Allocator>::max_size(alloc_);
+		return std::allocator_traits<Allocator>::max_size(allocator_);
 	}
 
 
 	void reserve(size_type new_cap) {
-		if (new_cap <= cap_) return;
-		pointer newdata = alloc_.allocate(new_cap);
-		for (size_type i = 0;i < size_;++i){
-			std::allocator_traits<Allocator>::construct(allocator_, newdata + i,
-				std::move_if_noexcept(data[i]));
-		std::allocator_traits<Allocator>::destroy(allocator_, data_ + i);
+		if (new_cap <= capacity_) return;
+
+		// 1) allocate new block
+		pointer newdata = std::allocator_traits<Allocator>::
+			allocate(allocator_, new_cap);
+
+		// 2) move-construct into new block, destroy old
+		for (size_type i = 0; i < size_; ++i) {
+			std::allocator_traits<Allocator>::construct(
+				allocator_, newdata + i,
+				std::move_if_noexcept(data_[i])   // <-- data_ not data()
+			);
+			std::allocator_traits<Allocator>::destroy(
+				allocator_, data_ + i
+			);
+		}
+
+		// 3) deallocate old block
+		if (data_) {
+			std::allocator_traits<Allocator>::deallocate(
+				allocator_, data_, capacity_);
+		}
+
+		// 4) commit
+		data_ = newdata;
+		capacity_ = new_cap;
 	}
-	if (data_)alloc_.deallocate(data_, cap_);
-	data_ = newdata;
-	cap_ = new_cap;
-}
+
 	void shrink_to_fit() {
 		if (size_ == capacity_) return; 
 
-		pointer new_data = std::allocator_traits<Allocator>::allocate(alloc_, size_);
+		pointer new_data = std::allocator_traits<Allocator>::allocate(allocator_, size_);
 		size_type i = 0;
 
 		try {
 			for (; i < size_; ++i) {
 				std::allocator_traits<Allocator>::construct(
-					alloc_, new_data + i,
+					allocator_, new_data + i,
 					std::move_if_noexcept(data_[i])
 				);
 			}
 		}
 		catch (...) {
 			for (size_type j = 0; j < i; ++j)
-				std::allocator_traits<Allocator>::destroy(alloc_, new_data + j);
-			std::allocator_traits<Allocator>::deallocate(alloc_, new_data, size_);
+				std::allocator_traits<Allocator>::destroy(allocator_, new_data + j);
+			std::allocator_traits<Allocator>::deallocate(allocator_, new_data, size_);
 			throw;
 		}
 		clear();
 		if (data_) {
-			std::allocator_traits<Allocator>::deallocate(alloc_, data_, capacity_);
+			std::allocator_traits<Allocator>::deallocate(allocator_, data_, capacity_);
 		}
 
 		data_ = new_data;
@@ -188,7 +206,7 @@ public:
 
 	void clear() noexcept {
 		for (size_type i = 0; i < size_; ++i) {
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + i);
 		}
 		size_ = 0;
 	}
@@ -199,7 +217,7 @@ public:
 			reserve(capacity_ ? capacity_ * 2 : 1);
 		}
 		std::allocator_traits<Allocator>::construct(
-			alloc_, data_ + size_, value
+			allocator_, data_ + size_, value
 		);
 		++size_;
 	}
@@ -209,7 +227,7 @@ public:
 			reserve(capacity_ ? capacity_ * 2 : 1);
 		}
 		std::allocator_traits<Allocator>::construct(
-			alloc_, data_ + size_, std::move(value)
+			allocator_, data_ + size_, std::move(value)
 		);
 		++size_;
 	}
@@ -221,7 +239,7 @@ public:
 			reserve(capacity_ ? capacity_ * 2 : 1);
 		}
 		std::allocator_traits<Allocator>::construct(
-			alloc_, data_ + size_, std::forward<Args>(args)...
+			allocator_, data_ + size_, std::forward<Args>(args)...
 		);
 		return *(data_ + size_++);
 	}
@@ -234,13 +252,13 @@ public:
 		}
 		for (size_type i = size_; i > idx; --i) {
 			std::allocator_traits<Allocator>::construct(
-				alloc_, data_ + i,
+				allocator_, data_ + i,
 				std::move_if_noexcept(data_[i - 1])
 			);
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i - 1);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + i - 1);
 		}
 		std::allocator_traits<Allocator>::construct(
-			alloc_, data_ + idx, std::forward<Args>(args)...
+			allocator_, data_ + idx, std::forward<Args>(args)...
 		);
 		++size_;
 		return data_ + idx;
@@ -249,14 +267,14 @@ public:
 	void pop_back() noexcept {
 		if (size_ > 0) {
 			--size_;
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + size_);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + size_);
 		}
 	}
 
 	void resize(size_type count, const T& value = T()) {
 		if (count < size_) {
 			for (size_type i = count; i < size_; ++i) {
-				std::allocator_traits<Allocator>::destroy(alloc_, data_ + i);
+				std::allocator_traits<Allocator>::destroy(allocator_, data_ + i);
 			}
 			size_ = count;
 		}
@@ -266,13 +284,13 @@ public:
 			try {
 				for (; i < count; ++i) {
 					std::allocator_traits<Allocator>::construct(
-						alloc_, data_ + i, value
+						allocator_, data_ + i, value
 					);
 				}
 			}
 			catch (...) {
 				for (size_type j = size_; j < i; ++j) {
-					std::allocator_traits<Allocator>::destroy(alloc_, data_ + j);
+					std::allocator_traits<Allocator>::destroy(allocator_, data_ + j);
 				}
 				throw;
 			}
@@ -280,26 +298,24 @@ public:
 		}
 	}
 
-	void swap(Vector& other) noexcept(
-		std::is_nothrow_swappable<Allocator>::value &&
-		noexcept(std::swap(data_, other.data_))
-		) {
+	void swap(Vector& other) noexcept
+	{
 		using std::swap;
 		swap(data_, other.data_);
 		swap(size_, other.size_);
 		swap(capacity_, other.capacity_);
-		swap(alloc_, other.alloc_);
+		swap(allocator_, other.allocator_);
 	}
 
 	iterator erase(const_iterator pos) {
 		size_type idx = pos - data_;
-		std::allocator_traits<Allocator>::destroy(alloc_, data_ + idx);
+		std::allocator_traits<Allocator>::destroy(allocator_, data_ + idx);
 		for (size_type i = idx; i + 1 < size_; ++i) {  //sunaikinam elementa ir patraukiam i kaire
 			std::allocator_traits<Allocator>::construct(
-				alloc_, data_ + i,
+				allocator_, data_ + i,
 				std::move_if_noexcept(data_[i + 1])
 			);
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i + 1);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + i + 1);
 		}
 		--size_;
 		return data_ + idx;
@@ -312,14 +328,14 @@ public:
 		if (n == 0) return data_ + idx1;
 
 		for (size_type i = idx1; i < idx2; ++i) {
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + i);
 		}
 		for (size_type i = idx2; i < size_; ++i) {
 			std::allocator_traits<Allocator>::construct(
-				alloc_, data_ + (i - n),
+				allocator_, data_ + (i - n),
 				std::move_if_noexcept(data_[i])
 			);
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + i);
 		}
 		size_ -= n;
 		return data_ + idx1;
@@ -341,13 +357,13 @@ public:
 		// patraukiam tada emplacinam
 		for (size_type i = size_; i > idx; --i) {
 			std::allocator_traits<Allocator>::construct(
-				alloc_, data_ + i,
+				allocator_, data_ + i,
 				std::move_if_noexcept(data_[i - 1])
 			);
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i - 1);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + i - 1);
 		}
 		std::allocator_traits<Allocator>::construct(
-			alloc_, data_ + idx, std::move(value)
+			allocator_, data_ + idx, std::move(value)
 		);
 		++size_;
 		return data_ + idx;
@@ -364,13 +380,13 @@ public:
 		// patraukiam senus elementus
 		for (size_type i = size_ + n - 1; i >= idx + n; --i) {
 			std::allocator_traits<Allocator>::construct(
-				alloc_, data_ + i,
+				allocator_, data_ + i,
 				std::move_if_noexcept(data_[i - n])
 			);
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i - n);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + i - n);
 		}
 		for (size_type i = 0; i < n; ++i) { //uzpildom tarpa
-			std::allocator_traits<Allocator>::construct(alloc_, data_ + idx + i, value);
+			std::allocator_traits<Allocator>::construct(allocator_, data_ + idx + i, value);
 		}
 		size_ += n;
 		return data_ + idx;
@@ -387,14 +403,14 @@ public:
 		}
 		for (size_type i = size_ + n - 1; i >= idx + n; --i) {
 			std::allocator_traits<Allocator>::construct(
-				alloc_, data_ + i,
+				allocator_, data_ + i,
 				std::move_if_noexcept(data_[i - n])
 			);
-			std::allocator_traits<Allocator>::destroy(alloc_, data_ + i - n);
+			std::allocator_traits<Allocator>::destroy(allocator_, data_ + i - n);
 		}
 		size_type i = idx;
 		for (InputIt it = first; it != last; ++it, ++i) {
-			std::allocator_traits<Allocator>::construct(alloc_, data_ + i, *it);
+			std::allocator_traits<Allocator>::construct(allocator_, data_ + i, *it);
 		}
 		size_ += n;
 		return data_ + idx;

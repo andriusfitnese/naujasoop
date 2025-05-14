@@ -1,20 +1,19 @@
-#define CATCH_CONFIG_MAIN
+﻿#define CATCH_CONFIG_MAIN
 #include "catch_amalgamated.hpp"
-#include "catch_amalgamated.cpp"
 #include "vector.hpp"
 #include <sstream>
 #include <string>
 #include <type_traits>
 
 
-TEST_CASE("Vector default?constructs empty", "[Vector][ctor]") {
+TEST_CASE("Vector default‐constructs empty", "[Vector][ctor]") {
     Vector<int> v;
     REQUIRE(v.size() == 0);
     REQUIRE(v.empty());
     REQUIRE(v.capacity() == 0);
 }
 
-TEST_CASE("Vector fill?constructor and element access", "[Vector][ctor]") {
+TEST_CASE("Vector fill‐constructor and element access", "[Vector][ctor]") {
     Vector<std::string> v(3, "foo");
     REQUIRE(v.size() == 3);
     for (size_t i = 0; i < 3; ++i) {
@@ -65,7 +64,7 @@ TEST_CASE("shrink_to_fit releases extra capacity", "[Vector][capacity]") {
     REQUIRE(v.capacity() == 10);
 }
 
-TEST_CASE("iterators and range?for", "[Vector][iter]") {
+TEST_CASE("iterators and range‐for", "[Vector][iter]") {
     Vector<int> v;
     for (int i = 0; i < 5; ++i) v.push_back(i);
     int expected = 0;
@@ -75,7 +74,7 @@ TEST_CASE("iterators and range?for", "[Vector][iter]") {
     REQUIRE(expected == 5);
 }
 
-TEST_CASE("non?member swap and relational operators", "[Vector][swap][rel]") {
+TEST_CASE("non‐member swap and relational operators", "[Vector][swap][rel]") {
     Vector<int> a = { 1,2,3 };
     Vector<int> b = { 1,2,4 };
     REQUIRE((a < b));
@@ -106,7 +105,6 @@ TEST_CASE("Vector Copy Constructor", "[Vector][copy][ctor]") {
     Vector<int> copy(orig);  // copy construct
     require_equal(orig, copy);
 
-    // original unchanged
     REQUIRE(orig.size() == 5);
     REQUIRE(orig.capacity() >= 10);
 }
@@ -119,7 +117,6 @@ TEST_CASE("Vector Copy Assignment", "[Vector][copy][assign]") {
     b = a;  // copy assign
     require_equal(a, b);
 
-    // reassignment to self is safe
     a = a;
     REQUIRE(a.size() == 2);
     REQUIRE(a[0] == "foo");
@@ -130,11 +127,9 @@ TEST_CASE("Vector Move Constructor", "[Vector][move][ctor]") {
     orig.reserve(16);
 
     Vector<int> moved(std::move(orig));  // move ctor
-    // moved-from 'orig' must be in valid but unspecified state:
-    // we can at least check size() == 0 or capacity() == 0
+
     REQUIRE((orig.size() == 0 || orig.capacity() == 0));
 
-    // and moved has the original data
     REQUIRE(moved.size() == 3);
     REQUIRE(moved.capacity() >= 16);
     REQUIRE(moved[0] == 10);
@@ -148,15 +143,12 @@ TEST_CASE("Vector Move Assignment", "[Vector][move][assign]") {
     Vector<int> b;
     b = std::move(a);  // move assign
 
-    // moved-from 'a' is valid but unspecified
     REQUIRE((a.size() == 0 || a.capacity() == 0));
 
-    // 'b' now has the data
     REQUIRE(b.size() == 3);
     REQUIRE(b.capacity() >= 12);
     REQUIRE(b[1] == 8);
 
-    // self-move-assignment must also be safe
     b = std::move(b);
     REQUIRE(b.size() == 3);
     REQUIRE(b[0] == 7);

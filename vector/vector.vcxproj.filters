@@ -24,12 +24,18 @@
     <ClCompile Include="catch_amalgamated.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vectorfunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="catch_amalgamated.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vectorh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

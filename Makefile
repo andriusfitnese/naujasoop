@@ -7,6 +7,7 @@ VECTOR_ALL_SRCS = $(wildcard vector/*.cpp)
 
 VECTOR_LIB_SRCS := $(filter-out \
     vector/vector.cpp \
+	vector/vectorfunk.cpp \
     vector/catch_amalgamated.cpp \
     vector/catch.cpp, \
     $(VECTOR_ALL_SRCS))

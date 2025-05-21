@@ -77,6 +77,16 @@ public:
 		std::uninitialized_copy(init.begin(), init.end(), data_);
 	}
 
+	Vector(size_t count)  ///bufferiams
+	{
+		data_ = allocator_.allocate(count);
+		for (size_t i = 0; i < count; ++i)
+			allocator_.construct(data_ + i);
+		size_ = count;
+		capacity_ = count;
+	}
+
+
 	~Vector() { //destruktorius
 		clear();
 		if (data_) {
@@ -146,22 +156,19 @@ public:
 	void reserve(size_type new_cap) {
 		if (new_cap <= capacity_) return;
 
-		// 1) allocate new block
 		pointer newdata = std::allocator_traits<Allocator>::
 			allocate(allocator_, new_cap);
 
-		// 2) move-construct into new block, destroy old
 		for (size_type i = 0; i < size_; ++i) {
 			std::allocator_traits<Allocator>::construct(
 				allocator_, newdata + i,
-				std::move_if_noexcept(data_[i])   // <-- data_ not data()
+				std::move_if_noexcept(data_[i])
 			);
 			std::allocator_traits<Allocator>::destroy(
 				allocator_, data_ + i
 			);
 		}
 
-		// 3) deallocate old block
 		if (data_) {
 			std::allocator_traits<Allocator>::deallocate(
 				allocator_, data_, capacity_);

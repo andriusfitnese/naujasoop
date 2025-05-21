@@ -130,10 +130,12 @@
     <ClCompile Include="catch.cpp" />
     <ClCompile Include="catch_amalgamated.cpp" />
     <ClCompile Include="vector.cpp" />
+    <ClCompile Include="vectorfunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="catch_amalgamated.hpp" />
     <ClInclude Include="vector.hpp" />
+    <ClInclude Include="vectorh.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

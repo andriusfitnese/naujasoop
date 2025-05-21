@@ -8,16 +8,15 @@ Antra, turite turėti veikiantį MinGW, kuris reikalingas programos .exe failo s
 ---------------------------------------------------------------------
 Reikalingos komandos:
 
-mingw32-make vector - sukuria .exe versijai su vektoriaus tipo konteineriu
+mingw32-make -B     - buildina visue .exe failus
 
 mingw32-make class  - sukuria .exe versijai su deque tipo konteineriu, bet naudojant klasę.
 
-mingw32-make list   - sukuria .exe versijai su list tipo konteineriu
-
 mingw32-make clean  - ištrina bin failą, kuriame laikomi sukurti jūsų .exe failai bei sugeneruoti duomenų failai
 
-mingw32-make -B     - rebuildina visų konteinerių tipų .exe failus
+Test.exe taip pat pakeistas į catch_tests.exe , naudojantis unit testais, tad jį paleist reiktų atsidaryt komandinę eilutę, naviguoti į šio repo directory, į bin (jau turite būt paleidę mingw32-make bent kartą, kad bin ten būtų), ir jei esate and Windows, tereikia suvesti catch_tests.exe. Žemiau įkelsiu screenshot, kaip tai pas mane ant Windows 11 atrodo.
 
+![image](https://github.com/user-attachments/assets/32dca57e-a640-41e7-be35-c251a82659bb)
 --------------------------------------------------------------------------------
 
 Parsisiuntę repo, turite du variantus:
@@ -30,14 +29,17 @@ CMD
 -
   Atsidaryti command line, (ieškoti cmd paspaudus Windows ikoną), nuvesti path iki šitos repo direktorijos naudojant cd komandą, pvz: cd C:\Users\andri\OneDrive\Desktop\oop naujas\bin ir tada vesti atitinkamas komandas pagal Jūsų poreikį.
 
+![image](https://github.com/user-attachments/assets/dca6b442-b0ee-4910-a348-7c9574be7ef3)
+
 
 Tai atlikus, atsiras bin folder'is, kuriame rasite .exe failus.
 Paleidus programą, visi pasirinkimai bus aiškiai jums duoti.
 
+**Rekomendacija** - Jei naudojate atskyrimą išlaikiusių ir neišlaikiusių studentų, rekomenduojama gavus klausimą pasirinkti antrą strategiją - ji patikimiausia bei greičiausiai veikianti.
+
 Gero naudojimo!
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 TESTAVIMAS
 -
@@ -99,11 +101,6 @@ Po -
 Dabar cout<<n ne tik paprastai išveda į ekraną n, o aktyvuoja viską, kas yra išvedimo operatoriuje -
 ![image](https://github.com/user-attachments/assets/2c9b8263-a832-4ef2-b1c3-833dad52847e)
 
-
-
-
-
-
 V1.5
 ------------------------------------------------------------------------------------------------------------
 
@@ -115,3 +112,65 @@ Visas veikimas bus identiškas į V1.2.
 
 
 ![image](https://github.com/user-attachments/assets/e517dab3-1ac3-409f-8370-b7889e075f3c)
+
+V2.0
+------------------------------------------------------------------------------------------------------------
+
+Ši versija atneša kelias naujoves -
+
+**Doxygen dokumentacija** - 📄 [Nuoroda į PDF failą](docs/latex/refman.pdf)
+
+**Unit testus** - Pasinaudota Catch2, kuris leis ir man greičiau išbandyt naujas idėjas ar kodo perrašymą mažiau sukant galvą, ar viskas vistiek veiks taip, kaip noriu, ir tuo pat gali būt reikalinga jums.
+
+Taip pat pastebima (ypač jei sekėt senesnes versijas), kad pagaliau išliko tiktais klasių versija, kadangi kitos yra jau be galo senos ir nebereikalingos tolesnėm realizacijom.
+
+
+
+V3.0  
+------------------------------------------------------------------------------------------------------------
+
+Šioje versijoje yra daug behind-the-scenes pakeitimų - parašytas nuosavas Vector konteineris. Pagal funkcionalumą jis atitinka arti 100% STL Vector. Apačioje pateiksiu kelis funkcijų pavyzdžius, o pilnas jų sąrašas tiems, kuriems įdomu, bus dokumentacijoje html bei pdf formomis.
+
+
+Default konstruktorius
+![image](https://github.com/user-attachments/assets/0cf36922-55a7-4033-92df-b54e3b83a2bc)
+
+Destruktorius
+![image](https://github.com/user-attachments/assets/8d24dcc8-2e0b-4e57-ab85-b31bed2254d9)
+
+Move assign operatorius
+![image](https://github.com/user-attachments/assets/bc4b2fab-b7e9-43d4-880d-fef7120a1c9f)
+Patikrina, ar ne keliamas į save, jei taip, toliau kodas nevykdomas, jei ne - tikrina, ar ne dealokuoja tuščios rodyklės ir tada dealokuoja atmintį naudotą esamo objekto. Ateinančios keturios eilutės iš tiesų daro move priskyrimą į other objektą, o likusios - išvalo seną. 
+
+Iteratoriai
+![image](https://github.com/user-attachments/assets/01d469c3-6815-4d8a-95c0-b3d77a5eabd4)
+Kaip ir vector, tiesiog leidžia judėti per vektorių iš priekio arba iš galo.
+
+Dalis capacity funkcijų
+![image](https://github.com/user-attachments/assets/efd2f0f5-e57e-488c-ac5e-1ddb556cc7b6)
+
+Modifiers
+![image](https://github.com/user-attachments/assets/14d76b74-4635-4233-8d69-afe6cd964d5f)
+
+Įvedimo, lygumo, išvedimo ir kiti operatoriai, kitos non-member funkcijos
+![image](https://github.com/user-attachments/assets/fc941e02-cabf-4f16-bd5f-7c972b0785c5)
+
+
+Testavimas
+-
+
+Viskas buvo ištestuota, parašyta daug testo atvejų ir ištaisytos atitinkamos klaidos, tad visos funkcijos veikia taip, kaip ir turi STL vector funkcijos.
+![image](https://github.com/user-attachments/assets/cfb77732-afe7-4df0-9779-29754c39dfd2)
+
+
+Spartos analizė
+-
+Buvo vykdyta spartos analizė, pagal kurios pirmus rezultatus iš kart matosi 2x pagreitėjimas duomenų pildyme parašius paprastą kodą testavimui- 
+![image](https://github.com/user-attachments/assets/9f63b156-e3a4-4041-9cf1-616d984c7857)
+Rezultatas - 
+![image](https://github.com/user-attachments/assets/d8175a5c-f476-4750-a351-a909052921e0)
+
+
+
+
+

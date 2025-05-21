@@ -127,13 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="catch.cpp" />
-    <ClCompile Include="catch_amalgamated.cpp" />
+    <ClCompile Include="catch.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="catch_amalgamated.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="vector.cpp" />
     <ClCompile Include="vectorfunk.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="catch_amalgamated.hpp" />
+    <ClInclude Include="catch_amalgamated.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="vector.hpp" />
     <ClInclude Include="vectorh.h" />
   </ItemGroup>

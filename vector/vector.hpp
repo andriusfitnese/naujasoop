@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <utility>
 #include <ostream>
+#include <istream>
 
 template<typename T, typename Allocator = std::allocator<T>>
 class Vector {
@@ -174,7 +175,6 @@ public:
 				allocator_, data_, capacity_);
 		}
 
-		// 4) commit
 		data_ = newdata;
 		capacity_ = new_cap;
 	}
@@ -245,7 +245,7 @@ public:
 
 	void push_back(const T& value) {
 		if (size_ == capacity_) {
-			reserve(capacity_ ? capacity_ * 2 : 1);
+			reserve(capacity_ ? capacity_ * 10 : 1);
 		}
 		std::allocator_traits<Allocator>::construct(
 			allocator_, data_ + size_, value
@@ -255,7 +255,7 @@ public:
 
 	void push_back(T&& value) {
 		if (size_ == capacity_) {
-			reserve(capacity_ ? capacity_ * 2 : 1);
+			reserve(capacity_ ? capacity_ * 10 : 1);
 		}
 		std::allocator_traits<Allocator>::construct(
 			allocator_, data_ + size_, std::move(value)
@@ -267,7 +267,7 @@ public:
 	template <class... Args>
 	reference emplace_back(Args&&... args) {
 		if (size_ == capacity_) {
-			reserve(capacity_ ? capacity_ * 2 : 1);
+			reserve(capacity_ ? capacity_ * 10 : 1);
 		}
 		std::allocator_traits<Allocator>::construct(
 			allocator_, data_ + size_, std::forward<Args>(args)...
@@ -279,7 +279,7 @@ public:
 	iterator emplace(const_iterator pos, Args&&... args) {
 		size_type idx = pos - data_;
 		if (size_ == capacity_) {
-			reserve(capacity_ ? capacity_ * 2 : 1);
+			reserve(capacity_ ? capacity_ * 10 : 1);
 		}
 		for (size_type i = size_; i > idx; --i) {
 			std::allocator_traits<Allocator>::construct(

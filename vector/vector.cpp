@@ -1,8 +1,5 @@
-﻿#include <iostream>
-#include <vector>
-#include <chrono>
-#include "vector.hpp"
-#include "vectorh.h"﻿
+﻿#include "vector.hpp"
+#include "vectorh.h"
 
 int main()
 {

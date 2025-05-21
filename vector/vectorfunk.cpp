@@ -1,6 +1,5 @@
-#include "vector.hpp"?
+﻿#include "vector.hpp"
 #include "vectorh.h"
-
 
 int g_printMode = 1;
 /// 1 - mediana, 2 - vidurkis (isvedimui)
@@ -105,7 +104,7 @@ void Stud::paskaiciuoti_gal() {
 	med_ = (0.4 * med_ + 0.6 * egrez_);
 }
 
-void rng(vector<int>& paz)
+void rng(Vector<int>& paz)
 {
 	random_device rd;
 	mt19937 gen(rd());

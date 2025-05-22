@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['operator_3c_3c_0',['operator&lt;&lt;',['../d4/d17/class_stud.html#ab1296094a664d5c7adc2ec4a188b343c',1,'Stud::operator&lt;&lt;()'],['../d6/d51/dequefunk_8cpp.html#aedf96ee29ef7e067065e26c678466c6d',1,'operator&lt;&lt;(std::ostream &amp;os, const Zmogus &amp;z):&#160;dequefunk.cpp'],['../d8/d24/dequeh_8h.html#ae4670e02e44c5878d8fea81cdc4a197b',1,'operator&lt;&lt;(std::ostream &amp;os, Zmogus const &amp;z):&#160;dequefunk.cpp']]],
-  ['operator_3d_1',['operator=',['../d4/d17/class_stud.html#a7f801184a9e956ed2bdb3f59ef796c0b',1,'Stud::operator=(const Stud &amp;)'],['../d4/d17/class_stud.html#a9d13d8daf97f066993d4cf57d267d9ab',1,'Stud::operator=(Stud &amp;&amp;) noexcept']]],
-  ['operator_3e_3e_2',['operator&gt;&gt;',['../d4/d17/class_stud.html#ab0ae2d598da52d7298daa3083d28b576',1,'Stud::operator&gt;&gt;()'],['../d6/d51/dequefunk_8cpp.html#a979da483198310119225a561d7ce1555',1,'operator&gt;&gt;(std::istream &amp;in, Zmogus &amp;z):&#160;dequefunk.cpp'],['../d8/d24/dequeh_8h.html#a979da483198310119225a561d7ce1555',1,'operator&gt;&gt;(std::istream &amp;in, Zmogus &amp;z):&#160;dequefunk.cpp']]]
+  ['jie_20daro_0',['Ką jie daro?',['../index.html#autotoc_md4',1,'']]],
+  ['justification_1',['Justification',['../d4/d13/namespace_catch.html#a1d4a723904a65baf5f366136cd752d06',1,'Catch']]],
+  ['justification_2',['justification',['../d8/da8/struct_catch_1_1_column_info.html#a0d6caedb4ac0d3b0c96036f5e4742f48',1,'Catch::ColumnInfo']]]
 ];

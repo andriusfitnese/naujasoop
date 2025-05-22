@@ -133,6 +133,7 @@
     <ClCompile Include="catch_amalgamated.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="dll_exports.cpp" />
     <ClCompile Include="vector.cpp" />
     <ClCompile Include="vectorfunk.cpp" />
   </ItemGroup>
@@ -140,6 +141,7 @@
     <ClInclude Include="catch_amalgamated.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="dll_export.h" />
     <ClInclude Include="vector.hpp" />
     <ClInclude Include="vectorh.h" />
   </ItemGroup>

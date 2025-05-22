@@ -110,12 +110,12 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <p>Pradedant nuo pradžių, turite turėti veikiantį GCC, kurio versija palaiko C++17 ar naujesnes versijas. Antra, turite turėti veikiantį MinGW, kuris reikalingas programos .exe failo sukūrimui, kuriam reikia mingw32-make komandos. Tam pridedu šią nuorodą: <a href="https://nerdyelectronics.com/install-mingw-on-windows-for-make/">https://nerdyelectronics.com/install-mingw-on-windows-for-make/</a></p>
 <hr  />
 <p> Reikalingos komandos:</p>
-<p>mingw32-make vector - sukuria .exe versijai su vektoriaus tipo konteineriu</p>
+<p>mingw32-make -B - buildina visue .exe failus</p>
 <p>mingw32-make class - sukuria .exe versijai su deque tipo konteineriu, bet naudojant klasę.</p>
-<p>mingw32-make list - sukuria .exe versijai su list tipo konteineriu</p>
 <p>mingw32-make clean - ištrina bin failą, kuriame laikomi sukurti jūsų .exe failai bei sugeneruoti duomenų failai</p>
-<p>mingw32-make -B - rebuildina visų konteinerių tipų .exe failus</p>
-<hr  />
+<p>Test.exe taip pat pakeistas į catch_tests.exe , naudojantis unit testais, tad jį paleist reiktų atsidaryt komandinę eilutę, naviguoti į šio repo directory, į bin (jau turite būt paleidę mingw32-make bent kartą, kad bin ten būtų), ir jei esate and Windows, tereikia suvesti catch_tests.exe. Žemiau įkelsiu screenshot, kaip tai pas mane ant Windows 11 atrodo.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+<img src="https://github.com/user-attachments/assets/32dca57e-a640-41e7-be35-c251a82659bb" alt="image" class="inline"/></h1>
 <p>Parsisiuntę repo, turite du variantus:</p>
 <p>Visual Studio</p><ul>
 <li>Atsidaryti .sln failą, kuris atidarys visą projektą per Visual Studio, per kurį galėsite atsidaryti terminalą (CTRL+~) ir suvesti atitinkamas komandas, surašytas viršuje.</li>
@@ -123,7 +123,9 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <p>CMD</p><ul>
 <li>Atsidaryti command line, (ieškoti cmd paspaudus Windows ikoną), nuvesti path iki šitos repo direktorijos naudojant cd komandą, pvz: cd C:\Users\andri\OneDrive\Desktop\oop naujas\bin ir tada vesti atitinkamas komandas pagal Jūsų poreikį.</li>
 </ul>
+<p><img src="https://github.com/user-attachments/assets/dca6b442-b0ee-4910-a348-7c9574be7ef3" alt="image" class="inline"/></p>
 <p>Tai atlikus, atsiras bin folder'is, kuriame rasite .exe failus. Paleidus programą, visi pasirinkimai bus aiškiai jums duoti.</p>
+<p><b>Rekomendacija</b> - Jei naudojate atskyrimą išlaikiusių ir neišlaikiusių studentų, rekomenduojama gavus klausimą pasirinkti antrą strategiją - ji patikimiausia bei greičiausiai veikianti.</p>
 <p>Gero naudojimo!</p>
 <hr  />
 <p>TESTAVIMAS</p><ul>
@@ -165,7 +167,29 @@ V1.5</h1>
 <p>Versijai 1.5 pritaikyta abstrakti klasė <a class="el" href="d5/d27/class_zmogus.html">Zmogus</a>, kuri bus naudinga ateityje. Kol kas, tai pakeitė tik studento klasės realizaciją - ji dabar yra išvestinė klasė <a class="el" href="d5/d27/class_zmogus.html">Zmogus</a> abstrakčiąjai (visi studentai žmonės, lygtais..)</p>
 <p>Visas veikimas bus identiškas į V1.2.</p>
 <p><img src="https://github.com/user-attachments/assets/ebab23b8-74cd-46b7-9898-5f63ae04085c" alt="image" class="inline"/></p>
-<p><img src="https://github.com/user-attachments/assets/e517dab3-1ac3-409f-8370-b7889e075f3c" alt="image" class="inline"/> </p>
+<p><img src="https://github.com/user-attachments/assets/e517dab3-1ac3-409f-8370-b7889e075f3c" alt="image" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md6"></a>
+V2.0</h1>
+<p>Ši versija atneša kelias naujoves -</p>
+<p><b>Doxygen dokumentacija</b> - 📄 <a href="docs/latex/refman.pdf">Nuoroda į PDF failą</a></p>
+<p><b>Unit testus</b> - Pasinaudota Catch2, kuris leis ir man greičiau išbandyt naujas idėjas ar kodo perrašymą mažiau sukant galvą, ar viskas vistiek veiks taip, kaip noriu, ir tuo pat gali būt reikalinga jums.</p>
+<p>Taip pat pastebima (ypač jei sekėt senesnes versijas), kad pagaliau išliko tiktais klasių versija, kadangi kitos yra jau be galo senos ir nebereikalingos tolesnėm realizacijom.</p>
+<h1><a class="anchor" id="autotoc_md7"></a>
+V3.0</h1>
+<p>Šioje versijoje yra daug behind-the-scenes pakeitimų - parašytas nuosavas <a class="el" href="d5/db2/class_vector.html">Vector</a> konteineris. Pagal funkcionalumą jis atitinka arti 100% STL <a class="el" href="d5/db2/class_vector.html">Vector</a>. Apačioje pateiksiu kelis funkcijų pavyzdžius, o pilnas jų sąrašas tiems, kuriems įdomu, bus dokumentacijoje html bei pdf formomis.</p>
+<p>Default konstruktorius <img src="https://github.com/user-attachments/assets/0cf36922-55a7-4033-92df-b54e3b83a2bc" alt="image" class="inline"/></p>
+<p>Destruktorius <img src="https://github.com/user-attachments/assets/8d24dcc8-2e0b-4e57-ab85-b31bed2254d9" alt="image" class="inline"/></p>
+<p>Move assign operatorius <img src="https://github.com/user-attachments/assets/bc4b2fab-b7e9-43d4-880d-fef7120a1c9f" alt="image" class="inline"/> Patikrina, ar ne keliamas į save, jei taip, toliau kodas nevykdomas, jei ne - tikrina, ar ne dealokuoja tuščios rodyklės ir tada dealokuoja atmintį naudotą esamo objekto. Ateinančios keturios eilutės iš tiesų daro move priskyrimą į other objektą, o likusios - išvalo seną.</p>
+<p>Iteratoriai <img src="https://github.com/user-attachments/assets/01d469c3-6815-4d8a-95c0-b3d77a5eabd4" alt="image" class="inline"/> Kaip ir vector, tiesiog leidžia judėti per vektorių iš priekio arba iš galo.</p>
+<p>Dalis capacity funkcijų <img src="https://github.com/user-attachments/assets/efd2f0f5-e57e-488c-ac5e-1ddb556cc7b6" alt="image" class="inline"/></p>
+<p>Modifiers <img src="https://github.com/user-attachments/assets/14d76b74-4635-4233-8d69-afe6cd964d5f" alt="image" class="inline"/></p>
+<p>Įvedimo, lygumo, išvedimo ir kiti operatoriai, kitos non-member funkcijos <img src="https://github.com/user-attachments/assets/fc941e02-cabf-4f16-bd5f-7c972b0785c5" alt="image" class="inline"/></p>
+<p>Testavimas</p><ul>
+<li>Viskas buvo ištestuota, parašyta daug testo atvejų ir ištaisytos atitinkamos klaidos, tad visos funkcijos veikia taip, kaip ir turi STL vector funkcijos. <img src="https://github.com/user-attachments/assets/cfb77732-afe7-4df0-9779-29754c39dfd2" alt="image" class="inline"/></li>
+</ul>
+<p>Spartos analizė</p><ul>
+<li>Buvo vykdyta spartos analizė, pagal kurios pirmus rezultatus iš kart matosi 2x pagreitėjimas duomenų pildyme parašius paprastą kodą testavimui- <img src="https://github.com/user-attachments/assets/9f63b156-e3a4-4041-9cf1-616d984c7857" alt="image" class="inline"/> Rezultatas - <img src="https://github.com/user-attachments/assets/d8175a5c-f476-4750-a351-a909052921e0" alt="image" class="inline"/> </li>
+</ul>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

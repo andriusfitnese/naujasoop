@@ -1,5 +1,6 @@
 ﻿#include "vector.hpp"
 #include "vectorh.h"
+#include "dll_export.h"
 
 int main()
 {

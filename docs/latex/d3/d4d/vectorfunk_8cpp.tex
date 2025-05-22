@@ -1,11 +1,12 @@
 \doxysection{vector/vectorfunk.cpp File Reference}
 \hypertarget{vectorfunk_8cpp}{}\label{vectorfunk_8cpp}\index{vector/vectorfunk.cpp@{vector/vectorfunk.cpp}}
+{\ttfamily \#include "{}vector.\+hpp"{}}\newline
 {\ttfamily \#include "{}vectorh.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{vectorfunk_8cpp_ae41785eb58d849ee9d0151fe234f88c4}{failasegzistuoja}} (const string \&failopav)
-\item 
+\begin{DoxyCompactList}\small\item\em 1 -\/ mediana, 2 -\/ vidurkis (isvedimui) \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{vectorfunk_8cpp_a11447c6061b08b88aeb17036f4106241}{sort\+Vardu}} (const \mbox{\hyperlink{class_stud}{Stud}} \&a, const \mbox{\hyperlink{class_stud}{Stud}} \&b)
 \item 
 bool \mbox{\hyperlink{vectorfunk_8cpp_a737d41877014ced2f74efaa59abcf98e}{sort\+Pav}} (const \mbox{\hyperlink{class_stud}{Stud}} \&a, const \mbox{\hyperlink{class_stud}{Stud}} \&b)
@@ -14,64 +15,67 @@ bool \mbox{\hyperlink{vectorfunk_8cpp_acf058d57ec9e65c8dd5855cfa50640d3}{sort\+M
 \item 
 bool \mbox{\hyperlink{vectorfunk_8cpp_a697e7d842455ac856b3d47ff02286da5}{sort\+Gal}} (const \mbox{\hyperlink{class_stud}{Stud}} \&a, const \mbox{\hyperlink{class_stud}{Stud}} \&b)
 \item 
-double \mbox{\hyperlink{vectorfunk_8cpp_af59b1d984e725ff826f539544f1b9561}{mediana}} (const vector$<$ int $>$ \&paz, double egrez, string var)
-\item 
-double \mbox{\hyperlink{vectorfunk_8cpp_a1aab5ac650afca6a7fc0d77f5f656bb3}{galvid}} (double egrez, double ndvd)
-\item 
-double \mbox{\hyperlink{vectorfunk_8cpp_afed0362ba68b71e92c70aa157b50ebf6}{ndvid}} (const vector$<$ int $>$ \&paz)
-\item 
-void \mbox{\hyperlink{vectorfunk_8cpp_aee077c9ab3d74740eaca0a883c20742a}{rng}} (vector$<$ int $>$ \&paz)
+void \mbox{\hyperlink{vectorfunk_8cpp_a246afca982546b3409efde63443564e5}{rng}} (\mbox{\hyperlink{class_vector}{Vector}}$<$ int $>$ \&paz)
 \item 
 void \mbox{\hyperlink{vectorfunk_8cpp_a1a48dfab588dcf8e87aeaa5f2d77cbc0}{rng}} (int \&egrez)
 \begin{DoxyCompactList}\small\item\em gauname adresa egrez, sugeneruojame ir grazinam \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{vectorfunk_8cpp_a1ef4eba2e1568ae48434aa2e3faf2469}{rng}} (string \&vardas, string \&pavarde)
 \begin{DoxyCompactList}\small\item\em egz pazymiu gen \end{DoxyCompactList}\item 
-vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \mbox{\hyperlink{vectorfunk_8cpp_ae4747d65f9e4414d951a0e781ad3ef75}{process\+Batch}} (const vector$<$ string $>$ \&lines)
+std\+::istream \& \mbox{\hyperlink{vectorfunk_8cpp_a979da483198310119225a561d7ce1555}{operator$>$$>$}} (std\+::istream \&in, \mbox{\hyperlink{class_zmogus}{Zmogus}} \&z)
 \item 
-void \mbox{\hyperlink{vectorfunk_8cpp_a72160fda87d224416658b76ba1aba96d}{skaitymas}} (vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe, duration$<$ double $>$ \&veiklaik)
+std\+::ostream \& \mbox{\hyperlink{vectorfunk_8cpp_aedf96ee29ef7e067065e26c678466c6d}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{class_zmogus}{Zmogus}} \&z)
+\item 
+\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \mbox{\hyperlink{vectorfunk_8cpp_ad2290db8aca1b8d8157a9801f5379f6c}{process\+Batch}} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ string $>$ \&lines)
+\item 
+void \mbox{\hyperlink{vectorfunk_8cpp_ae762408ac9b8c5ad3993824885805596}{skaitymas}} (\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe, duration$<$ double $>$ \&veiklaik)
 \begin{DoxyCompactList}\small\item\em vardu generavimas \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{vectorfunk_8cpp_aa682bb72f52c47ae2ccd814c043ef5ea}{isvedimas}} (int pas, int pasmv, const vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe)
+void \mbox{\hyperlink{vectorfunk_8cpp_a36cce055b8b07fbc3f8c6a0a32303cdb}{isvedimas}} (int pas, int pasmv, const \mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe)
 \item 
 bool \mbox{\hyperlink{vectorfunk_8cpp_ac8a63cc86c89c27d3e430745108a7ff7}{gautteisinga}} (int \&input, const string \&prompt, int min, int max)
 \item 
 void \mbox{\hyperlink{vectorfunk_8cpp_a0392bcccd12a7342b12cc5f7c0d372c7}{failogen}} (const string \&failopav, int irasuk)
 \begin{DoxyCompactList}\small\item\em error handlingas neteisingos ivesties atveju \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{vectorfunk_8cpp_aa86fb53eee20ecce4800deea834b67d4}{atrinkimas1}} (vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe, vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&nerdai, vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&galiorka, int pasmv, duration$<$ double $>$ \&veiklaik)
+void \mbox{\hyperlink{vectorfunk_8cpp_a1a9cf47ff0a5e603bd5f9e6a20772ef8}{atrinkimas1}} (\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe, \mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&nerdai, \mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&galiorka, int pasmv, duration$<$ double $>$ \&veiklaik)
 \item 
-void \mbox{\hyperlink{vectorfunk_8cpp_a240f8180961160ce29f417bd6396fbdd}{atrinkimas2}} (vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe, vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&galiorka, int pasmv, duration$<$ double $>$ \&veiklaik)
+void \mbox{\hyperlink{vectorfunk_8cpp_a09be3d9b4e3413925b99bccc8edf455a}{atrinkimas2}} (\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe, \mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&galiorka, int pasmv, duration$<$ double $>$ \&veiklaik)
 \item 
-void \mbox{\hyperlink{vectorfunk_8cpp_acd77ad3cf228221925e04be36ef5af10}{atrinkimas3}} (vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe, vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&galiorka, int pasmv, duration$<$ double $>$ \&veiklaik)
+void \mbox{\hyperlink{vectorfunk_8cpp_ada5c93849942f785d723c8cdaaca34ee}{atrinkimas3}} (\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&grupe, \mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&galiorka, int pasmv, duration$<$ double $>$ \&veiklaik)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{vectorfunk_8cpp_a271e4f54fb2228be446ab39010a03088}{g\+\_\+print\+Mode}} = 1
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{vectorfunk_8cpp_aa86fb53eee20ecce4800deea834b67d4}\index{vectorfunk.cpp@{vectorfunk.cpp}!atrinkimas1@{atrinkimas1}}
+\Hypertarget{vectorfunk_8cpp_a1a9cf47ff0a5e603bd5f9e6a20772ef8}\index{vectorfunk.cpp@{vectorfunk.cpp}!atrinkimas1@{atrinkimas1}}
 \index{atrinkimas1@{atrinkimas1}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{atrinkimas1()}{atrinkimas1()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_aa86fb53eee20ecce4800deea834b67d4} 
-void atrinkimas1 (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{, }\item[{vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{nerdai}{, }\item[{vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{galiorka}{, }\item[{int}]{pasmv}{, }\item[{duration$<$ double $>$ \&}]{veiklaik}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_a1a9cf47ff0a5e603bd5f9e6a20772ef8} 
+void atrinkimas1 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{, }\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{nerdai}{, }\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{galiorka}{, }\item[{int}]{pasmv}{, }\item[{duration$<$ double $>$ \&}]{veiklaik}{}\end{DoxyParamCaption})}
 
-auto start2 = high\+\_\+resolution\+\_\+clock\+::now();
-
-auto end2 = high\+\_\+resolution\+\_\+clock\+::now(); veiklaik += end2 -\/ start2; cout \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\+Nerdu irasymo i faila veikimo laikas\+: "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} duration$<$double$>$(end2 -\/ start2).count() \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} endl; auto start3 = high\+\_\+resolution\+\_\+clock\+::now();
-
-auto end3 = high\+\_\+resolution\+\_\+clock\+::now(); veiklaik += end3 -\/ start3; cout \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} "{}\+Galiorkos irasymo i faila veikimo laikas\+:  "{} \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} duration$<$double$>$(end3 -\/ start3).count() \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} endl;\Hypertarget{vectorfunk_8cpp_a240f8180961160ce29f417bd6396fbdd}\index{vectorfunk.cpp@{vectorfunk.cpp}!atrinkimas2@{atrinkimas2}}
+\Hypertarget{vectorfunk_8cpp_a09be3d9b4e3413925b99bccc8edf455a}\index{vectorfunk.cpp@{vectorfunk.cpp}!atrinkimas2@{atrinkimas2}}
 \index{atrinkimas2@{atrinkimas2}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{atrinkimas2()}{atrinkimas2()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_a240f8180961160ce29f417bd6396fbdd} 
-void atrinkimas2 (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{, }\item[{vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{galiorka}{, }\item[{int}]{pasmv}{, }\item[{duration$<$ double $>$ \&}]{veiklaik}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_a09be3d9b4e3413925b99bccc8edf455a} 
+void atrinkimas2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{, }\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{galiorka}{, }\item[{int}]{pasmv}{, }\item[{duration$<$ double $>$ \&}]{veiklaik}{}\end{DoxyParamCaption})}
 
-\Hypertarget{vectorfunk_8cpp_acd77ad3cf228221925e04be36ef5af10}\index{vectorfunk.cpp@{vectorfunk.cpp}!atrinkimas3@{atrinkimas3}}
+\Hypertarget{vectorfunk_8cpp_ada5c93849942f785d723c8cdaaca34ee}\index{vectorfunk.cpp@{vectorfunk.cpp}!atrinkimas3@{atrinkimas3}}
 \index{atrinkimas3@{atrinkimas3}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{atrinkimas3()}{atrinkimas3()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_acd77ad3cf228221925e04be36ef5af10} 
-void atrinkimas3 (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{, }\item[{vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{galiorka}{, }\item[{int}]{pasmv}{, }\item[{duration$<$ double $>$ \&}]{veiklaik}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_ada5c93849942f785d723c8cdaaca34ee} 
+void atrinkimas3 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{, }\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{galiorka}{, }\item[{int}]{pasmv}{, }\item[{duration$<$ double $>$ \&}]{veiklaik}{}\end{DoxyParamCaption})}
 
 \Hypertarget{vectorfunk_8cpp_ae41785eb58d849ee9d0151fe234f88c4}\index{vectorfunk.cpp@{vectorfunk.cpp}!failasegzistuoja@{failasegzistuoja}}
 \index{failasegzistuoja@{failasegzistuoja}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{failasegzistuoja()}{failasegzistuoja()}}
 {\footnotesize\ttfamily \label{vectorfunk_8cpp_ae41785eb58d849ee9d0151fe234f88c4} 
 bool failasegzistuoja (\begin{DoxyParamCaption}\item[{const string \&}]{failopav}{}\end{DoxyParamCaption})}
+
+
+
+1 -\/ mediana, 2 -\/ vidurkis (isvedimui) 
 
 \Hypertarget{vectorfunk_8cpp_a0392bcccd12a7342b12cc5f7c0d372c7}\index{vectorfunk.cpp@{vectorfunk.cpp}!failogen@{failogen}}
 \index{failogen@{failogen}!vectorfunk.cpp@{vectorfunk.cpp}}
@@ -83,41 +87,35 @@ void failogen (\begin{DoxyParamCaption}\item[{const string \&}]{failopav}{, }\it
 
 error handlingas neteisingos ivesties atveju 
 
-int kiekpaz = pazymk(gen);\Hypertarget{vectorfunk_8cpp_a1aab5ac650afca6a7fc0d77f5f656bb3}\index{vectorfunk.cpp@{vectorfunk.cpp}!galvid@{galvid}}
-\index{galvid@{galvid}!vectorfunk.cpp@{vectorfunk.cpp}}
-\doxysubsubsection{\texorpdfstring{galvid()}{galvid()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_a1aab5ac650afca6a7fc0d77f5f656bb3} 
-double galvid (\begin{DoxyParamCaption}\item[{double}]{egrez}{, }\item[{double}]{ndvd}{}\end{DoxyParamCaption})}
-
-\Hypertarget{vectorfunk_8cpp_ac8a63cc86c89c27d3e430745108a7ff7}\index{vectorfunk.cpp@{vectorfunk.cpp}!gautteisinga@{gautteisinga}}
+int kiekpaz = pazymk(gen);\Hypertarget{vectorfunk_8cpp_ac8a63cc86c89c27d3e430745108a7ff7}\index{vectorfunk.cpp@{vectorfunk.cpp}!gautteisinga@{gautteisinga}}
 \index{gautteisinga@{gautteisinga}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{gautteisinga()}{gautteisinga()}}
 {\footnotesize\ttfamily \label{vectorfunk_8cpp_ac8a63cc86c89c27d3e430745108a7ff7} 
 bool gautteisinga (\begin{DoxyParamCaption}\item[{int \&}]{input}{, }\item[{const string \&}]{prompt}{, }\item[{int}]{min}{, }\item[{int}]{max}{}\end{DoxyParamCaption})}
 
-\Hypertarget{vectorfunk_8cpp_aa682bb72f52c47ae2ccd814c043ef5ea}\index{vectorfunk.cpp@{vectorfunk.cpp}!isvedimas@{isvedimas}}
+\Hypertarget{vectorfunk_8cpp_a36cce055b8b07fbc3f8c6a0a32303cdb}\index{vectorfunk.cpp@{vectorfunk.cpp}!isvedimas@{isvedimas}}
 \index{isvedimas@{isvedimas}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{isvedimas()}{isvedimas()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_aa682bb72f52c47ae2ccd814c043ef5ea} 
-void isvedimas (\begin{DoxyParamCaption}\item[{int}]{pas}{, }\item[{int}]{pasmv}{, }\item[{const vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_a36cce055b8b07fbc3f8c6a0a32303cdb} 
+void isvedimas (\begin{DoxyParamCaption}\item[{int}]{pas}{, }\item[{int}]{pasmv}{, }\item[{const \mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{}\end{DoxyParamCaption})}
 
-\Hypertarget{vectorfunk_8cpp_af59b1d984e725ff826f539544f1b9561}\index{vectorfunk.cpp@{vectorfunk.cpp}!mediana@{mediana}}
-\index{mediana@{mediana}!vectorfunk.cpp@{vectorfunk.cpp}}
-\doxysubsubsection{\texorpdfstring{mediana()}{mediana()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_af59b1d984e725ff826f539544f1b9561} 
-double mediana (\begin{DoxyParamCaption}\item[{const vector$<$ int $>$ \&}]{paz}{, }\item[{double}]{egrez}{, }\item[{string}]{var}{}\end{DoxyParamCaption})}
+\Hypertarget{vectorfunk_8cpp_aedf96ee29ef7e067065e26c678466c6d}\index{vectorfunk.cpp@{vectorfunk.cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!vectorfunk.cpp@{vectorfunk.cpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_aedf96ee29ef7e067065e26c678466c6d} 
+std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os}{, }\item[{const \mbox{\hyperlink{class_zmogus}{Zmogus}} \&}]{z}{}\end{DoxyParamCaption})}
 
-\Hypertarget{vectorfunk_8cpp_afed0362ba68b71e92c70aa157b50ebf6}\index{vectorfunk.cpp@{vectorfunk.cpp}!ndvid@{ndvid}}
-\index{ndvid@{ndvid}!vectorfunk.cpp@{vectorfunk.cpp}}
-\doxysubsubsection{\texorpdfstring{ndvid()}{ndvid()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_afed0362ba68b71e92c70aa157b50ebf6} 
-double ndvid (\begin{DoxyParamCaption}\item[{const vector$<$ int $>$ \&}]{paz}{}\end{DoxyParamCaption})}
+\Hypertarget{vectorfunk_8cpp_a979da483198310119225a561d7ce1555}\index{vectorfunk.cpp@{vectorfunk.cpp}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!vectorfunk.cpp@{vectorfunk.cpp}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_a979da483198310119225a561d7ce1555} 
+std\+::istream \& operator$>$$>$ (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{in}{, }\item[{\mbox{\hyperlink{class_zmogus}{Zmogus}} \&}]{z}{}\end{DoxyParamCaption})}
 
-\Hypertarget{vectorfunk_8cpp_ae4747d65f9e4414d951a0e781ad3ef75}\index{vectorfunk.cpp@{vectorfunk.cpp}!processBatch@{processBatch}}
+\Hypertarget{vectorfunk_8cpp_ad2290db8aca1b8d8157a9801f5379f6c}\index{vectorfunk.cpp@{vectorfunk.cpp}!processBatch@{processBatch}}
 \index{processBatch@{processBatch}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{processBatch()}{processBatch()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_ae4747d65f9e4414d951a0e781ad3ef75} 
-vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ process\+Batch (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{lines}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_ad2290db8aca1b8d8157a9801f5379f6c} 
+\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ process\+Batch (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector}{Vector}}$<$ string $>$ \&}]{lines}{}\end{DoxyParamCaption})}
 
 \Hypertarget{vectorfunk_8cpp_a1a48dfab588dcf8e87aeaa5f2d77cbc0}\index{vectorfunk.cpp@{vectorfunk.cpp}!rng@{rng}}
 \index{rng@{rng}!vectorfunk.cpp@{vectorfunk.cpp}}
@@ -139,23 +137,25 @@ void rng (\begin{DoxyParamCaption}\item[{string \&}]{vardas}{, }\item[{string \&
 
 egz pazymiu gen 
 
-\Hypertarget{vectorfunk_8cpp_aee077c9ab3d74740eaca0a883c20742a}\index{vectorfunk.cpp@{vectorfunk.cpp}!rng@{rng}}
+\Hypertarget{vectorfunk_8cpp_a246afca982546b3409efde63443564e5}\index{vectorfunk.cpp@{vectorfunk.cpp}!rng@{rng}}
 \index{rng@{rng}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{rng()}{rng()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_aee077c9ab3d74740eaca0a883c20742a} 
-void rng (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{paz}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_a246afca982546b3409efde63443564e5} 
+void rng (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ int $>$ \&}]{paz}{}\end{DoxyParamCaption})}
 
-\Hypertarget{vectorfunk_8cpp_a72160fda87d224416658b76ba1aba96d}\index{vectorfunk.cpp@{vectorfunk.cpp}!skaitymas@{skaitymas}}
+\Hypertarget{vectorfunk_8cpp_ae762408ac9b8c5ad3993824885805596}\index{vectorfunk.cpp@{vectorfunk.cpp}!skaitymas@{skaitymas}}
 \index{skaitymas@{skaitymas}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{skaitymas()}{skaitymas()}}
-{\footnotesize\ttfamily \label{vectorfunk_8cpp_a72160fda87d224416658b76ba1aba96d} 
-void skaitymas (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{, }\item[{duration$<$ double $>$ \&}]{veiklaik}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_ae762408ac9b8c5ad3993824885805596} 
+void skaitymas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vector}{Vector}}$<$ \mbox{\hyperlink{class_stud}{Stud}} $>$ \&}]{grupe}{, }\item[{duration$<$ double $>$ \&}]{veiklaik}{}\end{DoxyParamCaption})}
 
 
 
 vardu generavimas 
 
-\Hypertarget{vectorfunk_8cpp_a697e7d842455ac856b3d47ff02286da5}\index{vectorfunk.cpp@{vectorfunk.cpp}!sortGal@{sortGal}}
+return;
+
+return;\Hypertarget{vectorfunk_8cpp_a697e7d842455ac856b3d47ff02286da5}\index{vectorfunk.cpp@{vectorfunk.cpp}!sortGal@{sortGal}}
 \index{sortGal@{sortGal}!vectorfunk.cpp@{vectorfunk.cpp}}
 \doxysubsubsection{\texorpdfstring{sortGal()}{sortGal()}}
 {\footnotesize\ttfamily \label{vectorfunk_8cpp_a697e7d842455ac856b3d47ff02286da5} 
@@ -178,4 +178,13 @@ bool sort\+Pav (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_stud
 \doxysubsubsection{\texorpdfstring{sortVardu()}{sortVardu()}}
 {\footnotesize\ttfamily \label{vectorfunk_8cpp_a11447c6061b08b88aeb17036f4106241} 
 bool sort\+Vardu (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_stud}{Stud}} \&}]{a}{, }\item[{const \mbox{\hyperlink{class_stud}{Stud}} \&}]{b}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{vectorfunk_8cpp_a271e4f54fb2228be446ab39010a03088}\index{vectorfunk.cpp@{vectorfunk.cpp}!g\_printMode@{g\_printMode}}
+\index{g\_printMode@{g\_printMode}!vectorfunk.cpp@{vectorfunk.cpp}}
+\doxysubsubsection{\texorpdfstring{g\_printMode}{g\_printMode}}
+{\footnotesize\ttfamily \label{vectorfunk_8cpp_a271e4f54fb2228be446ab39010a03088} 
+int g\+\_\+print\+Mode = 1}
 

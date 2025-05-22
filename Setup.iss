@@ -44,6 +44,9 @@ Source: "C:\Users\andri\source\repos\naujasoop\bin\100000"; DestDir: "{app}"; Fl
 Source: "C:\Users\andri\source\repos\naujasoop\bin\10000"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\andri\source\repos\naujasoop\README.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\andri\source\repos\naujasoop\bin\mylib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\msys64\mingw64\bin\libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\msys64\mingw64\bin\libgcc_s_seh-1.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\msys64\mingw64\bin\libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

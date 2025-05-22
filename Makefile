@@ -1,5 +1,5 @@
 CXX            = g++
-CXXFLAGS       = -O3 -Wall -std=c++17
+CXXFLAGS       = -O3 -Wall -std=c++17 -static-libgcc -static-libstdc++
 BIN_DIR        := bin
 CATCH_AMALG    := vector/catch_amalgamated.cpp
 VECTOR_MAIN_SRCS := vector/vector.cpp vector/vectorfunk.cpp
@@ -36,3 +36,4 @@ $(BIN_DIR)/vector.exe: $(VECTOR_MAIN_SRCS) | $(BIN_DIR) dll
 
 clean:
 	if exist "$(BIN_DIR)" rmdir /S /Q "$(BIN_DIR)"
+
